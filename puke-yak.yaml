@@ -1,0 +1,123 @@
+# Prod
+user-roxee-box-Linux:
+    DEPLOY_ROOT: '/home/roxee/www/static/lib'
+    DOC_ROOT: '/home/roxee/doc/jsboot.js'
+
+# Integration
+user-jenkins-box-Linux:
+    ROOT: '/opt/puke/jenkins-roxee'
+    DEPLOY_ROOT: '/var/www/deploy/app/lib'
+    DOC_ROOT: '/var/www/deploy/static/doc/jsboot.js'
+    LINKS:
+        TAUPE: '//static.sn.ackitup.net/lib/org/wiu/gristaupe'
+        JASMINE: '//static.sn.ackitup.net/lib/com/pivotallabs/jasmine-stable'
+        SPITFIRE: '//static.sn.ackitup.net/lib/org/jsboot/spitfire.js/0.1'
+
+        # Where to hotlink static resources from
+        # Unless one is testing with a new / experimental version of some dependency lib, don't change that
+        LIB: '//app.sn.ackitup.net/lib'
+        STATIC: '//static.sn.ackitup.net/lib'
+        # Roxee centric static files
+        ROXEE_STATIC: '//static.sn.ackitup.net/lib'
+        # Host
+        ROXEE_SERVICES_HOST: 'api.sn.ackitup.net'
+        ROXEE_SERVICES_PORT: ''
+
+# Mangled Deutz workin
+user-dmp-box-Darwin:
+    ROOT: '${HOME}/buildd/stage.webitup.org'
+    DEPLOY_ROOT: '${HOME}/buildd/deploy.webitup.org/web/app/lib'
+    DOC_ROOT: '${HOME}/buildd/deploy.webitup.org/doc/jsboot.js'
+    REMOTE_BUILD: 'http:'
+    LINKS:
+        TAUPE: '//static.loft.sn.ackitup.net:4242/lib/org/wiu/gristaupe'
+        JASMINE: '//static.loft.sn.ackitup.net:4242/lib/com/pivotallabs/jasmine-stable'
+        SPITFIRE: '//static.loft.sn.ackitup.net:4242/lib/org/jsboot/spitfire.js/0.1'
+
+        LIB: '//app.loft.sn.ackitup.net:4242/lib'
+        STATIC: '//static.loft.sn.ackitup.net:4242/lib'
+        # Link to webitup
+        WIU: 'http://www.webitup.fr'
+        # Roxee centric static files
+        ROXEE_STATIC: '//static.loft.sn.ackitup.net:4242/lib'
+        # Host
+        # ROXEE_SERVICES_HOST: 'api.roxee.loft'
+        # ROXEE_SERVICES_PORT: '4242'
+        ROXEE_SERVICES_HOST: 'api.sn.ackitup.net'
+        ROXEE_SERVICES_PORT: ''
+
+# Raildecom workin
+user-raildecom-box-Darwin:
+    ROOT: '${HOME}/workspace/webitup/buildd'
+    DEPLOY_ROOT: '${HOME}/workspace/webitup/deploy/web/app/lib'
+#    DOC_ROOT: '${HOME}/workspace/webitup/deploy/web/app/doc/jsboot.js'
+    LINKS:
+        TAUPE: '//static.sn.ackitup.net/lib/org/wiu/gristaupe'
+        JASMINE: '//static.sn.ackitup.net/lib/com/pivotallabs/jasmine-stable'
+        SPITFIRE: '//static.sn.ackitup.net/lib/org/jsboot/spitfire.js/0.1'
+
+        LIB: '//dev.app.sn.ackitup.net/lib'
+        STATIC: '//static.sn.ackitup.net/lib'
+        # Link to webitup
+        WIU: 'http://www.webitup.fr'
+        # Roxee centric static files
+        ROXEE_STATIC: '//static.sn.ackitup.net/lib'
+        # Host
+        ROXEE_SERVICES_HOST: 'api.sn.ackitup.net'
+        ROXEE_SERVICES_PORT: ''
+
+# Base setup for everyone
+yak:
+    ############ Package basic informations
+    # Code name
+    PACKAGE:
+        NAME: jsboot.js
+    # Version to be replaced in some files, and that might be used in paths
+        VERSION: '0.1'
+    # License to be replaced in files
+        LICENSE: '<a href="http://www.gnu.org/licenses/agpl-3.0.html">Afero GPL</a>'
+    # Copyright to be replaced in files
+        COPYRIGHT: '<a href="http://www.webitup.fr">Web It Up</a>'
+    # Repo base url
+        GIT_ROOT: 'https://github.com/webitup/jsboot.js/blob/master/src/'
+    # Link to the product page
+        HOME: 'http://h.ackitup.org/jsboot'
+    # Author
+        AUTHOR: '<a href="mailto:dev@webitup.fr">Mangled Deutz & Raildecom</a>'
+
+
+    ############ Platform dependent stuff: change according to your milage
+    # ROOT: '${HOME}/buildd'
+    ROOT: '${HOME}/REPLACEMENOWROXEE'
+    # All these will be exposed as Yak.NAME_ROOT, where NAME is the key
+    # Note that, if relative, they will be resolved against Yak.ROOT
+    # Example: Yak.BUILD_ROOT <- ${HOME}/buildd/dist
+    ROOT_PATHS:
+        # Where to build the stuff (this is a temporary directory)
+        BUILD: 'build'
+        # Where to put temporary stuff (download cache, etc)
+        TMP: 'tmp'
+        # Where to deploy the builded stuff
+        DEPLOY: 'deploy'
+        # Where to output zipped packages distros, if need be
+        PACK: 'packages'
+        # Where to deploy the documentation, if any
+        DOC: 'doc'
+
+    REMOTE_BUILD: 'https:'
+
+    LINKS:
+        # Static base for taupal stuff (used by the taupe itself to build its own documentation)
+        TAUPE: '//static.roxee.net/lib/org/wiu/gristaupe'
+        JASMINE: '//static.roxee.net/lib/com/pivotallabs/jasmine-stable'
+        SPITFIRE: '//static.roxee.net/lib/org/jsboot/spitfire.js/0.1'
+        # Where to hotlink static resources from
+        # Unless one is testing with a new / experimental version of some dependency lib, don't change that
+        LIB: '//app.roxee.net/lib'
+        STATIC: '//static.roxee.net/lib'
+        # Roxee centric static files
+        ROXEE_STATIC: '//static.roxee.net/lib'
+        # Host
+        ROXEE_SERVICES_HOST: 'api.roxee.net'
+        ROXEE_SERVICES_PORT: ''
+        ROXEE_ERROR_REPORTER: '/gist-reporter'
