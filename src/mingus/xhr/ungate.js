@@ -16,7 +16,7 @@
 // To do that, we need to wrap so that we can decide on open, and we would need to be
 // blocking return function calls that are able to throw down in the frame (like open)
 
-Spitfire.gateOpener = new (function() {
+Mingus.xhr.gateOpener = new (function() {
   // XXX bien joué Tony!
   // This must be adjusted depending on the host...
   var bridgePath = '/1.0/connect/gate/0.6/gate.html';

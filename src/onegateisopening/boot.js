@@ -18,16 +18,16 @@
   var shims = Spitfire.boot(!jsBootConfig.useMin);
 
   for(var x = 0; x < shims.length; x++)
-    jsBoot.core.loader.script('{PUKE-SPITFIRE-LINK}/' + shims[x]);
+    Spitfire.loader.script('{PUKE-SPITFIRE-LINK}/' + shims[x]);
 
   // Gonna wait for the shims
-  jsBoot.core.loader.wait();
+  Spitfire.loader.wait();
 
-  // jsBoot.core.loader.script('http://localhost:8080/target/target-script-min.js');
+  // Spitfire.loader.script('http://localhost:8080/target/target-script-min.js');
 
 
-  // jsBoot.core.loader.script('https://getfirebug.com/firebug-lite.js');//#startOpened=false,overrideConsole=true,enablePersistent=true');
-  // jsBoot.core.loader.wait(function(){
+  // Spitfire.loader.script('https://getfirebug.com/firebug-lite.js');//#startOpened=false,overrideConsole=true,enablePersistent=true');
+  // Spitfire.loader.wait(function(){
   //   alert("am waiting too!!!!");
   // });
 
@@ -36,7 +36,7 @@
 
   var mods = {};
 
-  jsBoot.core.loader.module = function(name){
+  Spitfire.loader.module = function(name){
     if(mods[name].blocking)
       this.wait();
     this.script(mods[name].uri);
@@ -54,12 +54,12 @@
   jsBoot.core.debug = new (function(){
     this.preload = function(){
       // document.getElementsByTagName('html')[0].setAttribute('debug','true');
-      jsBoot.core.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
+      Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
     };
 
     this.open = function(){
       var max = 0;
-      jsBoot.core.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
+      Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
       var opener = function(){
         max++;
         console.warn("-> Firebug lite attempt at booting...");
@@ -74,7 +74,7 @@
         }
       };
 
-      jsBoot.core.loader.wait(opener);
+      Spitfire.loader.wait(opener);
     };
 
     this.close = function(){

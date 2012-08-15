@@ -176,38 +176,41 @@ def build():
     # Standalone mingus
     # ================================
 
-#     mingusList = [
-#       # "src/lib/strict.js",
-#     # Better safe than sorry - always include that
-#       "src/lib/com/wiu/mingus/shim-plus/console.js",
-#       # "src/lib/com/wiu/mingus/shim-plus/cookies.js",
-#       # "src/lib/com/wiu/mingus/shim-plus/string.js",
-#       "src/lib/com/wiu/mingus/shim-plus/iegetset.js",
-# #      "src/lib/com/wiu/mingus/shim/postmessage.js",
-#     # Mingus NS
-#       "src/lib/com/wiu/mingus/namespace.js",
-#     # Base dep
-#       "src/lib/com/wiu/mingus/grammar/ABNF.js",
-#       "src/lib/com/wiu/mingus/converters/entity.js",
-#       # "src/lib/com/wiu/mingus/converters/bencoder.js",
-#       "src/lib/com/wiu/mingus/converters/wikimedia.js",
-#     # And parsers / grammars
-#       "src/lib/com/wiu/mingus/grammar/IMF.js",
-#       "src/lib/com/wiu/mingus/grammar/IRI.js",
-#       "src/lib/com/wiu/mingus/grammar/HTTP.js",
-#     # Then md5 dep
-#       "src/lib/com/wiu/mingus/crypto/md5.js",
-#     # Then bases
-#       "src/lib/com/wiu/mingus/xhr/appkey.js",
-#       "src/lib/com/wiu/mingus/xhr/digest.js",
-#     # Then the final XHR
-#       Yak.REMOTE_BUILD + Yak.LINKS['STATIC'] + '/org/cowboy/postmessage-stable.js',
-#       "src/lib/com/wiu/mingus/xhr/gates/frame/ungate.js",
-#       "src/lib/com/wiu/mingus/xhr/appkeydigestxhr.js"
-#     ]
+    mingusList = [
+      "src/strict.js",
+      # Have postmessage shit
+      Yak.REMOTE_BUILD + Yak.LINKS['STATIC'] + '/org/cowboy/postmessage-stable.js',
+    # Better safe than sorry - always include that
+      # "src/lib/com/wiu/mingus/shim-plus/console.js",
+      # "src/lib/com/wiu/mingus/shim-plus/cookies.js",
+      # "src/lib/com/wiu/mingus/shim-plus/string.js",
+      # "src/lib/com/wiu/mingus/shim-plus/iegetset.js",
+#      "src/lib/com/wiu/mingus/shim/postmessage.js",
+    # Mingus NS
+      "src/mingus/namespace.js",
+    # Base dep
+      "src/mingus/grammar/ABNF.js",
+      # "src/lib/com/wiu/mingus/converters/entity.js",
+      # "src/lib/com/wiu/mingus/converters/bencoder.js",
+      # "src/lib/com/wiu/mingus/converters/wikimedia.js",
+    # And parsers / grammars
+      "src/mingus/grammar/IMF.js",
+      "src/mingus/grammar/IRI.js",
+      "src/mingus/grammar/HTTP.js",
 
-#     # Shimmy yeah
-#     combine(mingusList, Yak.BUILD_ROOT + "/mingus.js", replace=sed)
+    # Then md5 dep
+      "src/mingus/crypto/md5.js",
+
+    # Then bases
+      "src/mingus/xhr/ungate.js",
+      "src/mingus/xhr/appkey.js",
+      "src/mingus/xhr/digest.js",
+    # Then the final XHR
+      "src/mingus/xhr/appkeydigestxhr.js"
+    ]
+
+    # Shimmy yeah
+    combine(mingusList, Yak.BUILD_ROOT + "/mingus.js", replace=sed)
 
 
     # ================================

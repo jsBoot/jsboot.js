@@ -20,13 +20,13 @@
   var shims = Spitfire.boot(!location.url.match(/#useMin/));
 
   for (var x = 0; x < shims.length; x++)
-    jsBoot.core.loader.script('{PUKE-SPITFIRE-LINK}/' + shims[x]);
+    Spitfire.loader.script('{PUKE-SPITFIRE-LINK}/' + shims[x]);
 
 
   /**
    * Actual gate implementation
    */
-  jsBoot.core.loader.wait(function() {
+  Spitfire.loader.wait(function() {
     // Name of the signal sent up for whenever we say we are ready
     var READY = 'ready';
 
