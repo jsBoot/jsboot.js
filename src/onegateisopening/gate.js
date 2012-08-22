@@ -1,26 +1,31 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/onegateisopening/gate.js
- * @fileOverview Private class providing the "gate" to embed inside the iframe, and does the actual XHR communication
+ * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/gate.js
+ * @file Private class providing the "gate" to embed inside the iframe, and does the actual XHR communication
  * to the services in the frame mode.
- * @author {PUKE-PACKAGE-AUTHOR}
  */
 
 /**#@+
  * @ignore
  */
 
-(function(){
+console.warn("ENTERING GATE IN");
+try{
+(function() {
   /**
    * Shiming boot section
    */
   var shims = Spitfire.boot(!location.url.match(/#useMin/));
 
   for (var x = 0; x < shims.length; x++)
-    Spitfire.loader.script('{PUKE-SPITFIRE-LINK}/' + shims[x]);
+    Spitfire.loader.script('{SPIT-BASE}/' + shims[x]);
+
+  console.warn("HAVE SHIMS FROM {SPIT-BASE}");
 
 
   /**
@@ -129,5 +134,8 @@
   });
 
 })();
-
+}catch(e){
+  console.error("HOOO******************************", e);
+  throw e;
+}
 /**#@-*/

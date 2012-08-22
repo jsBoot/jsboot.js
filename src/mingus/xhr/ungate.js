@@ -1,12 +1,12 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/onegateisopening/ungate.js
- * @fileOverview Like gate. This is the "to be embeded" part that communicates postMessages to the frame.
- * Mimicks a standard XHR.
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/ungate.js
+ * @file This is the "to be embeded" part that communicates postMessages to the frame. Mimicks a standard XHR.
  */
 
 /**#nocode+*/

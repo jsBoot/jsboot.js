@@ -1,14 +1,14 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/xhr/digest.js
- * @fileOverview Provides a digest+appkey enabled XHR, using the gate xhr backend
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/digest.js
+ * @file Provides a digest+appkey enabled XHR, using the gate xhr backend
  */
 
-// XXX workaround jsdoctoolkit freaky broken parser
 
 /**
  * This class has the same signature as the native XMLHttpRequest, except obviously it supports authentication
@@ -16,7 +16,7 @@
  * @name Mingus.xhr.XMLHttpRequest
  * @requires Mingus.xhr.appKeyEngine
  * @requires Mingus.xhr.digest
- * @extends Object
+ * @type Object
  */
 
 /**#nocode+*/
@@ -135,13 +135,15 @@
         _data = data;
 
       // Got an AppKey? Then sign (about time)
-      try {
+      // try {
         // XXX rather use with query frag properly?
         // var p = _iri.path + (_iri.query ? ('?' + _iri.query) : '');
+       console.warn(_iri.host, _iri.path, _method);
+       console.warn(ake.getSignature(_iri.host, _iri.path, _method));
         _xhr.setRequestHeader('X-Signature', ake.getSignature(_iri.host, _iri.path, _method));
-      }catch (e) {
-        console.error(e);
-      }
+      // }catch (e) {
+      //   console.error(e);
+      // }
 
       _xhr.send(_data);
     };
@@ -208,6 +210,6 @@
   // });
 
 
-})(Mingus.xhr, Mingus.grammar.IRI, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, __salmon.getBridge);
+})(Mingus.xhr, Mingus.grammar.IRI, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, Mingus.xhr.gateOpener.getBridge);
 
 /**#nocode-*/

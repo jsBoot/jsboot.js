@@ -1,18 +1,22 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/crypto/md5.js
- * @fileOverview Basic helper to perform md5.
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/crypto/md5.js
+ * @file Basic helper to add md5 capabilities to javascript.
  */
 
 /**
- *
- * This is an almost unaltered rip of http://www.myersdaily.org/joseph/javascript/md5-text.html
- *
- * @namespace Perform md5.
+ * @kind namespace
+ * @memberof Mingus.crypto
+ * @name md5
+ * @description A simple class providing md5 functionality to javascript.
+ * Note this is an almost unaltered rip of <a href="http://www.myersdaily.org/joseph/javascript/md5-text.html">Myers'
+ * code</a>
+ * (released under an unknown license). All credits go to him.
  */
 
 Mingus.crypto.md5 = new (function() {
@@ -185,17 +189,16 @@ Mingus.crypto.md5 = new (function() {
   }
 
   /**
-   * Perform a md5 of a given string.
-   *
-   * @memberOf Mingus.crypto.md5
-   * @function
-   * @static
-   * @param {String} s A string to hash.
+   * @kind function
+   * @name crypt
+   * @description Performs a md5 of a given string.
+   * @memberof Mingus.crypto.md5
+   * @param {String} str A string to hash.
    * @returns {String} The md5 hash of the string.
    */
 
-  this.crypt = function(s) {
-    return hex(md51(s));
+  this.crypt = function(str) {
+    return hex(md51(str));
   }
 
   /* this function is much faster,

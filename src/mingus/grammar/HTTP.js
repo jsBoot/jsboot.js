@@ -1,55 +1,48 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/grammar/HTTP.js
- * @fileOverview Basic utility class providing regexp atoms for http (headers).
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/HTTP.js
+ * @file Basic utility class providing regexp atoms for http (headers).
  */
 
-// XXX jsdoctoolkit is a FUCKING CRAPPY PIECE OF SHIT
-// Documenting out of code to have it behave
-
 /**
- *
- * @link <a href="http://tools.ietf.org/html/rfc2616">RFC</a>
- * @namespace Provides basic regexps to parse http.
+ * @kind namespace
+ * @summary Provides basic regexps to parse http. Read <a href="http://tools.ietf.org/html/rfc2616">RFC</a>.
  * @requires Mingus.grammar.ABNF
  * @requires Mingus.grammar.IRI
- * @name Mingus.grammar.HTTP
- * @extends Object
+ * @name HTTP
+ * @memberof Mingus.grammar
  */
 
 
 /**
  * A simple method to get an object from a block of HTTP headers
- * @memberOf Mingus.grammar.HTTP
+ * @memberof Mingus.grammar.HTTP
  * @name parseHeaders
- * @function
+ * @kind function
  * @param {String} message The string to be parsed.
  * @returns {Object} The parsed headers
  */
 
 /**
- * @namespace A subclass to handle the parsing of digest headers.
- * @memberOf Mingus.grammar.HTTP
+ * @kind namespace
+ * @summary A subclass to handle the parsing of digest headers.
+ * @memberof Mingus.grammar.HTTP
  * @name digest
  */
 
 /**
- * A method to parse wwwauthenticate headers
- * @function
- * @memberOf Mingus.grammar.HTTP.digest
+ * @summary A method to parse wwwauthenticate headers
+ * @kind function
+ * @memberof Mingus.grammar.HTTP.digest
  * @name parse
  * @param  {String} message The header value to be parsed.
  * @returns {Object} The parsed result
  */
-
-/**#@+
- * @ignore
- */
-
 
 (function(_root_, ABNF, IRI) {
   _root_.HTTP = new (function() {

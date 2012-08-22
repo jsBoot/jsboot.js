@@ -1,18 +1,20 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/grammar/IMF.js
- * @fileOverview Basic utility class providing regexp atoms for the address part of the internet message format RFC.
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/IMF.js
+ * @file Basic utility class providing regexp atoms for the address part of the internet message format RFC.
  */
 
 /**
- *
- * Before asking any loosy question, you might want to read <cite>RFC 5322</cite>
- * @link <a href="http://tools.ietf.org/html/rfc5322">RFC</a>
- * @namespace Provides basic regexps for addresses and a trivial validation function.
+ * @kind namespace
+ * @name IMF
+ * @memberof Mingus.grammar
+ * @summary Provides basic regexps for addresses and a trivial validation function.
+ * @description This implements part of <a href="http://tools.ietf.org/html/rfc5322">RFC 5322</a>.
  * @requires Mingus.grammar.ABNF
  */
 
@@ -394,15 +396,13 @@ RFC 5322                Internet Message Format             October 2008
       ABNF.repeat(ABNF.optional(FWS) + dtext) +
       ABNF.optional(FWS) + '\\]' + ABNF.optional(CFWS);
 
-  /**#@+
-   * @memberOf Mingus.grammar.IMF
-   * @static
-   */
-
   /**
-   * A string to create a regexp that matches the "domain" part of a mail address
-   * @property
+   * @kind member
+   * @name DOMAIN
+   * @summary Regexp for "domain"
+   * @description A string to create a regexp that matches the "domain" part of a mail address
    * @type String
+   * @memberof Mingus.grammar.IMF
    * @constant
    * @example
    * // You will like use this to build a regexp that matches and split email addresses like so:
@@ -411,9 +411,12 @@ RFC 5322                Internet Message Format             October 2008
   this.DOMAIN = ABNF.alternate(dotAtom, domainLiteral, obsDomain);
 
   /**
-   * A string to create a regexp that matches the "local" part of a mail address
-   * @property
+   * @kind member
+   * @name DOMAIN
+   * @summary Regexp for "local part"
+   * @description A string to create a regexp that matches the "local" part of a mail address
    * @type String
+   * @memberof Mingus.grammar.IMF
    * @constant
    */
   this.LOCAL_PART = ABNF.alternate(dotAtom, quotedString, obsLocalPart);
@@ -422,16 +425,19 @@ RFC 5322                Internet Message Format             October 2008
   // Compile that crap only once please
   var validator = new RegExp('^(' + this.LOCAL_PART + ')@(' + this.DOMAIN + ')$');
 
+
   /**
-   * A trivial function to validate mail addresses.
-   * Note that it enforces additional restrictions not mentioned in the RFC, sourced from <a
+   * @kind function
+   * @name isValidAddress
+   * @summary A trivial function to validate mail addresses.
+   * @description Note that it enforces additional restrictions not mentioned in the RFC, sourced from <a
    * href="http://tools.ietf.org/html/rfc3696">this other RFC</a>, hence limits the local part to 64 characters,
    * and the domain part to 255 characters.
-   *
-   * @function
+   * @memberof Mingus.grammar.IMF
    * @param {String} someAddress A random string to validate.
    * @returns {Boolean} Wether true if the string is a valid email address, or false otherwise...
    */
+
   this.isValidAddress = function(someAddress) {
     /*
     Informal additional constraint described in http://tools.ietf.org/html/rfc3696
@@ -453,6 +459,5 @@ RFC 5322                Internet Message Format             October 2008
         (r[1].length <= 64) &&
         (r[2].length <= 255);
   };
-  /**#@-*/
 
 })(Mingus.grammar.ABNF);

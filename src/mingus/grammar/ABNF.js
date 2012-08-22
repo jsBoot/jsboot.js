@@ -1,36 +1,50 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/grammar/ABNF.js
- * @fileOverview Basic utility class providing regexp atoms for the core part of the ABNF.
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/ABNF.js
+ * @file Basic utility class providing regexp atoms for the core part of the ABNF.
  */
 
 /**
- *
+ * @kind namespace
+ * @name ABNF
+ * @memberof Mingus.grammar
+ * @summary Provides basic regexps for the augmented BNF.
+ * @description Implements <a href="http://tools.ietf.org/html/rfc5234#appendix-B.1">Core part of the RFC</a>
  * If you don't know what this is, you don't need it.
- *
  * If you think you should, RTF <a href="http://tools.ietf.org/html/rfc5234"><cite>RFC 5234</cite></a>
  *
- * @namespace Provides basic regexps for the augmented BNF
- * @link <a href="http://tools.ietf.org/html/rfc5234#appendix-B.1">Core part of the RFC</a>
- * @extends Object
+ * @property {String} ALPHA
+ * @property {String} BIT
+ * @property {String} CHAR
+ * @property {String} CR
+ * @property {String} LF
+ * @property {String} CTL
+ * @property {String} DIGIT
+ * @property {String} DQUOTE
+ * @property {String} HEXDIG
+ * @property {String} HTAB
+ * @property {String} SP
+ * @property {String} WSP
+ * @property {String} OCTET
+ * @property {String} VCHAR
+ * @property {String} CRLF
+ * @property {String} LWSP
  */
 
 Mingus.grammar.ABNF = new (function() {
-  /**#@+
-   * @memberOf Mingus.grammar.ABNF
-   * @static
-   * @function
-   */
-
   /**
-   * Simple helper to turn an aggregate of character range into a valid character class
+   * @kind function
+   * @memberof Mingus.grammar.ABNF
+   * @name makeClass
+   * @summary Simple helper to turn an aggregate of character range into a valid character class
    * Note this will fail stupidly if the given range contains an opening square bracket...
    * @param {String} thing A construct fragment.
-   * @return {String} The resulting pattern.
+   * @returns {String} The resulting pattern.
    */
   this.makeClass = function(thing) {
     // Un-enclosed character class
@@ -56,8 +70,12 @@ Mingus.grammar.ABNF = new (function() {
   };
 
   /**
-   * Simple helper to produce an alternate regexp pattern from n constructs. Takes as many parameters as desired.
-   * @return {String} The resulting pattern.
+   * @kind function
+   * @memberof Mingus.grammar.ABNF
+   * @name alternate
+   * @summary Simple helper to produce an alternate regexp pattern from n constructs.
+   * Takes as many parameters as desired.
+   * @returns {String} The resulting pattern.
    */
 
   this.alternate = function() {
@@ -65,12 +83,16 @@ Mingus.grammar.ABNF = new (function() {
   };
 
   /**
-   * Simple helper to produce valid "repeat" patterns
+   * @kind function
+   * @memberof Mingus.grammar.ABNF
+   * @name repeat
+   * @summary Simple helper to produce valid "repeat" patterns
    * @param {String} rule The construct to repeat.
    * @param {Uint} [n=0] The minimum number of repetitions to match.
    * @param {Uint} [m=Infinity] The maximum number of repetitions to match.
-   * @return {String} The resulting pattern.
+   * @returns {String} The resulting pattern.
    */
+
   this.repeat = function(rule, n, m) {
     // Prepare the rule (proper enclosing)
     rule = prepareAll(rule);
@@ -113,7 +135,10 @@ Mingus.grammar.ABNF = new (function() {
   };
 
   /**
-   * Simple helper to make a construct optional.
+   * @kind function
+   * @memberof Mingus.grammar.ABNF
+   * @name optional
+   * @summary Simple helper to make a construct optional.
    * Does exactly the same thing as repeat(rule, 0, 1)
    * @param {String} rule The construct to repeat.
    * @return {String} The resulting pattern.
@@ -123,7 +148,6 @@ Mingus.grammar.ABNF = new (function() {
     rule = prepareAll(rule);
     return rule + '?';
   };
-  /**#@-*/
 
   /*
 B.1.  Core Rules
@@ -167,14 +191,6 @@ B.1.  Core Rules
                                 ; white space
   */
 
-  /**#@+
-   * @memberOf Mingus.grammar.ABNF
-   * @static
-   * @constant
-   * @type String
-   */
-
-  /***/
   this.ALPHA = '\\x41-\\x5A\\x61-\\x7A';// 'A-Za-z';
   /***/
   this.BIT = '01';
@@ -208,6 +224,5 @@ B.1.  Core Rules
   /***/
   this.LWSP = this.repeat(this.alternate(this.WSP, this.CRLF + this.makeClass(this.WSP)));
 
-  /**#@-*/
 })();
 

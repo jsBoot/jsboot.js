@@ -3,142 +3,80 @@
 
 global PH
 import pukehelpers as PH
-import re
-
-Yak.DEPLOY_ROOT = Yak.DEPLOY_ROOT + '/' + Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
 
 @task("Default task")
 def default():
-    executeTask("build")
-    # executeTask("tests")
-    executeTask("deploy")
-    # executeTask("stats")
+  Cache.clean()
+  executeTask("build")
+  executeTask("deploy")
 
-@task("Calling all interesting tasks")
+# @task("Calling all interesting tasks")
+# def all():
+#     executeTask("build")
+#     executeTask("deploy")
+#     executeTask("mint")
+#     executeTask("tests")
+# #    executeTask("doc")
+#     executeTask("lint")
+#     executeTask("stats")
+#     executeTask("statsdoc")
+
+@task("All")
 def all():
-    executeTask("build")
-    executeTask("deploy")
-    executeTask("mint")
-    executeTask("tests")
-    executeTask("lint")
-    executeTask("stats")
-    # executeTask("doc")
-    # executeTask("statsdoc")
-
-# @task("Washing-up the taupe :) - cautious mode")
-# def clean():
-#     PH.globalclean()
+  Cache.clean()
+  executeTask("lint")
+  executeTask("build")
+  executeTask("mint")
+  executeTask("deploy")
+  executeTask("stats")
 
 
-@task("Deploying")
+@task("Deploy package")
 def deploy():
-    list = FileList(Yak.BUILD_ROOT)
-    deepcopy(list, Yak.DEPLOY_ROOT)
-    # XXX MUST DEPLOY the gate to the connect api
-    # By all means, that crap here is extremely bad
-    # FileSystem.copyfile(Yak.BUILD_ROOT + '/gates/gate-frame.html', Yak.DEPLOY_ROOT + '/../../../../services/static/connect/gate.html')
-
-@task("Stats report")
-def stats():
-    list = FileList(Yak.BUILD_ROOT, filter = "*.js", exclude="*-min.js")
-    stats(list, title = "Static statistics - javascript (no mint)")
-    list = FileList(Yak.BUILD_ROOT, filter = "*-min.js")
-    stats(list, title = "Static statistics - javascript (minted)")
-    list = FileList(Yak.BUILD_ROOT, filter = "*.css")
-    stats(list, title = "Static statistics - css")
-    list = FileList(Yak.BUILD_ROOT, filter = "*.html,*.xml,*.txt")
-    stats(list, title = "Static statistics - (ht|x)ml + txt")
-    list = FileList(Yak.BUILD_ROOT, exclude = "*.html,*.xml,*.txt,*.js,*.css")
-    stats(list, title = "Static statistics - other")
-
-@task("Stats report doc")
-def statsdoc():
-    list = FileList(Yak.DOC_ROOT, filter = "*.html,*.xml,*.txt")
-    stats(list, title = "Static statistics - (ht|x)ml + txt")
+  PH.deployer(True)
 
 @task("Lint")
 def lint():
-    list = FileList("src/", filter = "*.js")
-    jslint(list, relax=False)
+  PH.linter("src")
 
 @task("Flint")
 def flint():
-    list = FileList("src/", filter = "*.js")
-    jslint(list, relax=True, fix=True)
+  PH.flinter("src")
 
-# @task("Minting")
-# def mint():
-    # list = FileList(Yak.DEPLOY_ROOT + '/gates', filter = "*.js", exclude = "*-min.js")
-    # for burne in list.get():
-    #     minify(burne, burne.replace(".js", "-min.js"))
+@task("Minting")
+def mint():
+  PH.minter(Yak.BUILD_ROOT)
 
-    # list = [
-    #   { 'file' : Yak.DEPLOY_ROOT + '/there.is.only.jsboot.js', 'strict': True},
-    #   { 'file' : Yak.DEPLOY_ROOT + '/mingus.js', 'strict': True},
-    #   { 'file' : Yak.DEPLOY_ROOT + '/noshit-roxee.js', 'strict' : True},
-    #   { 'file' : Yak.DEPLOY_ROOT + '/ember-roxee.js', 'strict' : True},
-    #   { 'file' : Yak.DEPLOY_ROOT + '/toobsj.ylno.si.ereht.js', 'strict' : True}
-    #   # XXX broken right now
-    #   # { 'file' : Yak.DEPLOY_ROOT + '/partner-api.js', 'strict' : True},
-    #   # { 'file' : Yak.DEPLOY_ROOT + '/partner-roxee.js', 'strict' : True},
-    # ]
+@task("Stats report deploy")
+def stats():
+  # PH.stater(Yak.DOC_ROOT)
+  PH.stater(Yak.BUILD_ROOT)
 
-    # for burne in list:
-    #     minify(burne['file'], re.sub(r"(.*).js$", r"\1-min.js", burne['file']), strict=burne['strict'] if 'strict' in burne else False)
-
-# Generates documentation for the win
-@task("Core Documentation")
-def doc():
-
-    list = FileList("src/", filter = "*.js", exclude = "*-min.js")
-#    list.merge(FileList("src/lib/com/wiu/roxee", filter = "*.js", exclude = "*-min.js"))
-    sed = Sed()
-    PH.addlinksreplace(sed)
-    PH.addpackagereplace(sed)
-
-    # Analytics marker
-    # sed.add("{PUKE-ANAL}", "UA-27075824-1")
-
-    deepcopy(list, Yak.TMP_ROOT, replace=sed)
-    # Make doc
-    list = FileList(Yak.TMP_ROOT)
-    jsdoc(list, Yak.DOC_ROOT, Yak.REMOTE_BUILD + Yak.LINKS['TAUPE'] + "/template")
-
-
-@task("Copy tests")
-def tests():
-    sed = Sed()
-    # This is half borked... question is: where do these end-up?
-    Yak.LINKS['CORE'] = Yak.LINKS['ROXEE_STATIC'] + '/' + Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
-    PH.addlinksreplace(sed)
-    PH.addpackagereplace(sed)
-    list = FileList("tests")
-    deepcopy(list, Yak.DOC_ROOT + "/tests", sed)
-
-
-# Stylesheet will get prepended stuff
-#    f = [ STATIC_ORIGIN + "/org/normalize/normalize-stable.css", "src/org/wiu/gristaupe/taupale.css" ]
-#    combine(f, BUILD_ROOT + "/org/wiu/gristaupe/taupale.css", replace=sed)
-
-
-
-    # Copy selected files to the doc-src folder, and replace markers appropriately
 
 @task("Build package")
 def build():
+    istrunk = Yak.VARIANT == 'bleed'
     sed = Sed()
-    PH.addlinksreplace(sed)
-    PH.addpackagereplace(sed)
+    PH.replacer(sed)
+
+    spitman = PH.getmanifest('spitfire', '0.1', istrunk)
+
+    spitbase = spitman['spitfire'].split('/')
+    spitbase.pop()
+    spitbase = '/'.join(spitbase)
+    sed.add('{SPIT-BASE}', spitbase)
+    # Tricky!
+    sed.add("'{SPIT-STATICS}'", str(PH.getstaticmanifest('*')))
 
     # ================================
     # Spitfire loader
     # ================================
     spitfireList = [
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/spitfire.js',
+      spitman['spitfire'],
       # Have unified XHR bundled to be safe
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/burnscars/xmlhttprequest.js',
+      spitman['xhr'],
       # Our loader bundling labjs
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-lab.js',
+      spitman['loader-lab'],
       # Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-head.js',
       # XXX Raphael breaks with require
       # Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-require.js',
@@ -147,18 +85,26 @@ def build():
 
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.js", replace=sed)
 
+    # ================================
+    # Css normalizer
+    # ================================
+    cssnorm = PH.getstaticmanifest('normalize', istrunk)
+    combine(cssnorm, Yak.BUILD_ROOT + "/there.is.only.jsboot.css", replace=sed)
 
     # ================================
     # Build-up the gate framy
     # ================================
+    # XXX this must die and be replaced by a proper postmessage shim
+    postmessageshim = PH.getstaticmanifest('postmessage', istrunk)
+
     gateList = [
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/spitfire.js',
+      spitman['spitfire'],
       # Have unified XHR bundled to be safe
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/burnscars/xmlhttprequest.js',
+      spitman['xhr'],
       # Our loader bundling labjs
-      Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-lab.js',
+      spitman['loader-lab'],
       # Have postmessage shit
-      Yak.REMOTE_BUILD + Yak.LINKS['STATIC'] + '/org/cowboy/postmessage-stable.js',
+      postmessageshim,
       # And the gater itself
       'src/onegateisopening/gate.js'
     ]
@@ -167,7 +113,7 @@ def build():
     # FileSystem.copyfile(Yak.BUILD_ROOT + '/gates/gate-frame.js', Yak.BUILD_ROOT + '/gates/gate-frame-min.js')
 
     # Build-up the frame to deploy connect to
-    sed.add('{PUKE-GATE-OPENER}', Yak.LINKS['LIB'] + "/"+ Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION'] + "/toobsj.ylno.si.ereht.js")
+    sed.add('{PUKE-GATE-OPENER}', Yak.PUBLIC + "/"+ Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION'] + "/toobsj.ylno.si.ereht.js")
     combine('src/onegateisopening/gate.html', Yak.BUILD_ROOT + '/gate.html', replace=sed)
 
 
@@ -179,7 +125,7 @@ def build():
     mingusList = [
       "src/strict.js",
       # Have postmessage shit
-      Yak.REMOTE_BUILD + Yak.LINKS['STATIC'] + '/org/cowboy/postmessage-stable.js',
+      postmessageshim,
     # Better safe than sorry - always include that
       # "src/lib/com/wiu/mingus/shim-plus/console.js",
       # "src/lib/com/wiu/mingus/shim-plus/cookies.js",
@@ -213,9 +159,92 @@ def build():
     combine(mingusList, Yak.BUILD_ROOT + "/mingus.js", replace=sed)
 
 
+    spitroot = Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
+    description = []
+    description.append("mingus: '%s/mingus.js'" % spitroot)
+    description.append("jsbootstrap: '%s/there.is.only.jsboot.js'" % spitroot)
+    description.append("gate: '%s/gate.html'" % spitroot)
+    description.append("cssbootstrap: '%s/there.is.only.jsboot.css'" % spitroot)
+
+    # Link the yaml stuff
+    yamu = FileSystem.join(Yak.DEPLOY_ROOT, "jsboot.yaml")
+    description = yaml.load('\n'.join(description))
+    if FileSystem.exists(yamu):
+      mama = yaml.load(FileSystem.readfile(yamu))
+      mama[Yak.PACKAGE['VERSION']] = description
+    else:
+      mama = {Yak.PACKAGE['VERSION']: description}
+
+    # Straight to service root instead - kind of hackish...
+    FileSystem.writefile(yamu, yaml.dump(mama))
+
+
+
+# @task("Minting")
+# def mint():
+    # list = FileList(Yak.DEPLOY_ROOT + '/gates', filter = "*.js", exclude = "*-min.js")
+    # for burne in list.get():
+    #     minify(burne, burne.replace(".js", "-min.js"))
+
+    # list = [
+    #   { 'file' : Yak.DEPLOY_ROOT + '/there.is.only.jsboot.js', 'strict': True},
+    #   { 'file' : Yak.DEPLOY_ROOT + '/mingus.js', 'strict': True},
+    #   { 'file' : Yak.DEPLOY_ROOT + '/noshit-roxee.js', 'strict' : True},
+    #   { 'file' : Yak.DEPLOY_ROOT + '/ember-roxee.js', 'strict' : True},
+    #   { 'file' : Yak.DEPLOY_ROOT + '/toobsj.ylno.si.ereht.js', 'strict' : True}
+    #   # XXX broken right now
+    #   # { 'file' : Yak.DEPLOY_ROOT + '/partner-api.js', 'strict' : True},
+    #   # { 'file' : Yak.DEPLOY_ROOT + '/partner-roxee.js', 'strict' : True},
+    # ]
+
+    # for burne in list:
+    #     minify(burne['file'], re.sub(r"(.*).js$", r"\1-min.js", burne['file']), strict=burne['strict'] if 'strict' in burne else False)
+
+# Generates documentation for the win
+@task("Core Documentation")
+def doc():
+  list = FileList("src/", filter = "*.js", exclude = "*-min.js")
+#    list.merge(FileList("src/lib/com/wiu/roxee", filter = "*.js", exclude = "*-min.js"))
+  sed = Sed()
+  PH.replacer(sed)
+
+  # Analytics marker
+  # sed.add("{PUKE-ANAL}", "UA-27075824-1")
+
+  deepcopy(list, Yak.TMP_ROOT, replace=sed)
+  # Make doc
+  list = FileList(Yak.TMP_ROOT)
+
+  # jsdoc3(list, Yak.DOC_ROOT, Yak.REMOTE_BUILD + Yak.LINKS['TAUPE'] + "/templates/jsboot")
+  result = jsdoc3(list, Yak.DOC_ROOT + '/test.json');
+
+
+# @task("Copy tests")
+# def tests():
+#     sed = Sed()
+#     # This is half borked... question is: where do these end-up?
+#     Yak.LINKS['CORE'] = Yak.LINKS['ROXEE_STATIC'] + '/' + Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
+#     PH.addlinksreplace(sed)
+#     PH.addpackagereplace(sed)
+#     list = FileList("tests")
+#     deepcopy(list, Yak.DOC_ROOT + "/tests", sed)
+
+
+# Stylesheet will get prepended stuff
+#    f = [ STATIC_ORIGIN + "/org/normalize/normalize-stable.css", "src/org/wiu/gristaupe/taupale.css" ]
+#    combine(f, BUILD_ROOT + "/org/wiu/gristaupe/taupale.css", replace=sed)
+
+
+
+    # Copy selected files to the doc-src folder, and replace markers appropriately
+
+
+
+
     # ================================
     # Lightweight core - likewise to become jsboot
     # ================================
+
 
 
 # NOSHIT

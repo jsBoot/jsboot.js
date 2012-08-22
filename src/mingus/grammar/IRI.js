@@ -1,17 +1,19 @@
 /**
+ * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @version {PUKE-PACKAGE-VERSION}
+ * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/grammar/IRI.js
- * @fileOverview Utility class that provides regexp easing the parsing of IRIs.
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/IRI.js
+ * @file Utility class that provides regexp easing the parsing of IRIs.
  */
 
 /**
- * Stuffier thinger with fries.
+ * @summary Stuffier thinger with fries.
+ * A (not so) simple regexp to parse internatinalized uris
  *
- * Even if you know what this is, it's unlikely you should ever need to (not to
+ * @description  Even if you know what this is, it's unlikely you should ever need to (not to
  * mention *want to*) read <a href="http://www.ietf.org/rfc/rfc3987">this</a>
  * - if you're still here: we use only the range in the Basic Multilingual Plane
  * for the ucs, and deliberately ignore anything in any of the planes from 1 to 16.
@@ -20,22 +22,15 @@
  * are private use, 14 is defined as "special purpose" (no idea what this is),
  * and ignoring the SMP and SIP shouldn't be too much of a big deal...
  *
- * @link <a href="http://tools.ietf.org/html/rfc3986">URI</a>
- * @link <a href="http://www.ietf.org/rfc/rfc3987">IRI</a>
+ * <a href="http://tools.ietf.org/html/rfc3986">URI</a>
+ * <a href="http://www.ietf.org/rfc/rfc3987">IRI</a>
  *
- * @namespace A (not so) simple regexp to parse internatinalized uris
- * @requires Mingus.grammar.ABNF
- */
-
-
-/*
-Furthering internet host name validation
-http://www.iana.org/domains/root/db/
-http://data.iana.org/TLD/tlds-alpha-by-domain.txt
-*/
-
-/*
- * Other implementations: http://stevenlevithan.com/demo/parseuri/js/assets/parseuri.js
+ * @todo Furthering internet host name validation
+ * http://www.iana.org/domains/root/db/
+ * http://data.iana.org/TLD/tlds-alpha-by-domain.txt
+ *
+ * @todo Write tests and compare to other implementations
+ * http://stevenlevithan.com/demo/parseuri/js/assets/parseuri.js
  * (surcouche: http://code.google.com/p/jsuri/)
  * http://www.fliquidstudios.com/projects/javascript-url-library/
  * http://medialize.github.com/URI.js/
@@ -45,7 +40,13 @@ http://data.iana.org/TLD/tlds-alpha-by-domain.txt
  * https://github.com/bestiejs/punycode.js
  *
  * http://jsperf.com/url-parsing/2
+ *
+ * @kind namespace
+ * @name IRI
+ * @memberof Mingus.grammar
+ * @requires Mingus.grammar.ABNF
  */
+
 
 Mingus.grammar.IRI = (function(ABNF) {
 
@@ -278,12 +279,12 @@ Mingus.grammar.IRI = (function(ABNF) {
      * If used non-globally, will return separate matches for scheme,
      * user, host, port, path, query and fragments parts.
      *
-     * @memberOf Mingus.grammar.IRI
+     * @memberof Mingus.grammar.IRI
      * @name IRI_REFERENCE
+     * @kind member
      * @type String
      * @static
      * @constant
-     * @property
      */
     this.IRI_REFERENCE = ABNF.alternate(iri, irelativeRef);
 
@@ -291,10 +292,10 @@ Mingus.grammar.IRI = (function(ABNF) {
      * Parses IRI and returns a prepped object, if this is a valid IRI, undefined otherwise.
      * Note that at this time, no normalization is made.
      *
-     * @memberOf Mingus.grammar.IRI
+     * @memberof Mingus.grammar.IRI
      * @name parse
      * @static
-     * @function
+     * @kind function
      * @param  {String} someStringIRI The IRI to split-up.
      * @return {Object} The object representing the IRI (scheme, user, host, port, path, query, fragment).
      */
