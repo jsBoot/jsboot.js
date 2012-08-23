@@ -63,7 +63,7 @@ Mingus.xhr.appKeyEngine = new (function(err, md5) {
    */
   this.getSignature = function(host, path, method) {
     console.debug('    |AE| get signature for', host, path, method);
-    if(!(host in this.data))
+    if (!(host in this.data))
       throw new Error(err.UNREGISTERED_HOST);
     var keyId = this.data[host].keyId;
     var secretKey = this.data[host].secretKey;
