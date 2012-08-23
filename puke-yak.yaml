@@ -2,6 +2,7 @@
 user-roxee-box-Linux:
     DEPLOY_ROOT: '/home/roxee/www/static/lib/webitup'
     DOC_ROOT: '/home/roxee/doc/jsboot.js'
+    PUBLIC: '//static.roxee.net/lib/webitup'
     LINKS:
         STATIC: 'https://static.roxee.net/static.yaml'
         SPITFIRE: 'https://static.roxee.net/lib/webitup/spitfire.yaml'
@@ -11,6 +12,7 @@ user-jenkins-box-Linux:
     ROOT: '/opt/puke/jenkins-roxee'
     DEPLOY_ROOT: '/var/www/deploy/static/lib/webitup'
     DOC_ROOT: '/var/www/deploy/static/doc/jsboot.js'
+    PUBLIC: '//static.sn.ackitup.net/lib/webitup'
     LINKS:
         STATIC: 'https://static.sn.ackitup.net/static.yaml'
         SPITFIRE: 'https://static.sn.ackitup.net/lib/webitup/spitfire.yaml'
@@ -33,7 +35,7 @@ user-dmp-box-Darwin:
     ROOT: '${HOME}/buildd/stage.webitup.org'
     DEPLOY_ROOT: '${HOME}/buildd/deploy.webitup.org/web/static/lib/webitup'
     DOC_ROOT: '${HOME}/buildd/deploy.webitup.org/web/static/doc/jsboot.js'
-    PUBLIC: '//app.loft.sn.ackitup.net:4242/lib/webitup'
+    PUBLIC: '//static.loft.sn.ackitup.net:4242/lib/webitup'
     LINKS:
         STATIC: 'http://static.loft.sn.ackitup.net:4242/static.yaml'
         SPITFIRE: 'http://static.loft.sn.ackitup.net:4242/lib/webitup/spitfire.yaml'
@@ -91,7 +93,7 @@ yak:
         AUTHOR: '<a href="mailto:dev@webitup.fr">Mangled Deutz & Raildecom</a>'
 
     VARIANT: "bleednot"
-    PUBLIC: '//app.roxee.net/lib'
+    PUBLIC: '//app.roxee.net/lib/webitup'
 
     ############ Platform dependent stuff: change according to your milage
     # ROOT: '${HOME}/buildd'
