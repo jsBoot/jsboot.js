@@ -2,6 +2,9 @@
 user-roxee-box-Linux:
     DEPLOY_ROOT: '/home/roxee/www/static/lib/webitup'
     DOC_ROOT: '/home/roxee/doc/jsboot.js'
+    LINKS:
+        STATIC: 'https://static.roxee.net/static.yaml'
+        SPITFIRE: 'https://static.roxee.net/lib/webitup/spitfire.yaml'
 
 # Integration
 user-jenkins-box-Linux:
@@ -9,8 +12,8 @@ user-jenkins-box-Linux:
     DEPLOY_ROOT: '/var/www/deploy/app/lib/webitup'
     DOC_ROOT: '/var/www/deploy/static/doc/jsboot.js'
     LINKS:
-        STATIC: 'http://static.sn.ackitup.net/static.yaml'
-        SPITFIRE: 'http://static.sn.ackitup.net/lib/webitup/spitfire.yaml'
+        STATIC: 'https://static.sn.ackitup.net/static.yaml'
+        SPITFIRE: 'https://static.sn.ackitup.net/lib/webitup/spitfire.yaml'
         # TAUPE: '//static.sn.ackitup.net/lib/org/wiu/gristaupe'
         # JASMINE: '//static.sn.ackitup.net/lib/com/pivotallabs/jasmine-stable'
         # SPITFIRE: '//static.sn.ackitup.net/lib/org/jsboot/spitfire.js/0.1'
