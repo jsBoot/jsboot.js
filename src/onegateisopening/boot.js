@@ -19,7 +19,6 @@
   };
 
   var insertThing = function(url) {
-    console.warn('gonna insert', url);
     var t = url.match(/\.([^.]+)$/);
     if (!t)
       return;
@@ -31,7 +30,7 @@
         insertStyleSheet(url);
         break;
       default:
-        console.error("Don't know how to load stuff", url);
+        throw new Error('Don\'t know how to load requested:', url);
         break;
     }
   };
@@ -42,6 +41,8 @@
 
   // Puked constants
   var statics = '{SPIT-STATICS}';
+  // XXX Add components here
+  // statics.push({mingus: ['{SPIT-MINGUS}']});
   // Absolute link to the spitfire host
   var spitfireLink = '{SPIT-BASE}/';
 
@@ -50,7 +51,7 @@
    * Technically, abstract the statics
    * XXX this obviously requires that the shims are there already - should unfold for compat :/
    */
-  var getPackedObjects = function(pack, version, sub, min) {
+  var getPackedObjects = function(pack, version, sub, useFull) {
     var v = pack.filter(function(item) {
       if (sub && !(new RegExp(sub)).test(item))
         return;
@@ -62,7 +63,7 @@
     });
     // Packed objects support alternate min syntax
     v.forEach(function(url) {
-      if (min)
+      if (!useFull)
         url = url.replace(/(\.[^.]+$)/, '-min$1');
       insertThing(url);
     });
@@ -176,6 +177,7 @@
         // This is undocumented - allows to use placeholders shims - will fuck up feature detection
         if (version)
           Spitfire.use(Spitfire.UNSAFE);
+        // Passing debug true means NOT minified 
         var shims = Spitfire.boot(debug);
         for (var x = 0; x < shims.length; x++)
           insertThing(spitfireLink + shims[x]);
@@ -184,26 +186,26 @@
 
       case this.EMBER_STACK:
         // XXX for now, ember pre doesn't support yet 1.8
-        getPackedObjects(statics.jquery, version ? 'trunk' : 1.7, '', !debug);
-        getPackedObjects(statics.handlebars, version ? 'trunk' : '1.b6', 'main', !debug);// runtime?
+        getPackedObjects(statics.jquery, version ? 'trunk' : 1.7, '', debug);
+        getPackedObjects(statics.handlebars, version ? 'trunk' : '1.b6', 'main', debug);// runtime?
         wait();
-        getPackedObjects(statics.ember, version ? 'trunk' : '1.0.pre', debug ? 'debug' : 'prod', !debug);
-        getPackedObjects(statics.i18n, version ? 'trunk' : '3rc2', '', !debug);
+        getPackedObjects(statics.ember, version ? 'trunk' : '1.0.pre', debug ? 'debug' : 'prod', debug);
+        getPackedObjects(statics.i18n, version ? 'trunk' : '3rc2', '', debug);
         wait();
         break;
 
       case this.TOOLING_STACK:
-        getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'core', !debug);
-        getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'core', !debug);
+        getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'core', debug);
+        getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'core', debug);
         Spitfire.loader.wait();
-        getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'js', !debug);
-        getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'html', !debug);
+        getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'js', debug);
+        getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'html', debug);
         wait();
         break;
 
       default:
         if (thing in statics)
-          getPackedObjects(statics[thing], version, sub, !debug);
+          getPackedObjects(statics[thing], version, sub, debug);
         else
           insertThing(thing);
         break;
