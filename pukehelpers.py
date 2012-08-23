@@ -95,7 +95,7 @@ def stater(path):
 
 def deployer(withversion):
   list = FileList(Yak.BUILD_ROOT)
-  if withversion and (Yak.ROOT != './build'):
+  if withversion:
     deepcopy(list, FileSystem.join(Yak.DEPLOY_ROOT, Yak.PACKAGE['NAME'], Yak.PACKAGE['VERSION']))
   else:
     deepcopy(list, Yak.DEPLOY_ROOT)
