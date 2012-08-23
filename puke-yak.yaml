@@ -9,7 +9,7 @@ user-roxee-box-Linux:
 # Integration
 user-jenkins-box-Linux:
     ROOT: '/opt/puke/jenkins-roxee'
-    DEPLOY_ROOT: '/var/www/deploy/app/lib/webitup'
+    DEPLOY_ROOT: '/var/www/deploy/static/lib/webitup'
     DOC_ROOT: '/var/www/deploy/static/doc/jsboot.js'
     LINKS:
         STATIC: 'https://static.sn.ackitup.net/static.yaml'
