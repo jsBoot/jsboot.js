@@ -138,8 +138,6 @@
       // try {
       // XXX rather use with query frag properly?
       // var p = _iri.path + (_iri.query ? ('?' + _iri.query) : '');
-      console.warn(_iri.host, _iri.path, _method);
-      console.warn(ake.getSignature(_iri.host, _iri.path, _method));
       _xhr.setRequestHeader('X-Signature', ake.getSignature(_iri.host, _iri.path, _method));
       // }catch (e) {
       //   console.error(e);
