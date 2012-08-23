@@ -107,7 +107,7 @@ def getstaticmanifest(name, trunk = False, usemin = False, makeabsolute = True):
   remote = url.split('/')
   remote.pop()
   remote = '/'.join(remote)
-  yammy = http.get(url)
+  yammy = http.get(url, verify=False)
   yam = yaml.load(yammy.text)
   if name == '*':
     remote = remote.replace('http:', '').replace('https:', '')
@@ -129,7 +129,7 @@ def getmanifest(name, version, usemin = False, makeabsolute = True):
   remote = url.split('/')
   remote.pop()
   remote = '/'.join(remote)
-  yammy = http.get(url)
+  yammy = http.get(url, verify=False)
   yam = yaml.load(yammy.text)[version]
   for (k, v) in yam.items():
     if makeabsolute:
