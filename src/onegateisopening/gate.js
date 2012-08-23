@@ -14,127 +14,119 @@
  * @ignore
  */
 
-console.warn('ENTERING GATE IN');
-try {
-  (function() {
-    /**
-   * Shiming boot section
-   */
-    var shims = Spitfire.boot(!location.url.match(/#useMin/));
+(function() {
+  /**
+ * Shiming boot section
+ */
+  var shims = Spitfire.boot(location.href.match(/jsboot-debug/));
 
-    for (var x = 0; x < shims.length; x++)
-      Spitfire.loader.script('{SPIT-BASE}/' + shims[x]);
+  for (var x = 0; x < shims.length; x++)
+    Spitfire.loader.script('{SPIT-BASE}/' + shims[x]);
 
-    console.warn('HAVE SHIMS FROM {SPIT-BASE}');
+  /**
+ * Actual gate implementation
+ */
+  Spitfire.loader.wait(function() {
+    // Name of the signal sent up for whenever we say we are ready
+    var READY = 'ready';
 
-    /**
-   * Actual gate implementation
-   */
-    Spitfire.loader.wait(function() {
-      // Name of the signal sent up for whenever we say we are ready
-      var READY = 'ready';
+    // A helper to convert the shit back from data/url to native file objects
+    var dataURItoBlob = function(dataURI) {
+      // convert base64 to raw binary data held in a string
+      // doesn't handle URLEncoded DataURIs
+      var byteString = atob(dataURI.split(',')[1]);
 
-      // A helper to convert the shit back from data/url to native file objects
-      var dataURItoBlob = function(dataURI) {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs
-        var byteString = atob(dataURI.split(',')[1]);
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-        // separate out the mime component
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      // write the bytes of the string to an ArrayBuffer
+      var ab = new ArrayBuffer(byteString.length);
+      var ia = new Uint8Array(ab);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
 
-        // write the bytes of the string to an ArrayBuffer
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-        for (var i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-
-        // write the ArrayBuffer to a blob, and you're done
-        var bb;
+      // write the ArrayBuffer to a blob, and you're done
+      var bb;
+      try {
+        bb = new BlobBuilder();
+      } catch (e) {
         try {
-          bb = new BlobBuilder();
+          bb = new WebKitBlobBuilder();
         } catch (e) {
-          try {
-            bb = new WebKitBlobBuilder();
-          } catch (e) {
-            bb = new MozBlobBuilder();
-          }
+          bb = new MozBlobBuilder();
         }
+      }
 
-        bb.append(ab);
-        return bb.getBlob(mimeString);
+      bb.append(ab);
+      return bb.getBlob(mimeString);
+    };
+
+    // A very simple xhr wrapper to handle the actual requests
+    var _roxee_xhr = function(orsc, id, method, url, headers, data)
+        {
+      var _xhr = new XMLHttpRequest();
+      _xhr.id = id;
+      _xhr.onreadystatechange = orsc;
+      // Open can fail in a number of circunstances
+      try {
+        _xhr.open(method, url, true);
+        for (var i in headers)
+          _xhr.setRequestHeader(i, headers[i]);
+        // Chrome sets Origin, but Firefox does not - and neither allow it to be overriden
+        // _xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
+        _xhr.setRequestHeader('X-Gate-Origin', parent_url.match(/^(http[s]?:\/\/[^\/]+)/).pop());
+        // Do we have a file by any chance?
+        if (data && (typeof data == 'string') && (data.substr(0, 5) == 'data:'))
+          data = dataURItoBlob(data);
+        _xhr.send(data);
+      }catch (e) {
+        console.warn('Something very bad happened deep-down inside!', e);
+        bouncer.apply(_xhr);
+      }
+    };
+
+    // The "caller" url
+    var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
+
+    // The callback that handles XHR answers
+    var bouncer = function() {
+      var r = {
+        id: this.id,
+        readyState: this.readyState
       };
+      try {
+        r.status = this.status;
+      }catch (e) {
+      }
+      try {
+        r.responseText = this.responseText;
+      }catch (e) {
+      }
+      try {
+        r.responseHeaders = this.getAllResponseHeaders();
+      }catch (e) {
+      }
+      simplePostMessage.postMessage(r, parent_url, parent);
+    };
 
-      // A very simple xhr wrapper to handle the actual requests
-      var _roxee_xhr = function(orsc, id, method, url, headers, data)
-          {
-        var _xhr = new XMLHttpRequest();
-        _xhr.id = id;
-        _xhr.onreadystatechange = orsc;
-        // Open can fail in a number of circunstances
-        try {
-          _xhr.open(method, url, true);
-          for (var i in headers)
-            _xhr.setRequestHeader(i, headers[i]);
-          // Chrome sets Origin, but Firefox does not - and neither allow it to be overriden
-          // _xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
-          _xhr.setRequestHeader('X-Gate-Origin', parent_url.match(/^(http[s]?:\/\/[^\/]+)/).pop());
-          // Do we have a file by any chance?
-          if (data && (typeof data == 'string') && (data.substr(0, 5) == 'data:'))
-            data = dataURItoBlob(data);
-          _xhr.send(data);
-        }catch (e) {
-          console.warn('Something very bad happened deep-down inside!', e);
-          bouncer.apply(_xhr);
-        }
-      };
+    // The message listener
+    var receiver = function(e) {
+      var d = e.data;
+      if (('id' in d) && ('method' in d) && ('url' in d)) {
+        new _roxee_xhr(bouncer, d.id, d.method, d.url, d.headers, d.data);
+      }else {
+        console.log('INVALID QUERY', d);
+      }
+    };
 
-      // The "caller" url
-      var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
+    // Anyone can use this gate - the server will just enforce origin restriction based on app key host declarations
+    simplePostMessage.receiveMessage(receiver, function() {return true;});
 
-      // The callback that handles XHR answers
-      var bouncer = function() {
-        var r = {
-          id: this.id,
-          readyState: this.readyState
-        };
-        try {
-          r.status = this.status;
-        }catch (e) {
-        }
-        try {
-          r.responseText = this.responseText;
-        }catch (e) {
-        }
-        try {
-          r.responseHeaders = this.getAllResponseHeaders();
-        }catch (e) {
-        }
-        simplePostMessage.postMessage(r, parent_url, parent);
-      };
+    // Say we are ready
+    simplePostMessage.postMessage(READY, parent_url, parent);
 
-      // The message listener
-      var receiver = function(e) {
-        var d = e.data;
-        if (('id' in d) && ('method' in d) && ('url' in d)) {
-          new _roxee_xhr(bouncer, d.id, d.method, d.url, d.headers, d.data);
-        }else {
-          console.log('INVALID QUERY', d);
-        }
-      };
+  });
 
-      // Anyone can use this gate - the server will just enforce origin restriction based on app key host declarations
-      simplePostMessage.receiveMessage(receiver, function() {return true;});
-
-      // Say we are ready
-      simplePostMessage.postMessage(READY, parent_url, parent);
-
-    });
-
-  })();
-}catch (e) {
-  console.error('Gate error down in the taupe tunner ---------------------->', e);
-  throw e;
-}
+})();
 /**#@-*/
