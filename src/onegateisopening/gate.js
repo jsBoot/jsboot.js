@@ -1,13 +1,13 @@
 /**
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
  * @version {PUKE-PACKAGE-VERSION}
  * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/gate.js
  * @file Private class providing the "gate" to embed inside the iframe, and does the actual XHR communication
  * to the services in the frame mode.
+ * @license {PUKE-PACKAGE-LICENSE}.
+ * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/gate.js
  */
 
 /**#@+

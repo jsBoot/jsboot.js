@@ -1,12 +1,12 @@
 /**
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
  * @version {PUKE-PACKAGE-VERSION}
  * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/appkey.js
  * @file Provides an app key engine.
+ * @license {PUKE-PACKAGE-LICENSE}.
+ * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/appkey.js
  */
 
 

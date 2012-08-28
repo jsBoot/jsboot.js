@@ -126,9 +126,21 @@ def build():
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yepnope.js", replace=sed)
 
-
-    # Have unified XHR bundled to be safe
+    # XXX Have unified XHR bundled to be safe (?)
     # spitman['xhr'],
+
+
+    # ================================
+    # Monolithic ember stack test
+    # ================================
+    # f = [
+    #   PH.getstaticmanifest('jquery'),
+    #   PH.getstaticmanifest('handlebars'),
+    #   PH.getstaticmanifest('ember'),
+    #   PH.getstaticmanifest('i18n')
+    # ]
+    # combine(f, Yak.BUILD_ROOT + "/stack.ember.js", replace=sed)
+
 
     # ================================
     # Css normalizer
@@ -143,15 +155,9 @@ def build():
     postmessageshim = PH.getstaticmanifest('postmessage', istrunk)
 
     gateList = [
-      # Have unified XHR bundled to be safe
-      # spitman['xhr'],
-      # Have spitfire to patch the holes
-      spitman['spitfire'],
-      # Our loader bundling labjs
       spitman['loader-lab'],
-      # Have postmessage shit
+      spitman['spitfire'],
       postmessageshim,
-      # And the gater itself
       'src/onegateisopening/gate.js'
     ]
 

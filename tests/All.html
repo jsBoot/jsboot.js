@@ -19,6 +19,16 @@
       }
     };
   </script>
+
+<!--
+  =========================
+  This is the TIO way
+  =========================
+-->
+<!-- 
+  Require
+-->
+<!-- 
   <script type="text/javascript" src="../t.i.o.j.js#loader-require"></script>
   <script type="text/javascript">
     tiojs.wait(function(){
@@ -30,21 +40,39 @@
       });
     });
   </script>
+-->
+<!-- 
+  Other flavors
+-->
 <!--
-
   <script type="text/javascript" src="../t.i.o.j.js#loader-yahoo"></script>
   <script type="text/javascript" src="../t.i.o.j.js#loader-head"></script>
   <script type="text/javascript" src="../t.i.o.j.js#loader-yepnope"></script>
-  <script type="text/javascript" src="../t.i.o.j.js#loader"></script>
+-->
+  <script type="text/javascript" src="../t.i.o.j.js"></script>
   <script type="text/javascript">
     tiojs.wait(function(){
-      jsBoot.core.boot();
+      jsBoot.core.boot(null, 'trunk');
+      jsBoot.core.use(jsBoot.core.TOOLING_STACK);
       jsBoot.core.wait(function(){
         debugPerf('Done loading the stuff', true);
       });
     });
   </script>
+
+<!--
+  =========================
+  This is the (recommended) "straight-to-boot" way
+  =========================
+  <script type="text/javascript" src="../there.is.only.jsboot.js"></script>
+  <script type="text/javascript">
+    jsBoot.core.boot();
+    jsBoot.core.wait(function(){
+      debugPerf('Done loading the stuff', true);
+    });
+  </script>
 -->
+
 </head>
 <body>
 </body>

@@ -222,7 +222,7 @@
         case this.TOOLING_STACK:
           getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'core', debug);
           getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'core', debug);
-          ld.wait();
+          wait();
           getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'js', debug);
           getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'html', debug);
           wait();

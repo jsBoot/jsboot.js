@@ -1,12 +1,12 @@
 /**
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
  * @version {PUKE-PACKAGE-VERSION}
  * @author {PUKE-PACKAGE-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOME}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/ABNF.js
  * @file Basic utility class providing regexp atoms for the core part of the ABNF.
+ * @license {PUKE-PACKAGE-LICENSE}.
+ * @copyright {PUKE-PACKAGE-COPYRIGHT}
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/ABNF.js
  */
 
 /**

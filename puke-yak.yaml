@@ -84,9 +84,9 @@ yak:
     # License to be replaced in files
         LICENSE: '<a href="http://www.gnu.org/licenses/agpl-3.0.html">Afero GPL</a>'
     # Copyright to be replaced in files
-        COPYRIGHT: '<a href="http://www.webitup.fr">Web It Up</a>'
+        COPYRIGHT: 'All rights reserved <a href="http://www.webitup.fr">Web It Up</a>'
     # Repo base url
-        GIT_ROOT: 'https://github.com/webitup/jsboot.js/blob/master/src/'
+        GIT_ROOT: 'https://github.com/webitup/jsboot.js/blob/master/src'
     # Link to the product page
         HOME: 'http://h.ackitup.org/products/jsboot'
     # Author
