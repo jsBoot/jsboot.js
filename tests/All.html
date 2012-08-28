@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <script type="text/javascript">
+    if("time" in console){
+      console.warn(" [PERF] -> Starting counter");
+      console.time('perfDebugZero');
+      console.time('perfDebugPoint');
+    }
+    var debugPerf = function(mess, end) {
+      if("time" in console){
+        console.warn(" [PERF] -> " + mess);
+        console.timeEnd('perfDebugPoint');
+        console.time('perfDebugPoint');
+        if (end){
+          console.warn(" [PERF] -> All set! Total boot time:");
+          console.timeEnd('perfDebugZero');
+        }
+      }
+    };
+  </script>
+  <script type="text/javascript" src="../t.i.o.j.js#loader-require"></script>
+  <script type="text/javascript">
+    tiojs.wait(function(){
+      require(['jsBoot/core'], function(jbc){
+        jbc.boot();
+        jbc.wait(function(){
+          debugPerf('Done loading the stuff', true);
+        });
+      });
+    });
+  </script>
+<!--
+
+  <script type="text/javascript" src="../t.i.o.j.js#loader-yahoo"></script>
+  <script type="text/javascript" src="../t.i.o.j.js#loader-head"></script>
+  <script type="text/javascript" src="../t.i.o.j.js#loader-yepnope"></script>
+  <script type="text/javascript" src="../t.i.o.j.js#loader"></script>
+  <script type="text/javascript">
+    tiojs.wait(function(){
+      jsBoot.core.boot();
+      jsBoot.core.wait(function(){
+        debugPerf('Done loading the stuff', true);
+      });
+    });
+  </script>
+-->
+</head>
+<body>
+</body>
+</html>

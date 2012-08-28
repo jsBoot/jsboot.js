@@ -69,21 +69,66 @@ def build():
     sed.add("'{SPIT-STATICS}'", str(PH.getstaticmanifest('*')))
 
     # ================================
+    # Tests
+    # ================================
+
+    list = FileList("tests", filter="*.js,*.html")
+    deepcopy(list, Yak.BUILD_ROOT + '/tests', replace=sed)
+
+    # ================================
     # Spitfire loader
     # ================================
+
+    # Mini-loader
+    combine([spitman['gulliver'], 'src/onegateisopening/b.js'], Yak.BUILD_ROOT + "/t.i.o.j.js", replace=sed)
+
+    # Bootstrappers - we use lab by default
     spitfireList = [
-      spitman['spitfire'],
-      # Have unified XHR bundled to be safe
-      spitman['xhr'],
-      # Our loader bundling labjs
       spitman['loader-lab'],
-      # Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-head.js',
-      # XXX Raphael breaks with require
-      # Yak.REMOTE_BUILD + Yak.LINKS['SPITFIRE'] + '/loader-require.js',
+      spitman['spitfire'],
       'src/onegateisopening/boot.js',
     ]
-
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.js", replace=sed)
+
+    spitfireList = [
+      spitman['loader'],
+      spitman['spitfire'],
+      'src/onegateisopening/boot.js',
+    ]
+    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.vanilla.js", replace=sed)
+
+    spitfireList = [
+      spitman['loader-require'],
+      spitman['spitfire'],
+      'src/onegateisopening/boot.js',
+    ]
+    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.require.js", replace=sed)
+
+    spitfireList = [
+      spitman['loader-head'],
+      spitman['spitfire'],
+      'src/onegateisopening/boot.js',
+    ]
+    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.head.js", replace=sed)
+
+    # These two don't support strict mode - the hell with them!
+    spitfireList = [
+      spitman['loader-yahoo'],
+      spitman['spitfire'],
+      'src/onegateisopening/boot.js',
+    ]
+    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yahoo.js", replace=sed)
+
+    spitfireList = [
+      spitman['loader-yepnope'],
+      spitman['spitfire'],
+      'src/onegateisopening/boot.js',
+    ]
+    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yepnope.js", replace=sed)
+
+
+    # Have unified XHR bundled to be safe
+    # spitman['xhr'],
 
     # ================================
     # Css normalizer
@@ -98,9 +143,10 @@ def build():
     postmessageshim = PH.getstaticmanifest('postmessage', istrunk)
 
     gateList = [
-      spitman['spitfire'],
       # Have unified XHR bundled to be safe
-      spitman['xhr'],
+      # spitman['xhr'],
+      # Have spitfire to patch the holes
+      spitman['spitfire'],
       # Our loader bundling labjs
       spitman['loader-lab'],
       # Have postmessage shit
