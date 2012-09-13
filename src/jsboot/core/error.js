@@ -20,7 +20,7 @@
   var errs = ['NOT_IMPLEMENTED', 'UNSPECIFIED', 'NOT_INITIALIZED', 'WRONG_ARGUMENTS',
     'UNSUPPORTED', 'NATURAL_BORN_CRASH'];
 
-  errs.forEach(function(item, idx){
+  errs.forEach(function(item, idx) {
     scope.Error[item] = scope.Error.prototype[item] = idx;
   });
 

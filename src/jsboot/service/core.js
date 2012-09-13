@@ -1,6 +1,6 @@
 'use strict';
 
-(function(scope, xhr, ake, dig, err){
+(function(scope, xhr, ake, dig, err) {
 
   // /X.Y(?:/name)?(?:/id)?(?:/command)?
   scope.Mondane = function(serviceHost, servicePort, serviceVersion, gatePath, keyId, keySecret) {
@@ -11,7 +11,7 @@
     xhr.gatePath = '/' + serviceVersion + '/' + gatePath;
     ake.setAppKey(serviceHost, keyId, keySecret);
 
-    this.login = function(login, password, HA1, realm){
+    this.login = function(login, password, HA1, realm) {
       login = login.toLowerCase();
       var de = dig.getEngine(serviceHost);
       de.login = login;
@@ -23,7 +23,7 @@
       }
     };
 
-    this.logout = function(){
+    this.logout = function() {
       var de = dig.getEngine(serviceHost);
       de.login = anonymous.login;
       de.password = anonymous.password;
@@ -47,21 +47,21 @@
       // Build-up query string if any
       var query = [];
       if (options.params)
-        for (var i in options.params){
+        for (var i in options.params) {
           query.push(encodeURIComponent(i) + '=' + encodeURIComponent(options.params[i]));
         }
 
-      if (query.length)
-        url += '?' + query.join('&');
+        if (query.length)
+          url += '?' + query.join('&');
 
-      // If no headers are provided, set Accept to app/json
-      if (!options.headers) {
-        options.headers = {
-          'Accept': 'application/json'
-        };
-      }
+        // If no headers are provided, set Accept to app/json
+        if (!options.headers) {
+          options.headers = {
+            'Accept': 'application/json'
+          };
+        }
 
-      var payload = options.payload;
+        var payload = options.payload;
 
       // XXX do something serious!!!!
       options.headers['X-IID'] = 'jsboot-untainted-id';
@@ -91,7 +91,7 @@
 
 
 
-      /*
+        /*
 
       // Add debugging informations to the objet eventually
       options.debug = {
@@ -115,110 +115,110 @@
 
 
 
-      // XXX doesn't work :/
-      // inner.followRedirects = false;
-      // XXX this is to beforwarded so that we can restart / replay
-      /*      inner.portOptions = options;
+        // XXX doesn't work :/
+        // inner.followRedirects = false;
+        // XXX this is to beforwarded so that we can restart / replay
+        /*      inner.portOptions = options;
       inner.portOptions.coreObject = this;*/
 
 
-      // XXX implement timeouts properly
-      var callback = function() {
-        //if (inner.readyState == inner.DONE){
-        // XXX Firefox 5 test fail
-        if (inner.readyState == 4) {
-          // XXX may not be the perfect place for that...
-          options.data = {};
-          try {
-            if (inner.getResponseHeader('X-UID'))
-              options.userId = inner.getResponseHeader('X-UID');
-          }catch (e) {
-            console.log('FAILED READING XUID');
-          }
-
-          // Errors might be driven by different conditions: 500+, 400+, XXX must test redirections
-          // 400 -> bad request
-          // 401 -> authent
-          // 403 -> unauto
-          // 404 -> pas de ressource
-          // 405 -> bad request of some sort (method not allowed)
-          // 500 -> Server error
-          if (inner.status >= 400) {
-            options.data.status = inner.status;
-            // XXX pass the url as well
-            switch (inner.status) {
-              case 400:
-                options.error = new err(err.BAD_REQUEST);
-                var errorInfo = {code: 100, error: 'GENERIC_ERROR'};
-                try {
-                  errorInfo = JSON.parse(inner.responseText);
-                }catch (e) {
-                }
-                options.data = errorInfo;
-                break;
-              case 401:
-                if (inner.getResponseHeader('WWW-Authenticate')) {
-                  options.error = new err(err.WRONG_CREDENTIALS);
-                }else {
-                  options.error = new err(err.INVALID_SIGNATURE);
-                }
-                // options.onFailure(_api_.errors.newError(_api_.errors.service.));
-                break;
-              case 402:
-              case 403:
-              case 405:
-              case 501:
-                options.error = new err(err.UNAUTHORIZED);
-                break;
-              case 404:
-                options.error = new err(err.MISSING);
-                break;
-              case 406:
-              // 407-410 are not likely to happen
-              case 411:
-              case 412:
-              case 413:
-              case 414:
-              case 415:
-              case 416:
-              case 417:
-                options.error = new err(err.SHOULD_NOT_HAPPEN);
-                break;
-              case 500:
-              case 503:
-                options.error = new err(err.SERVICE_UNAVAILABLE);
-                break;
-              default:
-                options.error = new err(err.UNSPECIFIED);
-                console.log('UNSPECIFIED', inner.status, inner.responseText);
-                break;
-            }
-          //                options.data = {body: inner.responseText, status: inner.status};
-          }else if (inner.status == 0) {
-            options.error = new err(err.UNAUTHORIZED);
-          }else {
+        // XXX implement timeouts properly
+        var callback = function() {
+          //if (inner.readyState == inner.DONE){
+          // XXX Firefox 5 test fail
+          if (inner.readyState == 4) {
+            // XXX may not be the perfect place for that...
+            options.data = {};
             try {
-              if (inner.responseText) {
-                options.data = JSON.parse(inner.responseText);
-              }
+              if (inner.getResponseHeader('X-UID'))
+                options.userId = inner.getResponseHeader('X-UID');
             }catch (e) {
-
-              // function(err, data){
-              //   console.log("HOOOOOOOOOO");
-              //   console.warn(arguments);
-              // },
-              // XXX do proper content detection based on headers godamn it
-              try {
-                var parser = new DOMParser();
-                options.data = parser.parseFromString(inner.responseText, 'application/xml');
-              }catch (e) {
-                options.error = new err(err.MEANINGLESS_DATA);
-                options.data.payload = inner.responseText;
-              }
+              console.log('FAILED READING XUID');
             }
 
-            // This is specific to the service (while the rest should be reusable)
-            /*                options.onSuccess(data);
+            // Errors might be driven by different conditions: 500+, 400+, XXX must test redirections
+            // 400 -> bad request
+            // 401 -> authent
+            // 403 -> unauto
+            // 404 -> pas de ressource
+            // 405 -> bad request of some sort (method not allowed)
+            // 500 -> Server error
+            if (inner.status >= 400) {
+              options.data.status = inner.status;
+              // XXX pass the url as well
+              switch (inner.status) {
+                case 400:
+                  options.error = new err(err.BAD_REQUEST);
+                  var errorInfo = {code: 100, error: 'GENERIC_ERROR'};
+                  try {
+                    errorInfo = JSON.parse(inner.responseText);
+                  }catch (e) {
+                  }
+                  options.data = errorInfo;
+                  break;
+                case 401:
+                  if (inner.getResponseHeader('WWW-Authenticate')) {
+                    options.error = new err(err.WRONG_CREDENTIALS);
+                  }else {
+                    options.error = new err(err.INVALID_SIGNATURE);
+                  }
+                  // options.onFailure(_api_.errors.newError(_api_.errors.service.));
+                  break;
+                case 402:
+                case 403:
+                case 405:
+                case 501:
+                  options.error = new err(err.UNAUTHORIZED);
+                  break;
+                case 404:
+                  options.error = new err(err.MISSING);
+                  break;
+                case 406:
+                // 407-410 are not likely to happen
+                case 411:
+                case 412:
+                case 413:
+                case 414:
+                case 415:
+                case 416:
+                case 417:
+                  options.error = new err(err.SHOULD_NOT_HAPPEN);
+                  break;
+                case 500:
+                case 503:
+                  options.error = new err(err.SERVICE_UNAVAILABLE);
+                  break;
+                default:
+                  options.error = new err(err.UNSPECIFIED);
+                  console.log('UNSPECIFIED', inner.status, inner.responseText);
+                  break;
+              }
+            //                options.data = {body: inner.responseText, status: inner.status};
+            }else if (inner.status == 0) {
+              options.error = new err(err.UNAUTHORIZED);
+            }else {
+              try {
+                if (inner.responseText) {
+                  options.data = JSON.parse(inner.responseText);
+                }
+              }catch (e) {
+
+                // function(err, data){
+                //   console.log("HOOOOOOOOOO");
+                //   console.warn(arguments);
+                // },
+                // XXX do proper content detection based on headers godamn it
+                try {
+                  var parser = new DOMParser();
+                  options.data = parser.parseFromString(inner.responseText, 'application/xml');
+                }catch (e) {
+                  options.error = new err(err.MEANINGLESS_DATA);
+                  options.data.payload = inner.responseText;
+                }
+              }
+
+              // This is specific to the service (while the rest should be reusable)
+              /*                options.onSuccess(data);
                 switch(options.command){
                   case USER_CMD_AUTHENTICATE:
                     options.onSuccess({});
@@ -226,19 +226,19 @@
                   default:
                   break;
                 }*/
-          }
+            }
 
-          options.catcher(options);
-        //            options.catcher(inner, options);
-        }else if (inner.readyState == inner.FAILED_OPENING) {
-          options.error = new err(err.UNAUTHORIZED);
-          options.catcher(options);
-        }else {
-          // console.warn("->not happen", inner.readyState);
-          // options.error = new err(err.SHOULD_NOT_HAPPEN);
-          // options.catcher(options);
-        }
-      };
+            options.catcher(options);
+          //            options.catcher(inner, options);
+          }else if (inner.readyState == inner.FAILED_OPENING) {
+            options.error = new err(err.UNAUTHORIZED);
+            options.catcher(options);
+          }else {
+            // console.warn("->not happen", inner.readyState);
+            // options.error = new err(err.SHOULD_NOT_HAPPEN);
+            // options.catcher(options);
+          }
+        };
 
       // Inner XHR
       var inner = new xhr();
@@ -275,7 +275,8 @@
   scope.Mondane.DELETE = scope.Mondane.prototype.DELETE = 'DELETE';
   scope.Mondane.PUT = scope.Mondane.prototype.PUT = 'PUT';
 
-}).apply(this, [jsBoot.core, Mingus.xhr.XMLHttpRequest, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, jsBoot.core.ServiceError]);
+}).apply(this, [jsBoot.core, Mingus.xhr.XMLHttpRequest, Mingus.xhr.appKeyEngine,
+  Mingus.xhr.digest, jsBoot.core.ServiceError]);
 
 
 
@@ -306,8 +307,8 @@ t.query({
   method: t.POST,
   name: 'users',
   command: 'authenticate',
-  catcher: function(result){
-    console.warn("am hip", result);
+  catcher: function(result) {
+    console.warn('am hip', result);
   }
 });
 
@@ -351,7 +352,7 @@ Roxee.gister.pack('services', function() {
      * @lends Roxee.gist.services#prototype
      */
 
-    /**
+/**
      * Sets the application "credentials".
      *
      * Calling this *first* is mandatory. Failure to do so will result in systematic errors on any service call.

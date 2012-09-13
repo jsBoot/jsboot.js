@@ -112,7 +112,7 @@
         bootLoader.use(bootLoader.MINGUS);
         // Stacktrace should be in core prolly
         bootLoader.use('stacktrace', params.trunk ? 'trunk' : '0.3');
-        // XXX temporary - 
+        // XXX temporary -
         bootLoader.wait();
         bootLoader.use(bootLoader.CORE);
         bootLoader.wait();

@@ -11,7 +11,7 @@
   var errs = ['SERVICE_UNAVAILABLE', 'WRONG_CREDENTIALS', 'INVALID_SIGNATURE', 'BAD_REQUEST',
     'MEANINGLESS_DATA', 'UNAUTHORIZED', 'MISSING', 'SHOULD_NOT_HAPPEN'];
 
-  errs.forEach(function(item, idx){
+  errs.forEach(function(item, idx) {
     scope.ServiceError[item] = scope.ServiceError.prototype[item] = idx;
   });
 
