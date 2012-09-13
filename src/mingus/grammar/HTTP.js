@@ -6,7 +6,7 @@
  * @file Basic utility class providing regexp atoms for http (headers).
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/HTTP.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/HTTP.js{PUKE-PACKAGE-GIT-REV}
  */
 
 /**

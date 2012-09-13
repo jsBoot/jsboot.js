@@ -13,7 +13,7 @@
  * (use an hastag)
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/b.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/b.js{PUKE-PACKAGE-GIT-REV}
  */
 
 'use strict';
@@ -45,7 +45,6 @@
       window.setTimeout(booter, 1);
       return;
     }
-    console.warn('out of shit OK', typeof m);
 
     gull(function() {
       for (var x = 0; x < waiters.length; x++)

@@ -6,7 +6,7 @@
  * @file Provides an app key engine.
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/appkey.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/appkey.js{PUKE-PACKAGE-GIT-REV}
  */
 
 

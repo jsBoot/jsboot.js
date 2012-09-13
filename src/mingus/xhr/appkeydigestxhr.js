@@ -6,7 +6,7 @@
  * @file Provides a digest+appkey enabled XHR, using the gate xhr backend
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/digest.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/digest.js{PUKE-PACKAGE-GIT-REV}
  */
 
 

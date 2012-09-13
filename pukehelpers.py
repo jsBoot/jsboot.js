@@ -23,6 +23,24 @@ r.yak('user-%s-%s-%s' % (Env.get("PUKE_LOGIN", System.LOGIN), 'box', Env.get("PU
 if Yak.ROOT != './build':
   Yak.ROOT = FileSystem.join(Yak.ROOT, Yak.PACKAGE['NAME'], Yak.PACKAGE['VERSION'])
 
+# Git helpers
+# Commit hash start: git log -n1 --pretty=format:%h
+# Full commit hash: git log | head -n 1 | cut -f2 -d" "
+# Commit number: git log --pretty=format:%h | wc -l
+# Current branch: git branch | grep '*'
+
+try:
+  branch = sh("cd .; git branch | grep '*'", output=False).strip('*').strip()
+  if branch == '(no branch)':
+    branch = sh("cd .; git describe --tags", output=False).strip()
+  commitnb = sh("cd .; git log --pretty=format:%s | wc -l" % '%h', output=False).strip()
+  commithash = sh("cd .; git log | head -n 1 | cut -f2 -d' '", output=False).strip()
+  Yak.PACKAGE['GIT_ROOT'] = Yak.PACKAGE['GIT_ROOT'].replace('/master/', '/' + branch + '/')
+  Yak.PACKAGE['GIT_REV'] = '#' + commitnb + '-' + commithash
+except:
+  Yak.PACKAGE['GIT_REV'] = '#no-git-information'
+  console.error("FAILED fetching git information - locations won't be accurate")
+
 # Aggregate all inner paths against the declared ROOT, and build-up all the corresponding top level Yak variables
 for (key, path) in Yak.ROOT_PATHS.items():
   # Build-up global key only if not overriden
@@ -94,7 +112,7 @@ def stater(path):
   stats(list, title = "Other")
 
 def deployer(withversion):
-  list = FileList(Yak.BUILD_ROOT)
+  list = FileList(Yak.BUILD_ROOT, exclude="*.DS_Store")
   if withversion:
     deepcopy(list, FileSystem.join(Yak.DEPLOY_ROOT, Yak.PACKAGE['NAME'], Yak.PACKAGE['VERSION']))
   else:
@@ -137,6 +155,9 @@ def getmanifest(name, version, usemin = False, makeabsolute = True):
     else:
       yam[k] = remote.replace('http:', '').replace('https:', '') + '/' + v
     if usemin:
-      yam[k] = v.replace('.js', '-min.js')
-      yam[k] = v.replace('.css', '-min.css')
+      yam[k] = re.sub(r"(.*).js$", r"\1-min.js", yam[k])
+      yam[k] = re.sub(r"(.*).css$", r"\1-min.css", yam[k])
   return yam
+
+
+

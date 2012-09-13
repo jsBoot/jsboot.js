@@ -6,7 +6,7 @@
  * @file Utility class that provides regexp easing the parsing of IRIs.
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/IRI.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/IRI.js{PUKE-PACKAGE-GIT-REV}
  */
 
 /**

@@ -1,12 +1,50 @@
 // This is a nutshell meant to be aggregated AFTER loader-lab.js and spitfire.js
 
 (function() {
+  // List of available static resources to be served via getPack
+  var statics = '{SPIT-STATICS}';
+  var spitBase = '{SPIT-BASE}/';
+
+  /**
+   * Hash-passed parameters handling
+   */
+  // Default parameters values
+  var params = {
+    notminified: false,
+    debug: false,
+    trunk: false,
+    experimental: false,
+    base: null
+  };
+
+  // Extract parameters from script uri
+  var ref = document.getElementsByTagName('script');
+  for (var i = 0, tup, item; (i < ref.length) && (item = ref[i].src); i++) {
+    if (/there\.is\.only\.jsboot/.test(item)) {
+      // Have a base on us - still, allow for deplaced routing
+      params.base = item.replace(/[^\/]+(?:[#]+)?$/, '');
+      params.notminified = !/-min/.test(item);
+      if (/#/.test(item)) {
+        tup = item.split('#').pop().split(',');
+        while (tup.length)
+          params[tup.pop()] = true;
+      }
+      break;
+    }
+  }
+
+  // Debug implies not minified
+  params.notminified = params.notminified || params.debug;
+
+
   // Dumb-as-shit closure for AMD fuckwadry until gister gets in and we can save using all this crap
   var beWise = function(ld, shim) {
     /**
-     * Abstract spitfire
+     * Abstract spitfire loader
      */
-    var insertThing = function(url) {
+    var insertThing = function(url, minified) {
+      if (minified)
+        url = url.replace(/(\.[^.]+$)/, '-min$1');
       var t = url.match(/\.([^.]+)$/);
       if (t)
         t = t.pop().toLowerCase();
@@ -30,15 +68,23 @@
     };
 
     /**
-     * Internal constants that got puked
+     * Shims handling
      */
-    // List of available static resources to be served via getPack
-    var statics = '{SPIT-STATICS}';
-    // Absolute link to the spitfire host
-    var spitfireLink = '{SPIT-BASE}/';
+    var getShims = function(minified, withUnsafe) {
+      if (withUnsafe)
+        shim.use(shim.UNSAFE);
+      var shims = shim.boot(!minified);
+      // Kind of tricky - don't double minify
+      for (var x = 0; x < shims.length; x++)
+        insertThing(spitBase + shims[x]);
+    };
 
     /**
-     * Private helper to load a specific entry from a pack (eg: an array or urls)
+     * Static packages management
+     */
+
+    /**
+     * Private helper to load a specific entry from a pack (eg: an array of urls)
      * Technically, abstract the statics.
      */
     var getPackedObjects = function(pack, version, sub, useFull) {
@@ -51,194 +97,169 @@
       for (var x = 0, item; (x < pack.length) && (item = pack[x]); x++)
         // Enforce submatching if requested, and test version
         if ((!re || re.test(item)) && version.test(item)) {
-          // Packed objects support alternate min syntax, so, do that if requested
-          if (!useFull)
-            item = item.replace(/(\.[^.]+$)/, '-min$1');
-          // Insert "the thing"
-          insertThing(item);
+          insertThing(item, !useFull);
         }
     };
-
-
-    // window.jsBoot = {
-    //   core: {},
-    //   Ember: {}
-    // };
-
-    /**
-     * Available "stacks" to be spoofed to the use method
-     */
-    this.SHIMS = 'shims-stack';
-    this.EMBER_STACK = 'ember-stack';
-    this.TOOLING_STACK = 'tooling-stack';
-
-    // Shortcut to request trunk versions for something
-    this.TRUNK = 'trunk';
-
-    /**
-     * Debug
-     */
-    var debug = false;
-
-    this.debug = new (function() {
-      /**
-       * This is for the debug version
-       */
-
-      var cssReload = function() {
-        var t = [];
-        var h = document.getElementsByTagName('head')[0];
-        Array.prototype.forEach.call(document.getElementsByTagName('link'), function(item) {
-          if (item.rel && item.rel.match(/style/)) {
-            var p = item.getAttribute('href').replace(/\?jsbootCacheBuster=[^&]+/, '') +
-                '?jsbootCacheBuster=' + Date.now();
-            item.setAttribute('href', p);
-          }
-        });
-        Array.prototype.forEach.call(document.getElementsByTagName('style'), function(item) {
-          if (item.type && item.type.match(/\/css$/) && item.innerHTML.match(/@import/)) {
-            var bef = item.nextSibling;
-            var pn = item.parentNode;
-            item.parentNode.removeChild(item);
-            if (bef)
-              bef.parentNode.insertBefore(item, bef);
-            else
-              pn.appendChild(item);
-          }
-        });
-      };
-
-      this.cssPoller = new (function() {
-        var cssPollerTout;
-        this.start = function() {
-          cssReload();
-          cssPollerTout = window.setTimeout(this.start, 1000);
-        }.bind(this);
-
-        this.stop = function() {
-          window.clearTimeout(cssPollerTout);
-          cssPollerTout = null;
-        };
-
-        this.trigger = function() {
-          cssReload();
-        };
-
-        this.status = function() {
-          return !!cssPoller;
-        };
-      })();
-
-
-      this.start = function() {
-        debug = true;
-      };
-
-      this.stop = function() {
-        debug = false;
-      };
-
-      this.status = function() {
-        return debug;
-      };
-
-    })();
 
     /**
      * Boot main: this will load the default / recommended jsboot stack.
      * That is: shims, ember, jsboot
      */
-    this.boot = function(cbk, trunk) {
-      this.use(this.SHIMS);
-      this.wait();
-      this.use(this.EMBER_STACK, trunk);
-      this.wait(cbk);
-      return this;
-    };
+    this.boot = new (function() {
+      var common = function(debug) {
+        bootLoader.use(bootLoader.SHIMS);
+        bootLoader.wait();
+        bootLoader.use(bootLoader.MINGUS);
+        // Stacktrace should be in core prolly
+        bootLoader.use('stacktrace', params.trunk ? 'trunk' : '0.3');
+        bootLoader.use(bootLoader.CORE);
+        bootLoader.wait();
+        if (debug)
+          bootLoader.use(bootLoader.DEBUG);
+        bootLoader.use(bootLoader.SERVICE);
+      };
 
-    /**
-     * Shimit main
-     */
-    // this.useShims = function(withUnsafe) {
-    //   // This is undocumented - allows to use placeholders shims - will fuck up feature detection
-    //   if (withUnsafe)
-    //     Spitfire.use(Spitfire.UNSAFE);
+      this.backbone = function(cbk, debug) {
+        common(params.debug || debug);
+        bootLoader.use(bootLoader.BACKBONE_STACK, params.trunk);
+        bootLoader.wait(cbk);
+        return bootLoader;
+      };
 
-    //   var shims = Spitfire.boot(debug);
+      this.ember = function(cbk, debug) {
+        common(params.debug || debug);
+        bootLoader.use(bootLoader.EMBER_STACK, params.trunk, params.debug || debug);
+        bootLoader.wait(cbk);
+        return bootLoader;
+      };
+    })();
 
-    //   for (var x = 0; x < shims.length; x++)
-    //     ld.script(spitfireLink + shims[x]);
-    //   return this;
-    // };
 
-    /**
-     * Wait main
-     */
+    var bootLoader = this.loader = new (function() {
 
-    this.wait = function(cbk) {
-      wait(cbk);
-      return this;
-    };
+      /**
+       * Available "stacks" to be spoofed to the use method
+       */
+      this.SHIMS = 'shims-stack';
+      this.EMBER_STACK = 'ember-stack';
+      this.BACKBONE_STACK = 'backbone-stack';
+      this.TOOLING_STACK = 'tooling-stack';
 
-    /**
-     * Loading something that way will not block the main loader
-     * Right now, is useful for external third-party APIs that we don't provide an abstraction for
-     * like youtube, uservoice, analytics, etc.
-     * Callback is mandatory if one wants to be notified, and you can't stack multiple modules the
-     * way "use" allows.
-     */
-    this.lazyUse = function(scriptUrl, callback) {
-      var fork = ld.fork();
-      fork.script(scriptUrl);
-      fork.wait(callback);
-    };
+      // Shortcut to request trunk versions for something
+      this.TRUNK = 'trunk';
 
-    /**
-     * Use main
-     */
-    this.use = function(thing, version, sub) {
-      switch (thing) {
-        case this.SHIMS:
-          // This is undocumented - allows to use placeholders shims - will fuck up feature detection
-          if (version)
-            shim.use(shim.UNSAFE);
-          // Passing debug true means NOT minified
-          var shims = shim.boot(debug);
-          for (var x = 0; x < shims.length; x++)
-            insertThing(spitfireLink + shims[x]);
-          wait();
-          break;
+      // Available modules
+      this.MINGUS = params.base + 'mingus.js';
+      // *Basic* jsBoot functionality required for anything else to work
+      this.CORE = params.base + 'core.js';
+      // Any of these below depend on core *stressing that*
+      this.DEBUG = params.base + 'debug.js';
+      this.GISTER = params.base + 'gister.js';
+      this.SERVICE = params.base + 'service.js';
 
-        case this.EMBER_STACK:
-          // XXX for now, ember pre doesn't support yet 1.8
-          getPackedObjects(statics.jquery, version ? 'trunk' : 1.7, '', debug);
-          getPackedObjects(statics.handlebars, version ? 'trunk' : '1.b6', 'main', debug);// runtime?
-          wait();
-          getPackedObjects(statics.ember, version ? 'trunk' : '1.0.pre', debug ? 'debug' : 'prod', debug);
-          getPackedObjects(statics.i18n, version ? 'trunk' : '3rc2', '', debug);
-          wait();
-          break;
+      /**
+       * Shimit main
+       */
+      // this.useShims = function(withUnsafe) {
+      //   // This is undocumented - allows to use placeholders shims - will fuck up feature detection
+      //   if (withUnsafe)
+      //     Spitfire.use(Spitfire.UNSAFE);
 
-        case this.TOOLING_STACK:
-          getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'core', debug);
-          getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'core', debug);
-          wait();
-          getPackedObjects(statics.sh, version ? 'trunk' : 1.8, 'js', debug);
-          getPackedObjects(statics.jasmine, version ? 'trunk' : '1.2.0', 'html', debug);
-          wait();
-          break;
+      //   var shims = Spitfire.boot(debug);
 
-        default:
-          if (thing in statics)
-            getPackedObjects(statics[thing], version, sub, debug);
-          else
-            insertThing(thing);
-          break;
-          // Enforce sequential for some stuff
-      }
-      return this;
-    };
+      //   for (var x = 0; x < shims.length; x++)
+      //     ld.script(spitfireLink + shims[x]);
+      //   return this;
+      // };
 
+      /**
+       * Wait main
+       */
+
+      this.wait = function(cbk) {
+        wait(cbk);
+        return this;
+      };
+
+      /**
+       * Loading something that way will not block the main loader
+       * Right now, is useful for external third-party APIs that we don't provide an abstraction for
+       * like youtube, uservoice, analytics, etc.
+       * Callback is mandatory if one wants to be notified, and you can't stack multiple modules the
+       * way "use" allows.
+       */
+      this.lazyUse = function(scriptUrl, callback) {
+        var fork = ld.fork();
+        fork.script(scriptUrl);
+        fork.wait(callback);
+      };
+
+      /**
+       * Use main
+       */
+      this.use = function(thing, version, sub) {
+        switch (thing) {
+          // Shims
+          case this.SHIMS:
+            // Use of version is undocumented - allows to use placeholders shims - will fuck up
+            // feature detection
+            getShims(!params.notminified, params.experimental);
+            this.wait();
+            break;
+
+          // Modules
+          case this.MINGUS:
+          case this.CORE:
+          case this.SERVICE:
+          case this.GISTER:
+          case this.DEBUG:
+            insertThing(thing, !params.notminified);
+            break;
+
+          // "Complete" stacks
+          case this.BACKBONE_STACK:
+            this.use('jquery', params.trunk ? 'trunk' : 1.7);
+            // this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
+            this.wait();
+            this.use('backbone', params.trunk ? 'trunk' : '0.9.2');
+            this.use('i18n', params.trunk ? 'trunk' : '3rc2');
+            this.wait(function() {
+              throw 'Backbone stack is largely untested. You may continue at your own risks';
+            });
+            break;
+
+          case this.EMBER_STACK:
+            // XXX for now, ember pre doesn't support yet 1.8
+            this.use('jquery', params.trunk ? 'trunk' : 1.7);
+            this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
+            this.wait();
+            this.use('ember', params.trunk ? 'trunk' : '1.0.pre', sub ? 'debug' : 'prod');
+            this.use('i18n', params.trunk ? 'trunk' : '3rc2');
+            this.wait();
+            break;
+
+          case this.TOOLING_STACK:
+            this.use('sh', params.trunk ? 'trunk' : 1.8, 'core');
+            this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'core');
+            this.wait();
+            this.use('sh', params.trunk ? 'trunk' : 1.8, 'js');
+            this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'html');
+            this.wait();
+            break;
+
+          default:
+            if (thing in statics)
+              getPackedObjects(statics[thing], version, sub, params.notminified);
+            else
+              insertThing(thing);
+            break;
+        }
+        return this;
+      };
+    })();
+
+
+    /*
     this.getScriptBaseUrl = function(scriptName) {
       if (!scriptName)
         scriptName = document.scripts[0].src;
@@ -255,6 +276,7 @@
       });
       return ret;
     };
+    */
   };
 
   // XXX all this ridiculous little dance must cease after gister is there
@@ -274,15 +296,15 @@
     if (isLoader) {
       // Export for asynchronous module loaders. The namespace is
       // redefined because module loaders do not provide the "exports" object.
-      define('jsBoot/core', (root = {}));
+      define('jsBoot/boot', (root = {}));
       require(['Spitfire/loader', 'Spitfire'], function(sl, s) {
         beWise.call(root, sl, s);
       });
     }
   } else {
     // Export for browsers and JavaScript engines.
-    this.jsBoot = {};
-    root = this.jsBoot.core = {};
+    root = this.jsBoot = {};
+    // root = this.jsBoot.boot = {};
     beWise.call(root, Spitfire.loader, Spitfire);
   }
   /**

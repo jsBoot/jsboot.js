@@ -4,6 +4,7 @@
 global PH
 import pukehelpers as PH
 
+
 @task("Default task")
 def default():
   Cache.clean()
@@ -65,6 +66,8 @@ def build():
     spitbase.pop()
     spitbase = '/'.join(spitbase)
     sed.add('{SPIT-BASE}', spitbase)
+    # Our own internal boot path to resolve modules against...
+    sed.add('{SPIT-BOOT}', Yak.PUBLIC + "/"+ Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION'])
     # Tricky!
     sed.add("'{SPIT-STATICS}'", str(PH.getstaticmanifest('*')))
 
@@ -76,7 +79,7 @@ def build():
     deepcopy(list, Yak.BUILD_ROOT + '/tests', replace=sed)
 
     # ================================
-    # Spitfire loader
+    # Spitfire loader, in many variants
     # ================================
 
     # Mini-loader
@@ -84,44 +87,38 @@ def build():
 
     # Bootstrappers - we use lab by default
     spitfireList = [
-      spitman['loader-lab'],
-      spitman['spitfire'],
+      spitman['spitfire-lab'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.js", replace=sed)
 
     spitfireList = [
-      spitman['loader'],
       spitman['spitfire'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.vanilla.js", replace=sed)
 
     spitfireList = [
-      spitman['loader-require'],
-      spitman['spitfire'],
+      spitman['spitfire-require'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.require.js", replace=sed)
 
     spitfireList = [
-      spitman['loader-head'],
-      spitman['spitfire'],
+      spitman['spitfire-head'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.head.js", replace=sed)
 
     # These two don't support strict mode - the hell with them!
     spitfireList = [
-      spitman['loader-yahoo'],
-      spitman['spitfire'],
+      spitman['spitfire-yahoo'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yahoo.js", replace=sed)
 
     spitfireList = [
-      spitman['loader-yepnope'],
-      spitman['spitfire'],
+      spitman['spitfire-yepnope'],
       'src/onegateisopening/boot.js',
     ]
     combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yepnope.js", replace=sed)
@@ -211,6 +208,24 @@ def build():
     combine(mingusList, Yak.BUILD_ROOT + "/mingus.js", replace=sed)
 
 
+    # ================================
+    # jsBoot modules
+    # ================================
+
+    list = FileList('src/jsboot/debug', filter = '*.js', exclude = '*xxx*');
+    combine(list, Yak.BUILD_ROOT + "/debug.js", replace=sed)
+
+    list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
+    combine(list, Yak.BUILD_ROOT + "/core.js", replace=sed)
+
+    list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*');
+    combine(list, Yak.BUILD_ROOT + "/gister.js", replace=sed)
+
+    list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');
+    combine(list, Yak.BUILD_ROOT + "/service.js", replace=sed)
+
+
+
     spitroot = Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
     description = []
     description.append("mingus: '%s/mingus.js'" % spitroot)
@@ -229,6 +244,12 @@ def build():
 
     # Straight to service root instead - kind of hackish...
     FileSystem.writefile(yamu, yaml.dump(mama))
+
+
+
+
+
+
 
 
 

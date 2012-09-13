@@ -6,7 +6,7 @@
  * @file This is the "to be embeded" part that communicates postMessages to the frame. Mimicks a standard XHR.
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/ungate.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/ungate.js{PUKE-PACKAGE-GIT-REV}
  */
 
 /**#nocode+*/

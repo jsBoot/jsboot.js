@@ -6,7 +6,7 @@
  * @file The strict wrapper - this file is a build-system helper and can be safely ignored.
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/strict.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/strict.js{PUKE-PACKAGE-GIT-REV}
  */
 
 'use strict';

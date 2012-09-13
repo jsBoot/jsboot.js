@@ -6,7 +6,7 @@
  * @file Basic helper to add md5 capabilities to javascript.
  * @license {PUKE-PACKAGE-LICENSE}.
  * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/crypto/md5.js
+ * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/crypto/md5.js{PUKE-PACKAGE-GIT-REV}
  */
 
 /**
