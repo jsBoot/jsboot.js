@@ -73,7 +73,8 @@
         _xhr.open(method, url, true);
         for (var i in headers)
           _xhr.setRequestHeader(i, headers[i]);
-        // Chrome sets Origin, but Firefox does not - and neither allow it to be overriden
+        // Chrome sets Origin on POST, but not GET, and Firefox does not
+        // - and neither allow it to be overriden
         // _xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
         _xhr.setRequestHeader('X-Gate-Origin', parent_url.match(/^(http[s]?:\/\/[^\/]+)/).pop());
         // Do we have a file by any chance?
@@ -129,4 +130,5 @@
   });
 
 })();
+
 /**#@-*/

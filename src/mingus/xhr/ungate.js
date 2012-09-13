@@ -19,7 +19,7 @@
 Mingus.xhr.gateOpener = new (function() {
   // XXX bien joué Tony!
   // This must be adjusted depending on the host...
-  var bridgePath = '/1.0/connect/gate/0.6/gate.html';
+  var bridgePath = null; // '/1.0/connect/gate/0.6/gate.html';
 
   var hosts = {};
   this.getBridge = function(host, path) {
@@ -30,8 +30,7 @@ Mingus.xhr.gateOpener = new (function() {
 
 
   var bridger = function(frameHost, framePath) {
-    // XXX maybe allow using https on the stack?
-    frameHost = 'https://' + frameHost;// location.protocol +
+    frameHost = location.protocol + '//' + frameHost;
     var id = 0;
     var isReady = false;
     var debt = [];
@@ -80,7 +79,9 @@ Mingus.xhr.gateOpener = new (function() {
       myX.onreadystatechange();
     };
 
-    simplePostMessage.receiveMessage(msgHook, function(source) {return source == frameHost;});
+    simplePostMessage.receiveMessage(msgHook, function(source) {
+      return source == frameHost;
+    });
 
 
     framy = document.createElement('iframe');
