@@ -91,12 +91,14 @@
       // Sub pattern matching on the pack (useful for stuff that come in non-versioned flavors)
       var re = sub && new RegExp(sub);
       // Version itself - defaulting on trunk
-      version = new RegExp('-' + (version || 'trunk') + '.');
+      // XXX tiny crap don't support normalized naming - hence the workaround for null version :(
+      if(version != 'noversion')
+        version = new RegExp('-' + (version || 'trunk') + '.');
 
       // For each item in the pack
       for (var x = 0, item; (x < pack.length) && (item = pack[x]); x++)
         // Enforce submatching if requested, and test version
-        if ((!re || re.test(item)) && version.test(item)) {
+        if ((!re || re.test(item)) && ((version == 'noversion') || version.test(item))) {
           insertThing(item, !useFull);
         }
     };
@@ -194,6 +196,13 @@
         var fork = ld.fork();
         fork.script(scriptUrl);
         fork.wait(callback);
+      };
+
+      /**
+       * Simple "debug" helper to get a list of available dependencies
+       */
+      this.list = function() {
+        return statics;
       };
 
       /**
