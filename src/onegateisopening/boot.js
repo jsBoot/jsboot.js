@@ -92,7 +92,7 @@
       var re = sub && new RegExp(sub);
       // Version itself - defaulting on trunk
       // XXX tiny crap don't support normalized naming - hence the workaround for null version :(
-      if(version != 'noversion')
+      if (version != 'noversion')
         version = new RegExp('-' + (version || 'trunk') + '.');
 
       // For each item in the pack
