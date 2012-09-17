@@ -224,6 +224,9 @@ def build():
     list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');
     combine(list, Yak.BUILD_ROOT + "/service.js", replace=sed)
 
+    list = FileList('src/jsboot/ui', filter = '*.js', exclude = '*xxx*');
+    combine(list, Yak.BUILD_ROOT + "/ui.js", replace=sed)
+
 
 
     spitroot = Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
