@@ -279,7 +279,7 @@
   Mingus.xhr.digest, jsBoot.core.ServiceError]);
 
 
-
+/*
 var keyid = 'TEST';
 var keysecret = 'TEST';
 
@@ -311,6 +311,17 @@ t.query({
     console.warn('am hip', result);
   }
 });
+*/
+
+
+
+
+
+
+
+
+
+
 
 /*
 Roxee.gister.openpublic('Roxee.gist');
