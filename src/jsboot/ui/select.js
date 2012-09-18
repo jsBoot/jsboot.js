@@ -1,12 +1,13 @@
 // XXX build that with the chosen plugin
 // http://harvesthq.github.com/chosen/
 
-
-
 (function(root) {
-  root.chosen = function(selector, opts) {
-    return $(selector).chosen(opts);
-  };
+  if (typeof $().chosen == 'undefined')
+    console.warn(' [jsBoot.ui]: Chosen is not loaded - enhanced form selects support disabled');
+  else
+    root.select = function(selector, opts) {
+      return $(selector).chosen(opts);
+    };
 }).apply(this, [jsBoot.ui]);
 
 /*

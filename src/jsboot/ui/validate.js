@@ -1,7 +1,10 @@
 (function(root) {
-  root.chosen = function(selector, opts) {
-    return $(selector).validate(opts);
-  };
+  if (typeof $().validate == 'undefined')
+    console.warn(' [jsBoot.ui]: Validate is not loaded - form validation support disabled');
+  else
+    root.validate = function(selector, opts) {
+      return $(selector).validate(opts);
+    };
 }).apply(this, [jsBoot.ui]);
 
 // http://docs.jquery.com/Plugins/Validation#API_Documentation

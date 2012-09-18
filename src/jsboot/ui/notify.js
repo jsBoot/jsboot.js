@@ -1,8 +1,10 @@
-
 (function(root) {
-  root.gritter = function() {
-    return $.gritter;
-  };
+  if (typeof $.gritter == 'undefined')
+    console.warn(' [jsBoot.ui]: Gritter is not loaded - growl like notifications support disabled');
+  else
+    root.notify = function() {
+      return $.gritter;
+    };
 }).apply(this, [jsBoot.ui]);
 
 

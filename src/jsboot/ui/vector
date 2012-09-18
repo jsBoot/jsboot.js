@@ -1,0 +1,8 @@
+(function(root) {
+  if(typeof Raphael == 'undefined')
+    console.warn(' [jsBoot.ui]: Raphael is not loaded - nicy graphs support disabled');
+  else
+    root.Vector = function() {
+      return Raphael;
+    };
+}).apply(this, [jsBoot.ui]);

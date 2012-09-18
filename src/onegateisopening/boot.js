@@ -113,7 +113,7 @@
         bootLoader.wait();
         bootLoader.use(bootLoader.MINGUS);
         // Stacktrace should be in core prolly
-        bootLoader.use('stacktrace', params.trunk ? 'trunk' : '0.3');
+        bootLoader.use('stacktrace', params.trunk ? 'trunk' : '0.4');
         // XXX temporary -
         bootLoader.wait();
         bootLoader.use(bootLoader.CORE);
@@ -121,6 +121,8 @@
         if (debug)
           bootLoader.use(bootLoader.DEBUG);
         bootLoader.use(bootLoader.SERVICE);
+        // XXX Is a separate stack obviously
+        // bootLoader.use(bootLoader.UI);
       };
 
       this.backbone = function(cbk, debug) {
@@ -160,6 +162,7 @@
       this.DEBUG = params.base + 'debug.js';
       this.GISTER = params.base + 'gister.js';
       this.SERVICE = params.base + 'service.js';
+      this.UI = params.base + 'ui.js';
 
       /**
        * Shimit main
@@ -229,7 +232,7 @@
 
           // "Complete" stacks
           case this.BACKBONE_STACK:
-            this.use('jquery', params.trunk ? 'trunk' : 1.7);
+            this.use('jquery', params.trunk ? 'trunk' : 1.8);
             // this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
             this.wait();
             this.use('backbone', params.trunk ? 'trunk' : '0.9.2');
@@ -250,10 +253,10 @@
             break;
 
           case this.TOOLING_STACK:
-            this.use('sh', params.trunk ? 'trunk' : 1.8, 'core');
+            this.use('sh', params.trunk ? 'trunk' : '0.6', 'core');
             this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'core');
             this.wait();
-            this.use('sh', params.trunk ? 'trunk' : 1.8, 'js');
+            this.use('sh', params.trunk ? 'trunk' : '0.6', 'js');
             this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'html');
             this.wait();
             break;
