@@ -19,7 +19,8 @@
 
   // Extract parameters from script uri
   var ref = document.getElementsByTagName('script');
-  for (var i = 0, tup, item; (i < ref.length) && (item = ref[i].src); i++) {
+  for (var i = 0, tup, item; (i < ref.length); i++) {
+    item = ref[i].src;
     if (/there\.is\.only\.jsboot/.test(item)) {
       // Have a base on us - still, allow for deplaced routing
       params.base = item.replace(/[^\/]+(?:[#]+)?$/, '');
