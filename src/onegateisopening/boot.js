@@ -59,7 +59,7 @@
           ld.style(url, 'all');
           break;
         default:
-          throw new Error('Don\'t know how to load requested:', url);
+          throw new Error('Don\'t know how to load requested:' + url);
           break;
       }
     };
@@ -212,7 +212,7 @@
       /**
        * Use main
        */
-      this.use = function(thing, version, sub) {
+      this.use = function(thing, version, sub, forceFull) {
         switch (thing) {
           // Shims
           case this.SHIMS:
@@ -264,7 +264,7 @@
 
           default:
             if (thing in statics)
-              getPackedObjects(statics[thing], version, sub, params.notminified);
+              getPackedObjects(statics[thing], version, sub, params.notminified || forceFull);
             else
               insertThing(thing);
             break;
