@@ -60,7 +60,7 @@ def build():
     sed = Sed()
     PH.replacer(sed)
 
-    spitman = PH.getmanifest('spitfire', '0.1', istrunk)
+    spitman = PH.getmanifest('spitfire', '0.2', istrunk)
 
     spitbase = spitman['spitfire'].split('/')
     spitbase.pop()
