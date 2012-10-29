@@ -1,0 +1,32 @@
+tiojs.wait(function() {
+
+  var noShims = !!location.href.match(/use-unpatched/);
+
+  if (typeof require != 'undefined')
+    require(['jsBoot/loader'], function(jbc) {
+      console.warn('Ok AMD');
+      jbc.boot();
+      jbc.wait();
+      jbc.use('All.js');
+    });
+  else {
+    if (!noShims)
+      jsBoot.loader.use(jsBoot.loader.SHIMS);
+    jsBoot.loader.wait();
+    jsBoot.loader.use(jsBoot.loader.MINGUS);
+    jsBoot.loader.use(jsBoot.loader.TOOLING_STACK);
+    jsBoot.loader.wait();
+    jsBoot.loader.use('specs/http.js');
+    jsBoot.loader.wait(function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+      var trivialReporter = new jasmine.TrivialReporter();
+      jasmineEnv.addReporter(trivialReporter);
+      jasmineEnv.specFilter = function(spec) {
+        return trivialReporter.specFilter(spec);
+      };
+      jasmineEnv.execute();
+    });
+
+  }
+});
