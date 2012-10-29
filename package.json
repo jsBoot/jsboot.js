@@ -1,5 +1,5 @@
 {
-  "name": "jsboot.js",
+  "name": "jsBoot.js",
   "version": "0.2.0",
 
   "description": "jsBoot!",
@@ -37,6 +37,8 @@
          }
   ],
   "dependencies": {
+    "Spitfire.js": "1.0",
+    "Airstrip.js": "1.0"
   },
 
   "homepage": "http://airstrip.jsboot.com",
