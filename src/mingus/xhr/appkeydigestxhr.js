@@ -28,7 +28,7 @@
   'use strict';
 
   /*global console:true, fixIE:true*/
-  this.XMLHttpRequest = function() {
+  var hax = this.XMLHttpRequest = function() {
 
     // UA-like signature
     var _requestedWith = 'XMLHttpRequest';
@@ -107,7 +107,7 @@
 
       // Get a transport
       var i = _iri.host + (_iri.port ? (':' + _iri.port) : '');
-      _xhr = transport(i, this.XMLHttpRequest.gatePath);
+      _xhr = transport(i, hax.gatePath);
       setupNative();
 
       // Open

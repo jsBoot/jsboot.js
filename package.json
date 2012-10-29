@@ -37,8 +37,8 @@
          }
   ],
   "dependencies": {
-    "Spitfire.js": "1.0",
-    "Airstrip.js": "1.0"
+    "Spitfire.js": "1.0.x",
+    "Airstrip.js": "1.0.x"
   },
 
   "homepage": "http://airstrip.jsboot.com",

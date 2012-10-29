@@ -14,10 +14,9 @@
     }, this);
 
 
-    for (var i in err.prototype) {
-      if (err.prototype.hasOwnProperty(i))
-        this.ServiceError.prototype[i] = err.prototype[i];
-    }
+    Object.keys(err.prototype).forEach(function(i){
+      this.ServiceError.prototype[i] = err.prototype[i];
+    }, this);
 
   }).apply(jsBoot.core, [jsBoot.core.Error]);
 

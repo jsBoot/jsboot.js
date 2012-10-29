@@ -22,10 +22,9 @@
     scope.Error[item] = scope.Error.prototype[item] = idx;
   });
 
-  for (var i in this.Error.prototype) {
-    if (this.Error.prototype.hasOwnProperty(i))
-      scope.Error.prototype[i] = this.Error.prototype[i];
-  }
+  Object.keys(this.Error.prototype).forEach(function(i){
+    scope.Error.prototype[i] = this.Error.prototype[i];
+  }, this);
 
   scope.Error.prototype.toString = function() {
     return this.name + ': ' + this.message + '\nStack: ' +
