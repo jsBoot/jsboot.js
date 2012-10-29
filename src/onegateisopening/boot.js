@@ -102,12 +102,18 @@
       if (version != 'noversion')
         version = new RegExp('-' + (version || 'trunk') + '.');
 
+      var inserting = false;
       // For each item in the pack
-      for (var x = 0, item; (x < pack.length) && (item = pack[x]); x++)
+      for (var x = 0, item, subtest; (x < pack.length) && (item = pack[x]); x++) {
+        subtest = item.split('/').pop();
         // Enforce submatching if requested, and test version
-        if ((!re || re.test(item)) && ((version == 'noversion') || version.test(item))) {
+        if ((!re || re.test(subtest)) && ((version == 'noversion') || version.test(item))) {
+          inserting = true;
           insertThing(item, !useFull);
         }
+      }
+      if (!inserting)
+        throw 'Failed inserting requested ' + pack + ' version: ' + version + ' sub: ' + sub;
     };
 
     /**
@@ -253,9 +259,9 @@
           case this.EMBER_STACK:
             this.use('jquery', params.trunk ? 'trunk' : 1.8);
             this.use('handlebars', params.trunk ? 'trunk' : '1.0', 'main');// runtime? 1.b6
+            this.use('i18n', params.trunk ? 'trunk' : '3.0');
             this.wait();
             this.use('ember', params.trunk ? 'trunk' : '1.0', sub ? 'debug' : 'prod');
-            this.use('i18n', params.trunk ? 'trunk' : '3.0');
             this.wait();
             break;
 
