@@ -1,15 +1,20 @@
-// XXX build that with the chosen plugin
-// http://harvesthq.github.com/chosen/
+(function() {
+  /*global jsBoot:true,$:true,console:true*/
+  'use strict';
 
-(function(root) {
-  if (typeof $().chosen == 'undefined')
-    console.warn(' [jsBoot.ui]: Chosen is not loaded - enhanced form selects support disabled');
-  else
-    root.select = function(selector, opts) {
-      return $(selector).chosen(opts);
-    };
-}).apply(this, [jsBoot.ui]);
 
+  // XXX build that with the chosen plugin
+  // http://harvesthq.github.com/chosen/
+
+  (function() {
+    if (typeof $().chosen == 'undefined')
+      console.warn(' [jsBoot.ui]: Chosen is not loaded - enhanced form selects support disabled');
+    else
+      this.select = function(selector, opts) {
+        return $(selector).chosen(opts);
+      };
+  }).apply(jsBoot.ui);
+})();
 /*
 $(".chzn-select").chosen({
     no_results_text: "No results matched",

@@ -16,9 +16,11 @@
  * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/b.js{PUKE-PACKAGE-GIT-REV}
  */
 
-'use strict';
-
 (function(aDoc, gull) {
+  /*jshint browser:true*/
+  /*global gulliver:true*/
+  'use strict';
+
   var waiters = [];
   // Fake the wait interface for jsBoot until the real one gets there
   // There is no requirejs faking dance here for the simple reason if you already got yourself
@@ -34,9 +36,9 @@
     var m;
     // for(var x = 0, it; (x < c.length) && (it = c[x].src); x++){
     for (var x = 0, it; x < c.length; (it = c[x].getAttribute('src')), x++) {
-      if (it && it.search(/t.i.o.j/) != -1) {
+      if (it && it.search(/t\.i\.o\.j/) != -1) {
         m = it.match(/loader-([a-z]+)/);
-        m = m ? ('.' + m.pop()) : '';
+        m = m ? '.' + m.pop() : '';
         break;
       }
     }

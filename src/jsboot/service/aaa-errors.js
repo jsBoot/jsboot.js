@@ -1,21 +1,27 @@
-'use strict';
+(function() {
+  /*global jsBoot:true*/
+  'use strict';
 
-(function(scope, err) {
-  scope.ServiceError = function(name, message) {
-    err.apply(this, arguments);
-  };
+  (function(err) {
+    this.ServiceError = function(/*name, message*/) {
+      err.apply(this, arguments);
+    };
 
-  for (var i in err.prototype)
-    scope.ServiceError.prototype[i] = err.prototype[i];
+    /*interestingly, switching the forEach and for statement below makes closure crash... */
+    ['SERVICE_UNAVAILABLE', 'WRONG_CREDENTIALS', 'INVALID_SIGNATURE', 'BAD_REQUEST',
+     'MEANINGLESS_DATA', 'UNAUTHORIZED', 'MISSING', 'SHOULD_NOT_HAPPEN'].forEach(function(item, idx) {
+      this.ServiceError[item] = this.ServiceError.prototype[item] = idx;
+    }, this);
 
-  var errs = ['SERVICE_UNAVAILABLE', 'WRONG_CREDENTIALS', 'INVALID_SIGNATURE', 'BAD_REQUEST',
-    'MEANINGLESS_DATA', 'UNAUTHORIZED', 'MISSING', 'SHOULD_NOT_HAPPEN'];
 
-  errs.forEach(function(item, idx) {
-    scope.ServiceError[item] = scope.ServiceError.prototype[item] = idx;
-  });
+    for (var i in err.prototype) {
+      if (err.prototype.hasOwnProperty(i))
+        this.ServiceError.prototype[i] = err.prototype[i];
+    }
 
-}).apply(this, [jsBoot.core, jsBoot.core.Error]);
+  }).apply(jsBoot.core, [jsBoot.core.Error]);
+
+})();
 
 /**
  * Services are down

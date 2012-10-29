@@ -18,8 +18,12 @@
  * @requires Mingus.grammar.ABNF
  */
 
-Mingus.grammar.IMF = new (function(ABNF) {
-  /*
+(function() {
+  /*global Mingus:true*/
+  'use strict';
+
+  (function(ABNF) {
+    /*
 
 4.1.  Miscellaneous Obsolete Tokens
 
@@ -73,13 +77,13 @@ Mingus.grammar.IMF = new (function(ABNF) {
    ASCII meanings.
   */
 
-  // Note that specials are not needed for the address spec
-  var obsNOWSCTL = '\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f';
-  var obsCtext = obsNOWSCTL;
-  var obsQtext = obsNOWSCTL;
-  var obsQp = '\\\\' + ABNF.makeClass('\\x00' + obsNOWSCTL + ABNF.LF + ABNF.CR);
+    // Note that specials are not needed for the address spec
+    var obsNOWSCTL = '\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f';
+    var obsCtext = obsNOWSCTL;
+    var obsQtext = obsNOWSCTL;
+    var obsQp = '\\\\' + ABNF.makeClass('\\x00' + obsNOWSCTL + ABNF.LF + ABNF.CR);
 
-  /*
+    /*
 3.2.1.  Quoted characters
 
    Some characters are reserved for special interpretation, such as
@@ -106,11 +110,11 @@ RFC 5322                Internet Message Format             October 2008
       ccontent, qcontent, and in obs-dtext in section 4.
   */
 
-  var newQp = '\\\\' + ABNF.makeClass(ABNF.VCHAR + ABNF.WSP);
+    var newQp = '\\\\' + ABNF.makeClass(ABNF.VCHAR + ABNF.WSP);
 
-  var quotedPair = ABNF.alternate(newQp, obsQp);
+    var quotedPair = ABNF.alternate(newQp, obsQp);
 
-  /*
+    /*
 4.2.  Obsolete Folding White Space
 
    In the obsolete syntax, any amount of folding white space MAY be
@@ -123,10 +127,10 @@ RFC 5322                Internet Message Format             October 2008
 
   */
 
-  var obsFWS = ABNF.repeat(ABNF.WSP, 1) + ABNF.repeat(ABNF.CRLF + ABNF.repeat(ABNF.WSP, 1));
+    var obsFWS = ABNF.repeat(ABNF.WSP, 1) + ABNF.repeat(ABNF.CRLF + ABNF.repeat(ABNF.WSP, 1));
 
 
-  /*
+    /*
 3.2.2.  Folding White Space and Comments
 
    White space characters, including white space used in folding
@@ -189,23 +193,23 @@ RFC 5322                Internet Message Format             October 2008
 
   */
 
-  var FWS = ABNF.alternate(ABNF.optional(ABNF.repeat(ABNF.WSP) + ABNF.CRLF) + ABNF.repeat(ABNF.WSP, 1), obsFWS);
+    var FWS = ABNF.alternate(ABNF.optional(ABNF.repeat(ABNF.WSP) + ABNF.CRLF) + ABNF.repeat(ABNF.WSP, 1), obsFWS);
 
-  var ctext = '\\x21-\\x27\\x2a-\\x5b\\x5d-\\x7e' + obsCtext;
+    var ctext = '\\x21-\\x27\\x2a-\\x5b\\x5d-\\x7e' + obsCtext;
 
-  // XXX Doesn't allow nested comments inside comments contents - too much of a
-  // pain to implement :-)
+    // XXX Doesn't allow nested comments inside comments contents - too much of a
+    // pain to implement :-)
 
-  var ccontent = ABNF.alternate(ctext, quotedPair);
+    var ccontent = ABNF.alternate(ctext, quotedPair);
 
-  var comment = '\\(' + ABNF.repeat(ABNF.optional(FWS) + ccontent) + ABNF.optional(FWS) + '\\)';
+    var comment = '\\(' + ABNF.repeat(ABNF.optional(FWS) + ccontent) + ABNF.optional(FWS) + '\\)';
 
-  ccontent = ABNF.alternate(ctext, quotedPair, comment);
+    ccontent = ABNF.alternate(ctext, quotedPair, comment);
 
-  var CFWS = ABNF.alternate(ABNF.repeat(ABNF.optional(FWS) + comment, 1) + ABNF.optional(FWS), FWS);
+    var CFWS = ABNF.alternate(ABNF.repeat(ABNF.optional(FWS) + comment, 1) + ABNF.optional(FWS), FWS);
 
 
-  /*
+    /*
 3.2.4.  Quoted Strings
 
    Strings of characters that include characters other than those
@@ -240,15 +244,15 @@ RFC 5322                Internet Message Format             October 2008
    either.
   */
 
-  var qtext = obsQtext + '\\x21\\x23-\\x5b\\x5d-\\x7e';
+    var qtext = obsQtext + '\\x21\\x23-\\x5b\\x5d-\\x7e';
 
-  var qcontent = ABNF.alternate(qtext, quotedPair);
-  var quotedString = ABNF.optional(CFWS) + ABNF.makeClass(ABNF.DQUOTE) +
-      ABNF.repeat(ABNF.optional(FWS) + qcontent) + ABNF.optional(FWS) +
-      ABNF.makeClass(ABNF.DQUOTE) + ABNF.optional(CFWS);
+    var qcontent = ABNF.alternate(qtext, quotedPair);
+    var quotedString = ABNF.optional(CFWS) + ABNF.makeClass(ABNF.DQUOTE) +
+        ABNF.repeat(ABNF.optional(FWS) + qcontent) + ABNF.optional(FWS) +
+        ABNF.makeClass(ABNF.DQUOTE) + ABNF.optional(CFWS);
 
 
-  /*
+    /*
 3.2.3.  Atom
 
    Several productions in structured header field bodies are simply
@@ -301,20 +305,20 @@ RFC 5322                Internet Message Format             October 2008
    or the atext and "." characters in a dot-atom.
   */
 
-  var atext = ABNF.ALPHA + ABNF.DIGIT + '\\/=?^_`{|}~!#$%&\'*+-';
-  var atom = ABNF.optional(CFWS) + ABNF.repeat(atext, 1) + ABNF.optional(CFWS);
+    var atext = ABNF.ALPHA + ABNF.DIGIT + '\\/=?^_`{|}~!#$%&\'*+-';
+    var atom = ABNF.optional(CFWS) + ABNF.repeat(atext, 1) + ABNF.optional(CFWS);
 
-  var dotAtomText = ABNF.repeat(atext, 1) + ABNF.repeat('[.]' + ABNF.repeat(atext, 1));
-  var dotAtom = ABNF.optional(CFWS) + dotAtomText + ABNF.optional(CFWS);
-
-
-
-  // Various tokens
-  var word = ABNF.alternate(atom, quotedString);
+    var dotAtomText = ABNF.repeat(atext, 1) + ABNF.repeat('[.]' + ABNF.repeat(atext, 1));
+    var dotAtom = ABNF.optional(CFWS) + dotAtomText + ABNF.optional(CFWS);
 
 
 
-  /*
+    // Various tokens
+    var word = ABNF.alternate(atom, quotedString);
+
+
+
+    /*
 4.4.  Obsolete Addressing
 
    There are four primary differences in addressing.  First, mailbox
@@ -352,11 +356,11 @@ RFC 5322                Internet Message Format             October 2008
    When interpreting addresses, the route portion SHOULD be ignored.
   */
 
-  var obsDtext = ABNF.alternate(obsNOWSCTL, quotedPair);
-  var obsDomain = atom + ABNF.repeat('[.]' + atom);
-  var obsLocalPart = word + ABNF.repeat('[.]' + word);
+    var obsDtext = ABNF.alternate(obsNOWSCTL, quotedPair);
+    var obsDomain = atom + ABNF.repeat('[.]' + atom);
+    var obsLocalPart = word + ABNF.repeat('[.]' + word);
 
-  /*
+    /*
 3.4.1.  Addr-Spec Specification
 
    addr-spec       =   local-part "@" domain
@@ -389,14 +393,14 @@ RFC 5322                Internet Message Format             October 2008
   */
 
 
-  var dtext = ABNF.alternate('\\x21-\\x5a\\x5e-\\x7e', obsDtext);
+    var dtext = ABNF.alternate('\\x21-\\x5a\\x5e-\\x7e', obsDtext);
 
-  // XXX not proper - should conform to corresponding RFC (IRI prolly)
-  var domainLiteral = ABNF.optional(CFWS) + '\\[' +
-      ABNF.repeat(ABNF.optional(FWS) + dtext) +
-      ABNF.optional(FWS) + '\\]' + ABNF.optional(CFWS);
+    // XXX not proper - should conform to corresponding RFC (IRI prolly)
+    var domainLiteral = ABNF.optional(CFWS) + '\\[' +
+        ABNF.repeat(ABNF.optional(FWS) + dtext) +
+        ABNF.optional(FWS) + '\\]' + ABNF.optional(CFWS);
 
-  /**
+    /**
    * @kind member
    * @name DOMAIN
    * @summary Regexp for "domain"
@@ -408,9 +412,9 @@ RFC 5322                Internet Message Format             October 2008
    * // You will like use this to build a regexp that matches and split email addresses like so:
    * var validator = new RegExp("^(" + this.LOCAL_PART + ")@(" + this.DOMAIN + ")$");
    */
-  this.DOMAIN = ABNF.alternate(dotAtom, domainLiteral, obsDomain);
+    this.DOMAIN = ABNF.alternate(dotAtom, domainLiteral, obsDomain);
 
-  /**
+    /**
    * @kind member
    * @name DOMAIN
    * @summary Regexp for "local part"
@@ -419,14 +423,14 @@ RFC 5322                Internet Message Format             October 2008
    * @memberof Mingus.grammar.IMF
    * @constant
    */
-  this.LOCAL_PART = ABNF.alternate(dotAtom, quotedString, obsLocalPart);
+    this.LOCAL_PART = ABNF.alternate(dotAtom, quotedString, obsLocalPart);
 
 
-  // Compile that crap only once please
-  var validator = new RegExp('^(' + this.LOCAL_PART + ')@(' + this.DOMAIN + ')$');
+    // Compile that crap only once please
+    var validator = new RegExp('^(' + this.LOCAL_PART + ')@(' + this.DOMAIN + ')$');
 
 
-  /**
+    /**
    * @kind function
    * @name isValidAddress
    * @summary A trivial function to validate mail addresses.
@@ -438,8 +442,9 @@ RFC 5322                Internet Message Format             October 2008
    * @returns {Boolean} Wether true if the string is a valid email address, or false otherwise...
    */
 
-  this.isValidAddress = function(someAddress) {
-    /*
+    this.IMF = {
+      isValidAddress: function(someAddress) {
+        /*
     Informal additional constraint described in http://tools.ietf.org/html/rfc3696
 
      In addition to restrictions on syntax, there is a length limit on
@@ -450,14 +455,17 @@ RFC 5322                Internet Message Format             October 2008
      addresses which are that long, even though they are rarely
      encountered.
     */
-    // Don't bother trying to validate crap
-    if (someAddress.length > 320)
-      return false;
-    var r;
-    return someAddress &&
-        (r = someAddress.match(validator)) &&
-        (r[1].length <= 64) &&
-        (r[2].length <= 255);
-  };
+        // Don't bother trying to validate crap
+        if (someAddress.length > 320)
+          return false;
+        var r;
+        return someAddress &&
+            (r = someAddress.match(validator)) &&
+            (r[1].length <= 64) &&
+            (r[2].length <= 255);
+      }
+    };
 
-})(Mingus.grammar.ABNF);
+  }).apply(Mingus.grammar, [Mingus.grammar.ABNF]);
+
+})();

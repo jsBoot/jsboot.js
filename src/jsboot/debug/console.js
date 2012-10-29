@@ -1,9 +1,10 @@
-'use strict';
+(function() {
+  /*global jsBoot:true*/
+  'use strict';
 
-// Verbosity controller
-(function(scope) {
-  var c = this.console;
-  var s = scope.console = {};
+  var scope = jsBoot.debug;
+  // Verbosity controller
+  scope.console = {};
   var e = {
     'DEBUG': 1,
     'LOG': 2,
@@ -15,28 +16,29 @@
   };
 
   // console.time('start');
-  for (var i in e) {
-    s[i] = e[i];
-    (function() {
-      var meth = c[i.toLowerCase()];
-      var level = s[i];
-      c[i.toLowerCase()] = function() {
-        if (s.VERBOSITY & level) {
-          // var args = Array.prototype.slice(arguments);
-          // args.push(Date.now());
-          // console.timeEnd('start');
-          // console.timeEnd('previous');
-          // console.time('previous');
-          // Might very well crash IE bitch
-          try {
-            meth.apply(c, arguments);
-          }catch (e) {
-            for (var i in arguments)
-              meth(arguments[i]);
-          }
+  var c = this.console;
+  Object.keys(e).forEach(function(i) {
+    var level = scope.console[i] = e[i];
+    var meth = c[i.toLowerCase()];
+    c[i.toLowerCase()] = function() {
+      if (scope.console.VERBOSITY & level) {
+        // var args = Array.prototype.slice(arguments);
+        // args.push(Date.now());
+        // console.timeEnd('start');
+        // console.timeEnd('previous');
+        // console.time('previous');
+        // Might very well crash IE bitch
+        try {
+          meth.apply(c, arguments);
+        }catch (e) {
+          Array.prototype.slice(arguments).forEach(function(arg) {
+            meth.apply(c, [arg]);
+          });
         }
-      };
-    })();
-  }
-  s.VERBOSITY = s.INFO | s.WARN | s.ERROR | s.LOG | s.DEBUG | s.TRACE;
-}).apply(this, [jsBoot.debug]);
+      }
+    };
+  });
+  scope.console.VERBOSITY = scope.console.INFO | scope.console.WARN | scope.console.ERROR | scope.console.LOG |
+      scope.console.DEBUG | scope.console.TRACE;
+
+}).apply(this);

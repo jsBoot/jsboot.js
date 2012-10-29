@@ -2,126 +2,159 @@
 # -*- coding: utf8 -*-
 
 global PH
-import pukehelpers as PH
-
+import helpers as PH
+import re
+import json
 
 @task("Default task")
 def default():
-  Cache.clean()
+  # Cache.clean()
   executeTask("build")
+  executeTask("tests")
   executeTask("deploy")
-
-# @task("Calling all interesting tasks")
-# def all():
-#     executeTask("build")
-#     executeTask("deploy")
-#     executeTask("mint")
-#     executeTask("tests")
-# #    executeTask("doc")
-#     executeTask("lint")
-#     executeTask("stats")
-#     executeTask("statsdoc")
 
 @task("All")
 def all():
-  Cache.clean()
+  # Cache.clean()
   executeTask("lint")
+  executeTask("hint")
   executeTask("build")
+  executeTask("tests")
   executeTask("mint")
   executeTask("deploy")
+  executeTask("doc")
   executeTask("stats")
 
 
-@task("Deploy package")
-def deploy():
-  PH.deployer(True)
+@task("Wash the taupe!")
+def clean():
+  PH.cleaner()
+
+@task("jsDocking")
+def doc():
+  list = FileList(Yak.build_root)
+  # jsdoc3(list, Yak.doc_root + "/jsdoc3.json")
+  d = FileSystem.abspath(Yak.doc_root)
+  jsdoc3(list, "%s/gristaupe.json" % d)
+  jsdoc3(list, "%s/html" % d, template = "templates/default")
+
 
 @task("Lint")
 def lint():
   PH.linter("src")
 
+@task("Hint")
+def hint():
+  PH.hinter("src", excluding = "*tests*")
+
 @task("Flint")
 def flint():
   PH.flinter("src")
 
+@task("Deploy package")
+def deploy():
+  PH.deployer(True)
+
 @task("Minting")
 def mint():
-  PH.minter(Yak.BUILD_ROOT)
+  # Yahoo and yep don't support strict
+  PH.minter(Yak.build_root, filter = "*yahoo.js,*yepnope.js", strict = False)
+  PH.minter(Yak.build_root, excluding = "*yahoo*,*yepnope*")
 
 @task("Stats report deploy")
 def stats():
-  # PH.stater(Yak.DOC_ROOT)
-  PH.stater(Yak.BUILD_ROOT)
+  PH.stater(Yak.build_root)
+
+@task("Tests building")
+def tests():
+  sed = Sed()
+  PH.replacer(sed)
+  list = FileList("src/tests", filter="*.js,*.html", exclude="*xxx*")
+  deepcopy(list, Yak.build_root + '/tests', replace=sed)
 
 
 @task("Build package")
 def build():
-    istrunk = Yak.VARIANT == 'bleed'
+    
     sed = Sed()
     PH.replacer(sed)
 
-    spitman = PH.getmanifest('spitfire', '0.2', istrunk)
+    spitman = PH.getmanifest('spitfire')
 
     spitbase = spitman['spitfire'].split('/')
     spitbase.pop()
     spitbase = '/'.join(spitbase)
-    sed.add('{SPIT-BASE}', spitbase)
-    # Our own internal boot path to resolve modules against...
-    sed.add('{SPIT-BOOT}', Yak.PUBLIC + "/"+ Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION'])
+
+    sed.add('{SPIT-BASE}', spitbase.encode('latin-1'))
+    # Our own internal boot path to resolve modules against... - XXX unlikely to work properly due to deploy root variations?
+    # sed.add('{SPIT-BOOT}', Yak.links['self']['url'] + "/"+ Yak.package['name'] + "/" + Yak.package['version'])
     # Tricky!
-    sed.add("'{SPIT-STATICS}'", str(PH.getstaticmanifest('*')))
+    sed.add("'{SPIT-STATICS}'", json.dumps(PH.getstaticmanifest('*')))
 
     # ================================
     # Tests
     # ================================
 
     list = FileList("tests", filter="*.js,*.html")
-    deepcopy(list, Yak.BUILD_ROOT + '/tests', replace=sed)
+    deepcopy(list, Yak.build_root + '/tests', replace=sed)
 
     # ================================
     # Spitfire loader, in many variants
     # ================================
 
     # Mini-loader
-    combine([spitman['gulliver'], 'src/onegateisopening/b.js'], Yak.BUILD_ROOT + "/t.i.o.j.js", replace=sed)
+    combine([spitman['gulliver'], 'src/onegateisopening/b.js'], Yak.build_root + "/t.i.o.j.js", replace=sed)
 
     # Bootstrappers - we use lab by default
     spitfireList = [
       spitman['spitfire-lab'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.js", replace=sed)
+
+
+
+
+    # print open('.pukecache/34825187585a6d8cd0794b79d0381a9904633e2d4ef5b23a4cc0b0b608514c07').encoding
+    # print open('src/onegateisopening/boot.js').encoding
+
+    # d = FileSystem.readfile('.pukecache/34825187585a6d8cd0794b79d0381a9904633e2d4ef5b23a4cc0b0b608514c07')
+    # e = FileSystem.readfile('src/onegateisopening/boot.js')
+    # d += e
+    # print "coucou"
+    # print "------------------------- %s" % d
+
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.js", replace=sed)
 
     spitfireList = [
       spitman['spitfire'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.vanilla.js", replace=sed)
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.vanilla.js", replace=sed)
 
     spitfireList = [
       spitman['spitfire-require'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.require.js", replace=sed)
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.require.js", replace=sed)
 
     spitfireList = [
       spitman['spitfire-head'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.head.js", replace=sed)
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.head.js", replace=sed)
 
     # These two don't support strict mode - the hell with them!
     spitfireList = [
       spitman['spitfire-yahoo'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yahoo.js", replace=sed)
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yahoo.js", replace=sed)
 
     spitfireList = [
       spitman['spitfire-yepnope'],
       'src/onegateisopening/boot.js',
     ]
-    combine(spitfireList, Yak.BUILD_ROOT + "/there.is.only.jsboot.yepnope.js", replace=sed)
+    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yepnope.js", replace=sed)
 
     # XXX Have unified XHR bundled to be safe (?)
     # spitman['xhr'],
@@ -136,20 +169,20 @@ def build():
     #   PH.getstaticmanifest('ember'),
     #   PH.getstaticmanifest('i18n')
     # ]
-    # combine(f, Yak.BUILD_ROOT + "/stack.ember.js", replace=sed)
+    # combine(f, Yak.build_root + "/stack.ember.js", replace=sed)
 
 
     # ================================
     # Css normalizer
     # ================================
-    cssnorm = PH.getstaticmanifest('normalize', istrunk)
-    combine(cssnorm, Yak.BUILD_ROOT + "/there.is.only.jsboot.css", replace=sed)
+    cssnorm = PH.getstaticmanifest('normalize', Yak.istrunk)
+    combine([cssnorm], Yak.build_root + "/there.is.only.jsboot.css", replace=sed)
 
     # ================================
     # Build-up the gate framy
     # ================================
     # XXX this must die and be replaced by a proper postmessage shim
-    postmessageshim = PH.getstaticmanifest('postmessage', istrunk)
+    postmessageshim = PH.getstaticmanifest('postmessage', Yak.istrunk)
 
     gateList = [
       spitman['loader-lab'],
@@ -158,12 +191,13 @@ def build():
       'src/onegateisopening/gate.js'
     ]
 
-    combine(gateList, Yak.BUILD_ROOT + '/toobsj.ylno.si.ereht.js', replace=sed)
-    # FileSystem.copyfile(Yak.BUILD_ROOT + '/gates/gate-frame.js', Yak.BUILD_ROOT + '/gates/gate-frame-min.js')
+    combine(gateList, Yak.build_root + '/toobsj.ylno.si.ereht.js', replace=sed)
+    # FileSystem.copyfile(Yak.build_root + '/gates/gate-frame.js', Yak.build_root + '/gates/gate-frame-min.js')
 
     # Build-up the frame to deploy connect to
-    sed.add('{PUKE-GATE-OPENER}', Yak.PUBLIC + "/"+ Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION'] + "/toobsj.ylno.si.ereht.js")
-    combine('src/onegateisopening/gate.html', Yak.BUILD_ROOT + '/gate.html', replace=sed)
+    # XXX whether this works is undefined... because of shortversion and selectable versioned deploy
+    sed.add('{PUKE-GATE-OPENER}', Yak.links['self']['url'] + "/"+ Yak.package['name'] + "/" + Yak.package['version'] + "/toobsj.ylno.si.ereht.js")
+    combine('src/onegateisopening/gate.html', Yak.build_root + '/gate.html', replace=sed)
 
 
 
@@ -205,7 +239,7 @@ def build():
     ]
 
     # Shimmy yeah
-    combine(mingusList, Yak.BUILD_ROOT + "/mingus.js", replace=sed)
+    combine(mingusList, Yak.build_root + "/mingus.js", replace=sed)
 
 
     # ================================
@@ -213,41 +247,49 @@ def build():
     # ================================
 
     list = FileList('src/jsboot/debug', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.BUILD_ROOT + "/debug.js", replace=sed)
+    combine(list, Yak.build_root + "/debug.js", replace=sed)
 
     list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.BUILD_ROOT + "/core.js", replace=sed)
+    combine(list, Yak.build_root + "/core.js", replace=sed)
 
     list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.BUILD_ROOT + "/gister.js", replace=sed)
+    combine(list, Yak.build_root + "/gister.js", replace=sed)
 
     list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.BUILD_ROOT + "/service.js", replace=sed)
+    combine(list, Yak.build_root + "/service.js", replace=sed)
 
     list = FileList('src/jsboot/ui', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.BUILD_ROOT + "/ui.js", replace=sed)
+    combine(list, Yak.build_root + "/ui.js", replace=sed)
 
 
 
-    spitroot = Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
-    description = []
-    description.append("mingus: '%s/mingus.js'" % spitroot)
-    description.append("jsbootstrap: '%s/there.is.only.jsboot.js'" % spitroot)
-    description.append("gate: '%s/gate.html'" % spitroot)
-    description.append("cssbootstrap: '%s/there.is.only.jsboot.css'" % spitroot)
+    shortversion = Yak.package['version'].split('-').pop(0).split('.')
+    shortversion = shortversion[0] + "." + shortversion[1]
+
+    spitroot = Yak.package['name'] + "/" + shortversion
+
+    description = {}
+    description["mingus"] = "%s/mingus.js" % spitroot
+    description["jsbootstrap"] = "%s/there.is.only.jsboot.js" % spitroot
+    description["gate"] = "%s/gate.html" % spitroot
+    description["cssbootstrap"] = "%s/there.is.only.jsboot.css" % spitroot
 
     # Link the yaml stuff
-    yamu = FileSystem.join(Yak.DEPLOY_ROOT, "jsboot.yaml")
-    description = yaml.load('\n'.join(description))
-    if FileSystem.exists(yamu):
-      mama = yaml.load(FileSystem.readfile(yamu))
-      mama[Yak.PACKAGE['VERSION']] = description
-    else:
-      mama = {Yak.PACKAGE['VERSION']: description}
 
-    # Straight to service root instead - kind of hackish...
-    FileSystem.writefile(yamu, yaml.dump(mama))
+    # yamu = FileSystem.join(Yak.deploy_root, "jsboot.yaml")
+    # description = yaml.load('\n'.join(description))
+    # if FileSystem.exists(yamu):
+    #   mama = yaml.load(FileSystem.readfile(yamu))
+    #   mama[Yak.package['version']] = description
+    # else:
+    #   mama = {Yak.package['version']: description}
 
+    # # Straight to service root instead - kind of hackish...
+    # FileSystem.writefile(yamu, yaml.dump(mama))
+
+
+
+    PH.describe(shortversion, "jsboot", description)
 
 
 
@@ -276,30 +318,13 @@ def build():
     # for burne in list:
     #     minify(burne['file'], re.sub(r"(.*).js$", r"\1-min.js", burne['file']), strict=burne['strict'] if 'strict' in burne else False)
 
-# Generates documentation for the win
-@task("Core Documentation")
-def doc():
-  list = FileList("src/", filter = "*.js", exclude = "*-min.js")
-#    list.merge(FileList("src/lib/com/wiu/roxee", filter = "*.js", exclude = "*-min.js"))
-  sed = Sed()
-  PH.replacer(sed)
-
-  # Analytics marker
-  # sed.add("{PUKE-ANAL}", "UA-27075824-1")
-
-  deepcopy(list, Yak.TMP_ROOT, replace=sed)
-  # Make doc
-  list = FileList(Yak.TMP_ROOT)
-
-  # jsdoc3(list, Yak.DOC_ROOT, Yak.REMOTE_BUILD + Yak.LINKS['TAUPE'] + "/templates/jsboot")
-  result = jsdoc3(list, Yak.DOC_ROOT + '/test.json');
 
 
 # @task("Copy tests")
 # def tests():
 #     sed = Sed()
 #     # This is half borked... question is: where do these end-up?
-#     Yak.LINKS['CORE'] = Yak.LINKS['ROXEE_STATIC'] + '/' + Yak.PACKAGE['NAME'] + "/" + Yak.PACKAGE['VERSION']
+#     Yak.LINKS['CORE'] = Yak.LINKS['ROXEE_STATIC'] + '/' + Yak.package['name'] + "/" + Yak.package['version']
 #     PH.addlinksreplace(sed)
 #     PH.addpackagereplace(sed)
 #     list = FileList("tests")
@@ -308,7 +333,7 @@ def doc():
 
 # Stylesheet will get prepended stuff
 #    f = [ STATIC_ORIGIN + "/org/normalize/normalize-stable.css", "src/org/wiu/gristaupe/taupale.css" ]
-#    combine(f, BUILD_ROOT + "/org/wiu/gristaupe/taupale.css", replace=sed)
+#    combine(f, build_root + "/org/wiu/gristaupe/taupale.css", replace=sed)
 
 
 
@@ -370,7 +395,7 @@ def doc():
 #     list = FileList('src/lib/com/wiu/mingus/', exclude="*")
 #     list.merge(gistList)
 #     list.merge(serviceList)
-#     combine(list, Yak.BUILD_ROOT + "/noshit-roxee.js", replace=sed)
+#     combine(list, Yak.build_root + "/noshit-roxee.js", replace=sed)
 
 
 #     runnerList = [
@@ -504,7 +529,7 @@ def doc():
 #     listFull.merge(serviceList);
 #     listFull.merge(runnerList);
 #     listFull.merge(listMonty);
-#     combine(listFull, Yak.BUILD_ROOT + "/ember-roxee.js", replace=sed)
+#     combine(listFull, Yak.build_root + "/ember-roxee.js", replace=sed)
 
 
 
@@ -512,12 +537,12 @@ def doc():
     # And build-up the actual core API
     #    list = FileList("src/lib/com/wiu/mingus", filter="*namespace.js")
     # list = FileList("src/lib/com/wiu", filter="*.js")
-    # deepcopy(list, Yak.BUILD_ROOT, replace=sed)
+    # deepcopy(list, Yak.build_root, replace=sed)
 
 
     # Shiming
     # list = FileList('src/lib/com/wiu/mingus/shim', filter="*.js")
-    # deepcopy(list, FileSystem.join(Yak.BUILD_ROOT, 'shim'), replace=sed)
+    # deepcopy(list, FileSystem.join(Yak.build_root, 'shim'), replace=sed)
 
 
     # =====================
@@ -553,7 +578,7 @@ def doc():
     # listO.merge(gistlist);
     # listO.merge(serviceList);
     # listO.merge(list);
-    # combine(listO, Yak.BUILD_ROOT + "/partner-roxee.js", replace=sed)
+    # combine(listO, Yak.build_root + "/partner-roxee.js", replace=sed)
 
 
     # isMin = False
@@ -570,9 +595,9 @@ def doc():
     #   "src/lib/com/wiu/roxee/partner/core.js"
     # ]
 
-    # combine(list, Yak.BUILD_ROOT + "/partner-api.js", replace=sed)
+    # combine(list, Yak.build_root + "/partner-api.js", replace=sed)
 
-    # combine("src/lib/com/wiu/roxee/partner/index.html", Yak.BUILD_ROOT + "/partner-api.html", replace=sed)
+    # combine("src/lib/com/wiu/roxee/partner/index.html", Yak.build_root + "/partner-api.html", replace=sed)
 
 
 
@@ -584,5 +609,5 @@ def doc():
     # list = [
     #     "src/lib/com/wiu/mingus/shim/postmessage.js"
     # ]
-    # combine(list, Yak.BUILD_ROOT + "/services/shim/postmessage.js", replace=sed)
+    # combine(list, Yak.build_root + "/services/shim/postmessage.js", replace=sed)
 

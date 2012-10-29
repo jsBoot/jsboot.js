@@ -1,0 +1,50 @@
+{
+  "name": "jsboot.js",
+  "version": "0.2.0",
+
+  "description": "jsBoot!",
+  "keywords": ["jsBoot"],
+  "maintainers": [
+    {
+      "name": "Mangled Deutz",
+      "email": "dev@webitup.fr",
+      "web": "http://www.webitup.fr"
+    }
+  ],
+  "contributors":[
+    {
+      "name": "Mangled Deutz",
+      "email": "dev@webitup.fr",
+      "web": "http://www.webitup.fr"
+    },
+    {
+      "name": "Raildecom",
+      "email": "dev@webitup.fr",
+      "web": "http://www.webitup.fr"
+    }
+  ],
+  "bugs": "https://github.com/jsBoot/jsboot.js/issues",
+  "licenses": [
+     {
+         "type": "AferoGPL",
+         "url": "http://www.gnu.org/licenses/agpl-3.0.html"
+     }
+  ],
+  "repositories": [
+         {
+              "type": "git",
+              "url": "https://github.com/jsBoot/jsboot.js.git"
+         }
+  ],
+  "dependencies": {
+  },
+
+  "homepage": "http://airstrip.jsboot.com",
+
+  "directories": {
+    "src": "src",
+    "doc": "build/doc",
+    "test": "build/dist/jsboot.js/1.0/tests",
+    "lib": "build/dist/jsboot.js/1.0/"
+  }
+}

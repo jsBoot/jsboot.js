@@ -1,6 +1,10 @@
 // This is a nutshell meant to be aggregated AFTER loader-lab.js and spitfire.js
 
 (function() {
+  /*jshint supernew:true, browser:true*/
+  /*global define:true, exports:true, require:true, Spitfire:true*/
+  'use strict';
+
   // List of available static resources to be served via getPack
   var statics = '{SPIT-STATICS}';
   var spitBase = '{SPIT-BASE}/';
@@ -59,7 +63,9 @@
           ld.style(url, 'all');
           break;
         default:
-          throw new Error('Don\'t know how to load requested:' + url);
+          // Make jshint happy...
+          if (true)
+            throw new Error('Don\'t know how to load requested:' + url);
           break;
       }
     };
@@ -139,6 +145,7 @@
         bootLoader.wait(cbk);
         return bootLoader;
       };
+
     })();
 
 
@@ -236,29 +243,28 @@
             this.use('jquery', params.trunk ? 'trunk' : 1.8);
             // this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
             this.wait();
-            this.use('backbone', params.trunk ? 'trunk' : '0.9.2');
-            this.use('i18n', params.trunk ? 'trunk' : '3rc2');
+            this.use('backbone', params.trunk ? 'trunk' : '0.9');
+            this.use('i18n', params.trunk ? 'trunk' : '3.0');
             this.wait(function() {
               throw 'Backbone stack is largely untested. You may continue at your own risks';
             });
             break;
 
           case this.EMBER_STACK:
-            // XXX for now, ember pre doesn't support yet 1.8
-            this.use('jquery', params.trunk ? 'trunk' : 1.7);
-            this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
+            this.use('jquery', params.trunk ? 'trunk' : 1.8);
+            this.use('handlebars', params.trunk ? 'trunk' : '1.0', 'main');// runtime? 1.b6
             this.wait();
-            this.use('ember', params.trunk ? 'trunk' : '1.0.pre', sub ? 'debug' : 'prod');
-            this.use('i18n', params.trunk ? 'trunk' : '3rc2');
+            this.use('ember', params.trunk ? 'trunk' : '1.0', sub ? 'debug' : 'prod');
+            this.use('i18n', params.trunk ? 'trunk' : '3.0');
             this.wait();
             break;
 
           case this.TOOLING_STACK:
-            this.use('sh', params.trunk ? 'trunk' : '0.6', 'core');
-            this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'core');
+            this.use('prettify', params.trunk ? 'trunk' : '1.0', 'prettify');
+            this.use('jasmine', params.trunk ? 'trunk' : '1.2', 'core');
             this.wait();
-            this.use('sh', params.trunk ? 'trunk' : '0.6', 'js');
-            this.use('jasmine', params.trunk ? 'trunk' : '1.2.0', 'html');
+            this.use('prettify', params.trunk ? 'trunk' : '1.0', 'lang');
+            this.use('jasmine', params.trunk ? 'trunk' : '1.2', 'html');
             this.wait();
             break;
 
@@ -402,7 +408,8 @@
 // Spitfire.loader.script('http://localhost:8080/target/target-script-min.js');
 
 
-// Spitfire.loader.script('https://getfirebug.com/firebug-lite.js');//#startOpened=false,overrideConsole=true,enablePersistent=true');
+// Spitfire.loader.script('https://getfirebug.com/firebug-lite.js');//#startOpened=false,
+// overrideConsole=true,enablePersistent=true');
 // Spitfire.loader.wait(function(){
 //   alert("am waiting too!!!!");
 // });
@@ -430,12 +437,14 @@
 // jsBoot.core.debug = new (function(){
 //   this.preload = function(){
 //     // document.getElementsByTagName('html')[0].setAttribute('debug','true');
-//     Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
+//     Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,
+//     overrideConsole=true,enablePersistent=true');
 //   };
 
 //   this.open = function(){
 //     var max = 0;
-//     Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,overrideConsole=true,enablePersistent=true');
+//     Spitfire.loader.script('https://getfirebug.com/firebug-lite.js#startOpened=true,startInNewWindow=false,
+//     overrideConsole=true,enablePersistent=true');
 //     var opener = function(){
 //       max++;
 //       console.warn("-> Firebug lite attempt at booting...");

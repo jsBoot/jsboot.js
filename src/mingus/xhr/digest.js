@@ -96,16 +96,17 @@
 
 // Some PONYNASTY code to have IE support getters/setters on ANY object
 (function() {
-  window.fixIE = function(myObject) {
+  /*jshint browser:true*/
+  'use strict';
+
+  this.fixIE = function(myObject) {
     return myObject;
   };
 
   // Match IE8 profile: has defineProperty, and fail on javascript objects
   if ('defineProperty' in Object)
     try {
-      new (function() {
-        Object.defineProperty(this, 'blanket', {get: function() {return "don't you lie to me bastard!"}});
-      })();
+      Object.defineProperty({}, 'blanket', {get: function() {return 'don\'t you lie to me bastard!';}});
       // XXX namespace that
     }catch (e) {
       var x = Object.defineProperty;
@@ -131,7 +132,7 @@
         myObject.apply(_IEIsInfamous, arguments;
         return _IEIsInfamous;
       };*/
-      fixIE = function(myClass) {
+      this.fixIE = function(myClass) {
         return function() {
           // Create a fake DOM object
           var _IEIsInfamous = document.createElement('span');
@@ -141,7 +142,7 @@
         };
       };
     }
-})();
+}).apply(window);
 
 /**#nocode-*/
 
@@ -149,8 +150,11 @@
 
 
 
-
-(function(_root_, md5, http) {
+/*global Mingus:true*/
+(function(md5, http) {
+  /*global console:true, fixIE:true*/
+  /*jshint supernew:true*/
+  'use strict';
   // Private helpers
 
   // Private helper to build a client nonce
@@ -181,12 +185,12 @@
   };
 
   // Internal lock helper
-  var locker = function() {};
+  var Locker = function() {};
 
 
-  var digestModule = function(lock) {
-    if (!(lock instanceof locker) && (lock != 'dirtyTrix')) {
-      throw "You can't instanciate a DigestModule directly. Call Mingus.xhr.digestFactory.getDigest(host) instead.";
+  var DigestModule = function(lock) {
+    if (!(lock instanceof Locker) && (lock != 'dirtyTrix')) {
+      throw 'You can\'t instanciate a DigestModule directly. Call Mingus.xhr.digestFactory.getDigest(host) instead.';
     }
 
     console.debug('    |DE| constructed module');
@@ -257,8 +261,10 @@
         var t = http.digest.parse(header);
         console.debug('    |DE| parsing challenge', header, 'resulting in', t);
         // Aggregate onto last challenge info
-        for (var i in t)
-          _challenge[i] = t[i];
+        for (var i in t) {
+          if (t.hasOwnProperty(i))
+            _challenge[i] = t[i];
+        }
 
         /*        var oldrealm = (_challenge && 'realm' in _challenge) ? _challenge.realm : null;
         header = header.replace(/^Digest\s?/, '').split(/\s?,\s?/);
@@ -306,8 +312,10 @@
       };
 
       var authArray = [];
-      for (var key in auth)
-        authArray.push(key + '="' + auth[key] + '"');
+      for (var key in auth) {
+        if (auth.hasOwnProperty(key))
+          authArray.push(key + '="' + auth[key] + '"');
+      }
       console.debug('    |DE| generate response with', _challenge, authArray.join(', '));
       return 'Digest ' + authArray.join(', ');
     };
@@ -315,16 +323,16 @@
   };
 
   // IE crap
-  digestModule = fixIE(digestModule);
+  DigestModule = fixIE(DigestModule);
 
 
-  _root_.digest = new (function() {
+  this.digest = new (function() {
     // Modules per hosts
     var hosters = {};
 
     this.getEngine = function(host) {
       if (!(host in hosters))
-        hosters[host] = new digestModule(new locker());
+        hosters[host] = new DigestModule(new Locker());
       console.debug('    |DE| got module for host', host);
       return hosters[host];
     };
@@ -345,7 +353,7 @@
   })();
 
 
-})(Mingus.xhr, Mingus.crypto.md5, Mingus.grammar.HTTP);
+}).apply(Mingus.xhr, [Mingus.crypto.md5, Mingus.grammar.HTTP]);
 
 
 /*

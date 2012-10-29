@@ -36,7 +36,8 @@
  * http://medialize.github.com/URI.js/
  * https://github.com/medialize/URI.js
  * https://github.com/beaugunderson/javascript-ipv6
- * http://stackoverflow.com/questions/183485/can-anyone-recommend-a-good-free-javascript-for-punycode-to-unicode-conversion
+ * http://stackoverflow.com/questions/183485/can-anyone-recommend-a-good-free-javascript-for-punycode-
+ * to-unicode-conversion
  * https://github.com/bestiejs/punycode.js
  *
  * http://jsperf.com/url-parsing/2
@@ -47,11 +48,15 @@
  * @requires Mingus.grammar.ABNF
  */
 
+(function() {
+  /*global Mingus:true*/
+  /*jshint supernew:true*/
+  'use strict';
 
-Mingus.grammar.IRI = (function(ABNF) {
+  (function(ABNF) {
 
 
-  /*
+    /*
    dec-octet      = DIGIT                 ; 0-9
                   / %x31-39 DIGIT         ; 10-99
                   / "1" 2DIGIT            ; 100-199
@@ -84,39 +89,39 @@ Mingus.grammar.IRI = (function(ABNF) {
 
   */
 
-  // ip addressing
-  var _decOctet = ABNF.alternate(
-      ABNF.DIGIT,
-      '[1-9]' + ABNF.makeClass(ABNF.DIGIT),
-      '1' + ABNF.repeat(ABNF.DIGIT, 2),
-      '2[0-4]' + ABNF.makeClass(ABNF.DIGIT),
-      '25[0-5]'
-      );
+    // ip addressing
+    var _decOctet = ABNF.alternate(
+        ABNF.DIGIT,
+        '[1-9]' + ABNF.makeClass(ABNF.DIGIT),
+        '1' + ABNF.repeat(ABNF.DIGIT, 2),
+        '2[0-4]' + ABNF.makeClass(ABNF.DIGIT),
+        '25[0-5]'
+        );
 
-  var _ipv4address = _decOctet + '\\.' + _decOctet + '\\.' + _decOctet + '\\.' + _decOctet;
+    var _ipv4address = _decOctet + '\\.' + _decOctet + '\\.' + _decOctet + '\\.' + _decOctet;
 
-  var _h16 = ABNF.repeat(ABNF.HEXDIG, 1, 4);
-  var _ls32 = ABNF.alternate(_h16 + '[:]' + _h16, _ipv4address);
+    var _h16 = ABNF.repeat(ABNF.HEXDIG, 1, 4);
+    var _ls32 = ABNF.alternate(_h16 + '[:]' + _h16, _ipv4address);
 
-  var ipv6address = ABNF.alternate(
-      ABNF.repeat(_h16 + '[:]', 6, 6) + _ls32,
-      '[:][:]' + ABNF.repeat(_h16 + '[:]', 5, 5) + _ls32,
-      ABNF.optional(_h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 4, 4) + _ls32,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 1) + _h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 3, 3) + _ls32,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 2) + _h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 2, 2) + _ls32,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 3) + _h16) + '[:][:]' + _h16 + '[:]' + _ls32,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 4) + _h16) + '[:][:]' + + _ls32,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 5) + _h16) + '[:][:]' + _h16,
-      ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 6) + _h16) + '[:][:]'
-      );
+    var ipv6address = ABNF.alternate(
+        ABNF.repeat(_h16 + '[:]', 6, 6) + _ls32,
+        '[:][:]' + ABNF.repeat(_h16 + '[:]', 5, 5) + _ls32,
+        ABNF.optional(_h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 4, 4) + _ls32,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 1) + _h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 3, 3) + _ls32,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 2) + _h16) + '[:][:]' + ABNF.repeat(_h16 + '[:]', 2, 2) + _ls32,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 3) + _h16) + '[:][:]' + _h16 + '[:]' + _ls32,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 4) + _h16) + '[:][:]' + _ls32,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 5) + _h16) + '[:][:]' + _h16,
+        ABNF.optional(ABNF.repeat(_h16 + '[:]', 0, 6) + _h16) + '[:][:]'
+        );
 
-  var unreserved = ABNF.ALPHA + ABNF.DIGIT + '\\-._~';
-  var subDelims = '!$&\'()*+,;=';
-  var ipvfuture = 'v' + ABNF.repeat(ABNF.HEXDIG, 1) + '[.]' + ABNF.repeat(unreserved + subDelims + ':', 1);
-  var ipliteral = '\\[' + ABNF.alternate(ipv6address, ipvfuture) + '\\]';
+    var unreserved = ABNF.ALPHA + ABNF.DIGIT + '\\-._~';
+    var subDelims = '!$&\'()*+,;=';
+    var ipvfuture = 'v' + ABNF.repeat(ABNF.HEXDIG, 1) + '[.]' + ABNF.repeat(unreserved + subDelims + ':', 1);
+    var ipliteral = '\\[' + ABNF.alternate(ipv6address, ipvfuture) + '\\]';
 
 
-  /*
+    /*
    pct-encoded    = "%" HEXDIG HEXDIG
 
 
@@ -141,37 +146,37 @@ Mingus.grammar.IRI = (function(ABNF) {
    scheme         = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
   */
 
-  var pctEncoded = '%' + ABNF.makeClass(ABNF.HEXDIG) + ABNF.makeClass(ABNF.HEXDIG);
+    var pctEncoded = '%' + ABNF.makeClass(ABNF.HEXDIG) + ABNF.makeClass(ABNF.HEXDIG);
 
-  // XXX don't know how to access the full range...
-  var ucschar =
-      '\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF'; /*+
+    // XXX don't know how to access the full range...
+    var ucschar =
+        '\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF'; /*+
    '\\u10000-\\u1FFFD\\u20000-\\u2FFFD\\u30000-\\u3FFFD' +
    '\\u40000-\\u4FFFD\\u50000-\\u5FFFD\\u60000-\\u6FFFD' +
    '\\u70000-\\u7FFFD\\u80000-\\u8FFFD\\u90000-\\u9FFFD' +
    '\\uA0000-\\uAFFFD\\uB0000-\\uBFFFD\\uC0000-\\uCFFFD' +
    '\\uD0000-\\uDFFFD\\uE1000-\\uEFFFD'*/
 
-  //var ucschar = '\\uA0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF';
+    //var ucschar = '\\uA0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF';
 
-  // User info
-  var iunreserved = ABNF.ALPHA + ABNF.DIGIT + '\\-._~' + ucschar;
-  var iuserinfo = ABNF.repeat(ABNF.alternate(iunreserved + subDelims + ':', pctEncoded));
-  var iregName = ABNF.repeat(ABNF.alternate(iunreserved + subDelims, pctEncoded));
+    // User info
+    var iunreserved = ABNF.ALPHA + ABNF.DIGIT + '\\-._~' + ucschar;
+    var iuserinfo = ABNF.repeat(ABNF.alternate(iunreserved + subDelims + ':', pctEncoded));
+    var iregName = ABNF.repeat(ABNF.alternate(iunreserved + subDelims, pctEncoded));
 
-  // Host
-  var ihost = ABNF.alternate(ipliteral, _ipv4address, iregName);
-  var port = ABNF.repeat(ABNF.makeClass(ABNF.DIGIT));
+    // Host
+    var ihost = ABNF.alternate(ipliteral, _ipv4address, iregName);
+    var port = ABNF.repeat(ABNF.makeClass(ABNF.DIGIT));
 
-  // Auth
-  var iauthority = ABNF.optional('(' + iuserinfo + ')@') + '(' + ihost + ')' + ABNF.optional('[:](' + port + ')');
+    // Auth
+    var iauthority = ABNF.optional('(' + iuserinfo + ')@') + '(' + ihost + ')' + ABNF.optional('[:](' + port + ')');
 
-  // Scheme... the easy bits
-  var scheme = ABNF.makeClass(ABNF.ALPHA) + ABNF.repeat(ABNF.ALPHA + ABNF.DIGIT + '+.\\-');
+    // Scheme... the easy bits
+    var scheme = ABNF.makeClass(ABNF.ALPHA) + ABNF.repeat(ABNF.ALPHA + ABNF.DIGIT + '+.\\-');
 
 
 
-  /*
+    /*
 
    iprivate       = %xE000-F8FF / %xF0000-FFFFD / %x100000-10FFFD
    ipchar         = iunreserved / pct-encoded / sub-delims / ":"
@@ -180,13 +185,13 @@ Mingus.grammar.IRI = (function(ABNF) {
    ifragment      = *( ipchar / "/" / "?" )
   */
 
-  // Fragment and query. XXXdmp Astral here? Is it actually working?
-  var iprivate = '\\uE000-\\uF8FF' /* + '\\uF0000-\\uFFFFD\\u100000-\\u10FFFD'*/;
-  var ipchar = ABNF.alternate(iunreserved + subDelims + ':@', pctEncoded);
-  var iquery = ABNF.repeat(ABNF.alternate(ipchar, iprivate + '\\/?'));
-  var ifragment = ABNF.repeat(ABNF.alternate(ipchar, '\\/?'));
+    // Fragment and query. XXXdmp Astral here? Is it actually working?
+    var iprivate = '\\uE000-\\uF8FF' /* + '\\uF0000-\\uFFFFD\\u100000-\\u10FFFD'*/;
+    var ipchar = ABNF.alternate(iunreserved + subDelims + ':@', pctEncoded);
+    var iquery = ABNF.repeat(ABNF.alternate(ipchar, iprivate + '\\/?'));
+    var ifragment = ABNF.repeat(ABNF.alternate(ipchar, '\\/?'));
 
-  /*
+    /*
    isegment       = *ipchar
    isegment-nz    = 1*ipchar
    isegment-nz-nc = 1*( iunreserved / pct-encoded / sub-delims
@@ -212,29 +217,29 @@ Mingus.grammar.IRI = (function(ABNF) {
                   / ipath-empty
   */
 
-  // Paths
-  var isegment = ABNF.repeat(ipchar);
-  var isegmentNz = ABNF.repeat(ipchar, 1);
-  var isegmentNzNc = ABNF.repeat(ABNF.alternate(iunreserved + subDelims + '@', pctEncoded), 1);
+    // Paths
+    var isegment = ABNF.repeat(ipchar);
+    var isegmentNz = ABNF.repeat(ipchar, 1);
+    var isegmentNzNc = ABNF.repeat(ABNF.alternate(iunreserved + subDelims + '@', pctEncoded), 1);
 
-  var ipathEmpty = '';//'.{0}'; // errrrr... houston... 0<ipchar> wtf?
-  var ipathAbempty = ABNF.repeat('\\/' + isegment);
-  var ipathAbsolute = '\\/' + ABNF.optional(isegmentNz + ipathAbempty);
-  var ipathNoscheme = isegmentNzNc + ipathAbempty;
-  var ipathRootless = isegmentNz + ipathAbempty;
+    var ipathEmpty = '';//'.{0}'; // errrrr... houston... 0<ipchar> wtf?
+    var ipathAbempty = ABNF.repeat('\\/' + isegment);
+    var ipathAbsolute = '\\/' + ABNF.optional(isegmentNz + ipathAbempty);
+    var ipathNoscheme = isegmentNzNc + ipathAbempty;
+    var ipathRootless = isegmentNz + ipathAbempty;
 
-  var ihierPart = ABNF.alternate('\\/\\/' + iauthority + '(' + ipathAbempty + ')', '(' + ipathAbsolute + ')',
-      '(' + ipathRootless + ')', ipathEmpty);
-
-
-  var irelativePart = ABNF.alternate('\\/\\/' + iauthority + '(' + ipathAbempty + ')', '(' + ipathAbsolute + ')',
-      '(' + ipathNoscheme + ')', ipathEmpty);
-  var irelativeRef = irelativePart + ABNF.optional('[?](' + iquery + ')') + ABNF.optional('#(' + ifragment + ')');
-
-  var iri = '(' + scheme + ')[:]' + ihierPart + '(?:[?](' + iquery + '))?(?:#(' + ifragment + '))?';
+    var ihierPart = ABNF.alternate('\\/\\/' + iauthority + '(' + ipathAbempty + ')', '(' + ipathAbsolute + ')',
+        '(' + ipathRootless + ')', ipathEmpty);
 
 
-  /*
+    var irelativePart = ABNF.alternate('\\/\\/' + iauthority + '(' + ipathAbempty + ')', '(' + ipathAbsolute + ')',
+        '(' + ipathNoscheme + ')', ipathEmpty);
+    var irelativeRef = irelativePart + ABNF.optional('[?](' + iquery + ')') + ABNF.optional('#(' + ifragment + ')');
+
+    var iri = '(' + scheme + ')[:]' + ihierPart + '(?:[?](' + iquery + '))?(?:#(' + ifragment + '))?';
+
+
+    /*
 
 
    IRI            = scheme ":" ihier-part [ "?" iquery ]
@@ -262,19 +267,19 @@ Mingus.grammar.IRI = (function(ABNF) {
   */
 
 
-  var reg = new RegExp('^' + ABNF.alternate(iri, irelativeRef) + '$');
+    var reg = new RegExp('^' + ABNF.alternate(iri, irelativeRef) + '$');
 
-  return new (function() {
+    this.IRI = new (function() {
 
-    // Some helpers tokens to be used by other grammars out of here (HTTP)
-    // Almost an iri, without fragment neither matching
-    this.ABSOLUTE_IRI = scheme + '[:]' + ABNF.alternate('\\/\\/' + iauthority + ipathAbempty, ipathAbsolute,
-        ipathRootless, ipathEmpty) + '(?:[?]' + iquery + ')?';
+      // Some helpers tokens to be used by other grammars out of here (HTTP)
+      // Almost an iri, without fragment neither matching
+      this.ABSOLUTE_IRI = scheme + '[:]' + ABNF.alternate('\\/\\/' + iauthority + ipathAbempty, ipathAbsolute,
+          ipathRootless, ipathEmpty) + '(?:[?]' + iquery + ')?';
 
-    // Absolute path
-    this.ABSOLUTE_PATH = ipathAbsolute;
+      // Absolute path
+      this.ABSOLUTE_PATH = ipathAbsolute;
 
-    /**
+      /**
      * Use this to build-up a regexp able to parse IRIs.
      * If used non-globally, will return separate matches for scheme,
      * user, host, port, path, query and fragments parts.
@@ -286,9 +291,9 @@ Mingus.grammar.IRI = (function(ABNF) {
      * @static
      * @constant
      */
-    this.IRI_REFERENCE = ABNF.alternate(iri, irelativeRef);
+      this.IRI_REFERENCE = ABNF.alternate(iri, irelativeRef);
 
-    /**
+      /**
      * Parses IRI and returns a prepped object, if this is a valid IRI, undefined otherwise.
      * Note that at this time, no normalization is made.
      *
@@ -299,37 +304,39 @@ Mingus.grammar.IRI = (function(ABNF) {
      * @param  {String} someStringIRI The IRI to split-up.
      * @return {Object} The object representing the IRI (scheme, user, host, port, path, query, fragment).
      */
-    this.parse = function(someStringIRI) {
-      var r = someStringIRI.match(reg);
-      var e;
-      r.shift();
-      if (r) {
-        e = {
-          scheme: r.shift(),
-          user: r.shift(),
-          host: r.shift(),
-          port: r.shift()
-        };
-        var p1 = r.shift(), p2 = r.shift(), p3 = r.shift();
-        e.path = p1 ? p1 : (p2 ? p2 : p3);
-        e.query = r.shift();
-        e.fragment = r.shift();
-
-        if (!e.scheme) {
-          e.user = r.shift();
-          e.host = r.shift();
-          e.port = r.shift();
-          p1 = r.shift();
-          p2 = r.shift();
-          p3 = r.shift();
+      this.parse = function(someStringIRI) {
+        var r = someStringIRI.match(reg);
+        var e;
+        r.shift();
+        if (r) {
+          e = {
+            scheme: r.shift(),
+            user: r.shift(),
+            host: r.shift(),
+            port: r.shift()
+          };
+          var p1 = r.shift(), p2 = r.shift(), p3 = r.shift();
           e.path = p1 ? p1 : (p2 ? p2 : p3);
           e.query = r.shift();
           e.fragment = r.shift();
-        }
-      }
-      // 5, 6, 7 -> merge
-      return e;
-    };
-  })();
 
-})(Mingus.grammar.ABNF);
+          if (!e.scheme) {
+            e.user = r.shift();
+            e.host = r.shift();
+            e.port = r.shift();
+            p1 = r.shift();
+            p2 = r.shift();
+            p3 = r.shift();
+            e.path = p1 ? p1 : (p2 ? p2 : p3);
+            e.query = r.shift();
+            e.fragment = r.shift();
+          }
+        }
+        // 5, 6, 7 -> merge
+        return e;
+      };
+    })();
+
+  }).apply(Mingus.grammar, [Mingus.grammar.ABNF]);
+
+})();

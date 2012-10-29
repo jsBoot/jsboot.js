@@ -22,9 +22,13 @@
 /**#nocode+*/
 
 // XXX digest and key engine are used with host alone (no port) for now - which is somewhat wrong
-(function(_root_, iri, ake, dig, transport) {
 
-  _root_.XMLHttpRequest = function() {
+/*global Mingus:true*/
+(function(iri, ake, dig, transport) {
+  'use strict';
+
+  /*global console:true, fixIE:true*/
+  this.XMLHttpRequest = function() {
 
     // UA-like signature
     var _requestedWith = 'XMLHttpRequest';
@@ -44,31 +48,22 @@
     var _iri, _url;
 
     // Read-only accessors that map directly to the original XHR
-    var _attrReaders = ['readyState', 'status', 'statusText', 'responseText', 'responseXML', 'upload', 'UNSENT',
-      'OPENED', 'HEADERS_RECEIVED', 'LOADING', 'DONE'];
-    for (var i = 0; i < _attrReaders.length; i++) {
-      (function() {
-        var attrName = _attrReaders[i];
-
-        Object.defineProperty(self, attrName, {
-          get: function() { return _xhr[attrName]; },
-          enumerable: true
-        });
-      })();
-    }
+    ['readyState', 'status', 'statusText', 'responseText', 'responseXML', 'upload', 'UNSENT',
+      'OPENED', 'HEADERS_RECEIVED', 'LOADING', 'DONE'].forEach(function(attrName) {
+      Object.defineProperty(this, attrName, {
+        get: function() { return _xhr[attrName]; },
+        enumerable: true
+      });
+    }, this);
 
     // Read-write accessors that map directly to the original XHR
-    var _attrAccessors = ['timeout', 'asBlob', 'followRedirects', 'withCredentials'];
-    for (var i = 0; i < _attrAccessors.length; i++) {
-      (function() {
-        var attrName = _attrAccessors[i];
-        Object.defineProperty(self, attrName, {
-          get: function() { return _xhr[attrName]; },
-          set: function(value) { _xhr[attrName] = value; },
-          enumerable: true
-        });
-      })();
-    }
+    ['timeout', 'asBlob', 'followRedirects', 'withCredentials'].forEach(function(attrName) {
+      Object.defineProperty(this, attrName, {
+        get: function() { return _xhr[attrName]; },
+        set: function(value) { _xhr[attrName] = value; },
+        enumerable: true
+      });
+    }, this);
 
     // Methods that map directly to the original XHR
     this.overrideMimeType = function(mime) {
@@ -99,7 +94,7 @@
       _headers[name] = value;
     };
 
-    this.open = function(method, url, async, user, password) {
+    this.open = function(method, url, async/*, user, password*/) {
       console.debug('          |X| open', method, url, async);
 
       // First run, store
@@ -112,7 +107,7 @@
 
       // Get a transport
       var i = _iri.host + (_iri.port ? (':' + _iri.port) : '');
-      _xhr = transport(i, _root_.XMLHttpRequest.gatePath);
+      _xhr = transport(i, this.XMLHttpRequest.gatePath);
       setupNative();
 
       // Open
@@ -172,8 +167,10 @@
             // Re-open
             self.open();
             // Re-set headers
-            for (var name in _headers)
-              _xhr.setRequestHeader(name, _headers[name]);
+            for (var name in _headers) {
+              if (_headers.hasOwnProperty(name))
+                _xhr.setRequestHeader(name, _headers[name]);
+            }
             // Don't end-up in a dead-loop
             _xhr.onreadystatechange = function() {
               self.onreadystatechange.call(self);
@@ -191,9 +188,9 @@
   };
 
   // IE crap take 2
-  _root_.XMLHttpRequest = fixIE(_root_.XMLHttpRequest);
+  this.XMLHttpRequest = fixIE(this.XMLHttpRequest);
 
-  _root_.XMLHttpRequest.gatePath;
+  this.XMLHttpRequest.gatePath = undefined;
   // Allow to set the _gatePath manually
   // var _gatePath;
 
@@ -208,6 +205,6 @@
   // });
 
 
-})(Mingus.xhr, Mingus.grammar.IRI, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, Mingus.xhr.gateOpener.getBridge);
+}).apply(Mingus.xhr, [Mingus.grammar.IRI, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, Mingus.xhr.gateOpener.getBridge]);
 
 /**#nocode-*/

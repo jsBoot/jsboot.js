@@ -1,64 +1,66 @@
 /**
+ * Basic utility class providing regexp atoms for http (headers).
+ *
+ * @file
+ * @summary Provides basic regexps to parse http.
+ * @see http://tools.ietf.org/html/rfc2616.
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
- * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
- * @file Basic utility class providing regexp atoms for http (headers).
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/HTTP.js{PUKE-PACKAGE-GIT-REV}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/mingus/grammar/HTTP.js{PUKE-GIT-REVISION}
  */
 
 /**
- * @kind namespace
- * @summary Provides basic regexps to parse http. Read <a href="http://tools.ietf.org/html/rfc2616">RFC</a>.
+ * @namespace
+ * @name Mingus.grammar.HTTP
  * @requires Mingus.grammar.ABNF
  * @requires Mingus.grammar.IRI
- * @name HTTP
- * @memberof Mingus.grammar
  */
-
 
 /**
  * A simple method to get an object from a block of HTTP headers
- * @memberof Mingus.grammar.HTTP
- * @name parseHeaders
- * @kind function
+ * @name Mingus.grammar.HTTP.parseHeaders
+ * @function
  * @param {String} message The string to be parsed.
  * @returns {Object} The parsed headers
  */
 
 /**
- * @kind namespace
+ * @namespace
  * @summary A subclass to handle the parsing of digest headers.
- * @memberof Mingus.grammar.HTTP
- * @name digest
+ * @name Mingus.grammar.HTTP.digest
  */
 
 /**
  * @summary A method to parse wwwauthenticate headers
- * @kind function
- * @memberof Mingus.grammar.HTTP.digest
- * @name parse
+ * @function
+ * @name Mingus.grammar.HTTP.digest.parse
  * @param  {String} message The header value to be parsed.
  * @returns {Object} The parsed result
  */
 
-(function(_root_, ABNF, IRI) {
-  _root_.HTTP = new (function() {
-    // A simple helper to build case insensitive classes from a given string
-    // XXX beware this will break on code points for ex - this is meant for *plain alphanum strings and such*
-    var laxCase = function(word) {
-      var c = '';
-      for (var i = 0; i < word.length; i++) {
-        if (/[a-z]/i.test(word.charAt(i)))
-          c += '[' + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + ']';
-        else
-          c += word.charAt(i);
-      }
-      return c;
-    };
+(function() {
+  /*global Mingus*/
+  /*jshint supernew:true*/
+  'use strict';
 
+  // A simple helper to build case insensitive classes from a given string
+  // XXX beware this will break on code points for ex - this is meant for *plain alphanum strings and such*
+  var laxCase = function(word) {
+    var c = '';
+    for (var i = 0; i < word.length; i++) {
+      if (/[a-z]/i.test(word.charAt(i)))
+        c += '[' + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + ']';
+      else
+        c += word.charAt(i);
+    }
+    return c;
+  };
+
+  (function(ABNF, IRI) {
     /*
 The following are the same as ABNF:
        OCTET          = <any 8-bit sequence of data>
@@ -123,7 +125,7 @@ The following are the same as ABNF:
                       | "{" | "}" | SP | HT
 
     */
-    var separators = '[\(\)<>@,;:\\"/\[\]?={}' + ABNF.SP + ABNF.HTAB + ']';
+    var separators = '[()<>@,;:\\\\"/\\[\\]?={}' + ABNF.SP + ABNF.HTAB + ']';
     var token = ABNF.repeat('\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2E\\x30-\\x39\\x41-\\x5A\\x5E-\\x7A\\x7C\\x7E', 1);
 
     /*
@@ -160,7 +162,7 @@ The following are the same as ABNF:
        HTTP-Version   = "HTTP" "/" 1*DIGIT "." 1*DIGIT
     */
 
-    var HTTPVersion = 'HTTP\\/' + ABNF.repeat(ABNF.DIGIT, 1) + '[.]' + ABNF.repeat(ABNF.DIGIT, 1);
+    // var HTTPVersion = 'HTTP\\/' + ABNF.repeat(ABNF.DIGIT, 1) + '[.]' + ABNF.repeat(ABNF.DIGIT, 1);
 
     /*
        field-content  = <the OCTETs making up the field-value
@@ -181,115 +183,119 @@ The following are the same as ABNF:
     // A folding regexp to clean-up values
     var unfold = new RegExp('(' + ABNF.repeat(LWS, 1) + ')', 'g');
 
-    // This method is meant to parse headers
-    this.parseHeaders = function(message) {
-      var result, key, value, ret = [];
-      while (headersMatcher.lastIndex < message.length && (result = headersMatcher.exec(message))) {
-        value = result.pop();
-        // Unfold value and strip
-        // XXX Some values may support specific grammar processing - which is beyond scope for now
-        value = value.replace(unfold, ' ').trim();
-        key = result.pop().toLowerCase();
-        ret.push({key: key, value: value});
-      }
-      headersMatcher.lastIndex = 0;
-      return ret;
-    };
-
-
-    // Specific headers parsing
-    // Digest
-    // XXX rename to WWWAuthenticate
-    this.digest = new (function() {
-      this.ALGORITHM = {
-        MD5: 'md5',
-        MD5_SESS: 'md5-sess',
-        UNKNOWN: token
-      };
-      this.QOP = {
-        AUTH: 'auth',
-        AUTH_INT: 'auth-int',
-        UNKNOWN: token
-      };
-
-      var defAlgorithms = [laxCase(this.ALGORITHM.MD5), laxCase(this.ALGORITHM.MD5_SESS), this.ALGORITHM.UNKNOWN];
-      var defQops = [laxCase(this.QOP.AUTH), laxCase(this.QOP.AUTH_INT), this.QOP.UNKNOWN];
-
-      // Shortcut to match the string inside
-      var inQuotedString = '"(' + ABNF.repeat(ABNF.alternate(qdtext, quotedPair)) + ')"';
-      // Generic auth parameter
-      var authParam = '(' + token + ')=' + ABNF.alternate('(' + token + ')', inQuotedString);
-
-      // QOP (lax)
-      var qopValue = ABNF.alternate.apply(ABNF, defQops);
-      var qopOptions = '(' + laxCase('qop') + ')="(' + hashRule(qopValue) + ')"';
-
-      // Algorithm (be lax, and use the definitions)
-      var algorithmValue = ABNF.alternate.apply(ABNF, defAlgorithms);
-      var algorithm = '(' + laxCase('algorithm') + ')=(?:(' + algorithmValue + ')|"(' + algorithmValue + ')")';
-
-      // Stale (lax)
-      var stale = '(' + laxCase('stale') + ')=' +
-          ABNF.alternate(
-          '(' + laxCase('true') + '|' + laxCase('false') + ')',
-          '"(' + laxCase('true') + '|' + laxCase('false') + ')"'
-          );
-      // Opaque
-      var opaque = '(' + laxCase('opaque') + ')=' + inQuotedString;
-      // Nonce
-      var nonce = '(' + laxCase('nonce') + ')=' + inQuotedString;
-      // Domain
-      var uri = ABNF.alternate(IRI.ABSOLUTE_IRI, IRI.ABSOLUTE_PATH);
-      var domain = '(' + laxCase('domain') + ')="' + uri + ABNF.repeat(ABNF.repeat(ABNF.SP, 1), uri) + '"';
-      // Realm
-      var realm = '(' + laxCase('realm') + ')=' + inQuotedString + '"';
-
-      //      ( *LWS element *( *LWS "," *LWS element ))
-
-      var digestChallenge = ABNF.optional(LWS) + ABNF.alternate(opaque, nonce, stale, domain, realm, algorithm,
-          qopOptions, authParam) + ABNF.optional(LWS);//);
-
-      // Digest nonce="1322498516.563854:C914:065ab6443338bf38d97ce187c0b77579", realm="dev@roxee", algorithm="MD5",
-      // opaque="313305622417105276632820270567935396659", qop="auth", stale="false"
-      this.parse = function(message) {
-        var ret = {
-          stale: false,
-          qop: '',
-          algorithm: '',
-          domain: null
-        };
-
-        var matcher = new RegExp('^Digest', 'g');
-
-        if (result = matcher.exec(message)) {
-          var s = matcher.lastIndex;
-          // This is very lax parsing, which is pretty much OK
-          matcher = new RegExp(digestChallenge + '(?:,)?', 'g');
-          matcher.lastIndex = s;
-          var result, key, value;
-          while (matcher.lastIndex < message.length && (result = matcher.exec(message))) {
-            value = key = null;
-            do {
-              value = result.pop();
-            }while (!value);
-            do {
-              key = result.pop();
-            }while (!key);
-            ret[key.toLowerCase()] = value;
-          }
-          matcher.lastIndex = 0;
+    this.HTTP = new (function() {
+      // This method is meant to parse headers
+      this.parseHeaders = function(message) {
+        var result, key, value, ret = [];
+        while (headersMatcher.lastIndex < message.length && (result = headersMatcher.exec(message))) {
+          value = result.pop();
+          // Unfold value and strip
+          // XXX Some values may support specific grammar processing - which is beyond scope for now
+          value = value.replace(unfold, ' ').trim();
+          key = result.pop().toLowerCase();
+          ret.push({key: key, value: value});
         }
-
-        ret.stale = (ret.stale.toLowerCase() == 'true') ? true : false;
-        ret.qop = ret.qop.toLowerCase();
-        ret.algorithm = ret.algorithm.toLowerCase();
-        ret.domain = ret.domain ? ret.domain.split(new RegExp(ABNF.repeat(ABNF.SP, 1))) : [];
+        headersMatcher.lastIndex = 0;
         return ret;
       };
 
+
+      // Specific headers parsing
+      // Digest
+      // XXX rename to WWWAuthenticate
+      this.digest = new (function() {
+        this.ALGORITHM = {
+          MD5: 'md5',
+          MD5_SESS: 'md5-sess',
+          UNKNOWN: token
+        };
+        this.QOP = {
+          AUTH: 'auth',
+          AUTH_INT: 'auth-int',
+          UNKNOWN: token
+        };
+
+        var defAlgorithms = [laxCase(this.ALGORITHM.MD5), laxCase(this.ALGORITHM.MD5_SESS), this.ALGORITHM.UNKNOWN];
+        var defQops = [laxCase(this.QOP.AUTH), laxCase(this.QOP.AUTH_INT), this.QOP.UNKNOWN];
+
+        // Shortcut to match the string inside
+        var inQuotedString = '"(' + ABNF.repeat(ABNF.alternate(qdtext, quotedPair)) + ')"';
+        // Generic auth parameter
+        var authParam = '(' + token + ')=' + ABNF.alternate('(' + token + ')', inQuotedString);
+
+        // QOP (lax)
+        var qopValue = ABNF.alternate.apply(ABNF, defQops);
+        var qopOptions = '(' + laxCase('qop') + ')="(' + hashRule(qopValue) + ')"';
+
+        // Algorithm (be lax, and use the definitions)
+        var algorithmValue = ABNF.alternate.apply(ABNF, defAlgorithms);
+        var algorithm = '(' + laxCase('algorithm') + ')=(?:(' + algorithmValue + ')|"(' + algorithmValue + ')")';
+
+        // Stale (lax)
+        var stale = '(' + laxCase('stale') + ')=' +
+            ABNF.alternate(
+            '(' + laxCase('true') + '|' + laxCase('false') + ')',
+            '"(' + laxCase('true') + '|' + laxCase('false') + ')"'
+            );
+        // Opaque
+        var opaque = '(' + laxCase('opaque') + ')=' + inQuotedString;
+        // Nonce
+        var nonce = '(' + laxCase('nonce') + ')=' + inQuotedString;
+        // Domain
+        var uri = ABNF.alternate(IRI.ABSOLUTE_IRI, IRI.ABSOLUTE_PATH);
+        var domain = '(' + laxCase('domain') + ')="' + uri + ABNF.repeat(ABNF.repeat(ABNF.SP, 1), uri) + '"';
+        // Realm
+        var realm = '(' + laxCase('realm') + ')=' + inQuotedString + '"';
+
+        //      ( *LWS element *( *LWS "," *LWS element ))
+
+        var digestChallenge = ABNF.optional(LWS) + ABNF.alternate(opaque, nonce, stale, domain, realm, algorithm,
+            qopOptions, authParam) + ABNF.optional(LWS);//);
+
+        // Digest nonce="1322498516.563854:C914:065ab6443338bf38d97ce187c0b77579", realm="dev@roxee", algorithm="MD5",
+        // opaque="313305622417105276632820270567935396659", qop="auth", stale="false"
+        this.parse = function(message) {
+          var ret = {
+            stale: false,
+            qop: '',
+            algorithm: '',
+            domain: null
+          };
+
+          var matcher = new RegExp('^Digest', 'g');
+
+          var result = matcher.exec(message);
+          if (result) {
+            var s = matcher.lastIndex;
+            // This is very lax parsing, which is pretty much OK
+            matcher = new RegExp(digestChallenge + '(?:,)?', 'g');
+            matcher.lastIndex = s;
+            var key, value;
+            while (matcher.lastIndex < message.length && (result = matcher.exec(message))) {
+              value = key = null;
+              do {
+                value = result.pop();
+              }while (!value);
+              do {
+                key = result.pop();
+              }while (!key);
+              ret[key.toLowerCase()] = value;
+            }
+            matcher.lastIndex = 0;
+          }
+
+          ret.stale = (ret.stale.toLowerCase() == 'true') ? true : false;
+          ret.qop = ret.qop.toLowerCase();
+          ret.algorithm = ret.algorithm.toLowerCase();
+          ret.domain = ret.domain ? ret.domain.split(new RegExp(ABNF.repeat(ABNF.SP, 1))) : [];
+          return ret;
+        };
+
+      })();
     })();
-  })();
-})(Mingus.grammar, Mingus.grammar.ABNF, Mingus.grammar.IRI);
+  }).apply(Mingus.grammar, [Mingus.grammar.ABNF, Mingus.grammar.IRI]);
+
+})();
 
 /*
 

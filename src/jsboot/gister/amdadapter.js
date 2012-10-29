@@ -11,9 +11,10 @@
 
 // Might read almond for culture https://raw.github.com/jrburke/almond/latest/almond.js
 
-'use strict';
-
 (function() {
+  /*global define:true, require:true, exports:true*/
+  'use strict';
+
   /**
    * A crappy helper to be able to live with or without AMD, and define modules or produce
    * classic namespace objects indifferently.
@@ -75,15 +76,17 @@
       identifier = identifier.replace('.', '/');
 
       if (isLoader) {
-        define(identifier, function(require, exports, module) {
+        define(identifier, function(require, exports/*, module*/) {
           // Resolve deps
           deps = deps.map(function(item) {
             return require(item);
           });
           internalObj = {};
           internalObj = factory.apply(internalObj, deps) || internalObj;
-          for (var i in internalObj)
-            exports[i] = internalObj[i];
+          for (var i in internalObj) {
+            if (internalObj.hasOwnProperty(i))
+              exports[i] = internalObj[i];
+          }
         });
       }
       // XXX not ready for COJS

@@ -1,23 +1,27 @@
 /**
+ * This file is a build-system helper and can be safely ignored.
+ *
+ * @file
+ * @summary "Strict" tester.
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
- * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
- * @file The strict wrapper - this file is a build-system helper and can be safely ignored.
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/strict.js{PUKE-PACKAGE-GIT-REV}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/strict.js{PUKE-GIT-REVISION}
  */
 
-'use strict';
-
-(function teststrict() {
-  var isStrict = false;
+(function() {
+  // fool linter
+  /*global whateverthenameofthis:true, console:true*/
+  'use strict';
   try {
-    whatever = 'will crash';
+    whateverthenameofthis = 'will crash';
+    try {
+      console.error('This doesn\'t run in strict mode!!!');
+    }catch (e) {
+    }
   }catch (e) {
-    isStrict = true;
   }
-  if (!isStrict)
-    console.error("This doesn't run in strict mode!!!");
-})();
+}).apply(this);

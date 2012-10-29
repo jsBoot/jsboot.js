@@ -1,9 +1,13 @@
-'use strict';
+(function() {
+  /*global console:true, jsBoot:true*/
+  /*jshint browser:true*/
+  'use strict';
 
-(function(scope) {
+  var scope = jsBoot.core;
+
   var err = this.Error;
   scope.Error = function(name, message) {
-    if ((this == window) || (this == undefined)) {
+    if ((this == window) || (this === undefined)) {
       console.warn('Google, please fix you shit. Error is a constructor damnit!', arguments);
       return;
     }
@@ -13,23 +17,22 @@
       this.stack = ('printStackTrace' in this) ? this.printStackTrace() : [];
   };
 
-  for (var i in this.Error.prototype)
-    scope.Error.prototype[i] = this.Error.prototype[i];
-
-
-  var errs = ['NOT_IMPLEMENTED', 'UNSPECIFIED', 'NOT_INITIALIZED', 'WRONG_ARGUMENTS',
-    'UNSUPPORTED', 'NATURAL_BORN_CRASH'];
-
-  errs.forEach(function(item, idx) {
+  ['NOT_IMPLEMENTED', 'UNSPECIFIED', 'NOT_INITIALIZED', 'WRONG_ARGUMENTS',
+   'UNSUPPORTED', 'NATURAL_BORN_CRASH'].forEach(function(item, idx) {
     scope.Error[item] = scope.Error.prototype[item] = idx;
   });
+
+  for (var i in this.Error.prototype) {
+    if (this.Error.prototype.hasOwnProperty(i))
+      scope.Error.prototype[i] = this.Error.prototype[i];
+  }
 
   scope.Error.prototype.toString = function() {
     return this.name + ': ' + this.message + '\nStack: ' +
         ((typeof this.stack == 'array') ? this.stack.join('\n') : this.stack);
   };
 
-}).apply(this, [jsBoot.core]);
+}).apply(this);
 
 
 /**

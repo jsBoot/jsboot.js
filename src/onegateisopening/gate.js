@@ -15,11 +15,17 @@
  */
 
 (function() {
+  /*jshint browser:true*/
+  /*global Spitfire:true, simplePostMessage:true, console:true, BlobBuilder:true, WebKitBlobBuilder:true,
+  MozBlobBuilder:true*/
+  'use strict';
+
   /**
  * Shiming boot section
  */
   var shims = Spitfire.boot(location.href.match(/jsboot-debug/));
 
+  // XXX remove SpitBoot and use runtime path detection
   for (var x = 0; x < shims.length; x++)
     Spitfire.loader.script('{SPIT-BASE}/' + shims[x]);
 
@@ -53,7 +59,7 @@
       } catch (e) {
         try {
           bb = new WebKitBlobBuilder();
-        } catch (e) {
+        } catch (e2) {
           bb = new MozBlobBuilder();
         }
       }
@@ -62,8 +68,11 @@
       return bb.getBlob(mimeString);
     };
 
+    // The "caller" url
+    var parentUrl = decodeURIComponent(document.location.hash.replace(/^#/, ''));
+
     // A very simple xhr wrapper to handle the actual requests
-    var _roxee_xhr = function(orsc, id, method, url, headers, data)
+    var roxeeXhr = function(orsc, id, method, url, headers, data)
         {
       var _xhr = new XMLHttpRequest();
       _xhr.id = id;
@@ -71,12 +80,14 @@
       // Open can fail in a number of circunstances
       try {
         _xhr.open(method, url, true);
-        for (var i in headers)
-          _xhr.setRequestHeader(i, headers[i]);
+        for (var i in headers) {
+          if (headers.hasOwnProperty(i))
+            _xhr.setRequestHeader(i, headers[i]);
+        }
         // Chrome sets Origin on POST, but not GET, and Firefox does not
         // - and neither allow it to be overriden
         // _xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
-        _xhr.setRequestHeader('X-Gate-Origin', parent_url.match(/^(http[s]?:\/\/[^\/]+)/).pop());
+        _xhr.setRequestHeader('X-Gate-Origin', parentUrl.match(/^(http[s]?:\/\/[^\/]+)/).pop());
         // Do we have a file by any chance?
         if (data && (typeof data == 'string') && (data.substr(0, 5) == 'data:'))
           data = dataURItoBlob(data);
@@ -86,9 +97,6 @@
         bouncer.apply(_xhr);
       }
     };
-
-    // The "caller" url
-    var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
 
     // The callback that handles XHR answers
     var bouncer = function() {
@@ -108,14 +116,14 @@
         r.responseHeaders = this.getAllResponseHeaders();
       }catch (e) {
       }
-      simplePostMessage.postMessage(r, parent_url, parent);
+      simplePostMessage.postMessage(r, parentUrl, parent);
     };
 
     // The message listener
     var receiver = function(e) {
       var d = e.data;
       if (('id' in d) && ('method' in d) && ('url' in d)) {
-        new _roxee_xhr(bouncer, d.id, d.method, d.url, d.headers, d.data);
+        roxeeXhr(bouncer, d.id, d.method, d.url, d.headers, d.data);
       }else {
         console.log('INVALID QUERY', d);
       }
@@ -125,7 +133,7 @@
     simplePostMessage.receiveMessage(receiver, function() {return true;});
 
     // Say we are ready
-    simplePostMessage.postMessage(READY, parent_url, parent);
+    simplePostMessage.postMessage(READY, parentUrl, parent);
 
   });
 

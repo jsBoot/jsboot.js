@@ -1,25 +1,21 @@
 /**
+ * Basic helper to add md5 capabilities to javascript.
+ *
+ * @file
+ * @summary MD5 support.
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
- * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
- * @file Basic helper to add md5 capabilities to javascript.
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/crypto/md5.js{PUKE-PACKAGE-GIT-REV}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/mingus/crypto/md5.js{PUKE-GIT-REVISION}
  */
 
-/**
- * @kind namespace
- * @memberof Mingus.crypto
- * @name md5
- * @description A simple class providing md5 functionality to javascript.
- * Note this is an almost unaltered rip of <a href="http://www.myersdaily.org/joseph/javascript/md5-text.html">Myers'
- * code</a>
- * (released under an unknown license). All credits go to him.
- */
+(function() {
+  /*global Mingus:true, unescape:true*/
+  'use strict';
 
-Mingus.crypto.md5 = new (function() {
   var md5cycle = function(x, k) {
     var a = x[0], b = x[1], c = x[2], d = x[3];
 
@@ -96,28 +92,28 @@ Mingus.crypto.md5 = new (function() {
     x[2] = add32(c, x[2]);
     x[3] = add32(d, x[3]);
 
-  }
+  };
 
   var cmn = function(q, a, b, x, s, t) {
     a = add32(add32(a, q), add32(x, t));
     return add32((a << s) | (a >>> (32 - s)), b);
-  }
+  };
 
   var ff = function(a, b, c, d, x, s, t) {
     return cmn((b & c) | ((~b) & d), a, b, x, s, t);
-  }
+  };
 
   var gg = function(a, b, c, d, x, s, t) {
     return cmn((b & d) | (c & (~d)), a, b, x, s, t);
-  }
+  };
 
   var hh = function(a, b, c, d, x, s, t) {
     return cmn(b ^ c ^ d, a, b, x, s, t);
-  }
+  };
 
   var ii = function(a, b, c, d, x, s, t) {
     return cmn(c ^ (b | (~d)), a, b, x, s, t);
-  }
+  };
 
   var md51 = function(s) {
     // XXX Crap patch necessary to have the stuff behave when dealing with utf8
@@ -125,7 +121,7 @@ Mingus.crypto.md5 = new (function() {
       s = unescape(encodeURI(s));
     }
     // XXX
-    var txt = '';
+    // var txt = '';
     var n = s.length,
         state = [1732584193, -271733879, -1732584194, 271733878], i;
     for (i = 64; i <= s.length; i += 64) {
@@ -143,23 +139,23 @@ Mingus.crypto.md5 = new (function() {
     tail[14] = n * 8;
     md5cycle(state, tail);
     return state;
-  }
+  };
 
   /* there needs to be support for Unicode here,
-   * unless we pretend that we can redefine the MD-5
-   * algorithm for multi-byte characters (perhaps
-   * by adding every four 16-bit characters and
-   * shortening the sum to 32 bits). Otherwise
-   * I suggest performing MD-5 as if every character
-   * was two bytes--e.g., 0040 0025 = @%--but then
-   * how will an ordinary MD-5 sum be matched?
-   * There is no way to standardize text to something
-   * like UTF-8 before transformation; speed cost is
-   * utterly prohibitive. The JavaScript standard
-   * itself needs to look at this: it should start
-   * providing access to strings as preformed UTF-8
-   * 8-bit unsigned value arrays.
-   */
+     * unless we pretend that we can redefine the MD-5
+     * algorithm for multi-byte characters (perhaps
+     * by adding every four 16-bit characters and
+     * shortening the sum to 32 bits). Otherwise
+     * I suggest performing MD-5 as if every character
+     * was two bytes--e.g., 0040 0025 = @%--but then
+     * how will an ordinary MD-5 sum be matched?
+     * There is no way to standardize text to something
+     * like UTF-8 before transformation; speed cost is
+     * utterly prohibitive. The JavaScript standard
+     * itself needs to look at this: it should start
+     * providing access to strings as preformed UTF-8
+     * 8-bit unsigned value arrays.
+     */
   var md5blk = function(s) { /* I figured global was faster.   */
     var md5blks = [], i; /* Andy King said do it this way. */
     for (i = 0; i < 64; i += 4) {
@@ -169,59 +165,63 @@ Mingus.crypto.md5 = new (function() {
           (s.charCodeAt(i + 3) << 24);
     }
     return md5blks;
-  }
+  };
 
-  var hex_chr = '0123456789abcdef'.split('');
+  var hexChr = '0123456789abcdef'.split('');
 
-  var rhex = function(n)
-      {
+  var rhex = function(n) {
     var s = '', j = 0;
     for (; j < 4; j++)
-      s += hex_chr[(n >> (j * 8 + 4)) & 0x0F] +
-          hex_chr[(n >> (j * 8)) & 0x0F];
+      s += hexChr[(n >> (j * 8 + 4)) & 0x0F] +
+          hexChr[(n >> (j * 8)) & 0x0F];
     return s;
-  }
+  };
 
   var hex = function(x) {
     for (var i = 0; i < x.length; i++)
       x[i] = rhex(x[i]);
     return x.join('');
-  }
-
-  /**
-   * @kind function
-   * @name crypt
-   * @description Performs a md5 of a given string.
-   * @memberof Mingus.crypto.md5
-   * @param {String} str A string to hash.
-   * @returns {String} The md5 hash of the string.
-   */
-
-  this.crypt = function(str) {
-    return hex(md51(str));
-  }
+  };
 
   /* this function is much faster,
-  so if possible we use it. Some IEs
-  are the only ones I know of that
-  need the idiotic second function,
-  generated by an if clause.  */
+    so if possible we use it. Some IEs
+    are the only ones I know of that
+    need the idiotic second function,
+    generated by an if clause.  */
 
-  /**
-   * @ignore
-   */
   var add32 = function(a, b) {
     return (a + b) & 0xFFFFFFFF;
-  }
+  };
 
-  if (this.crypt('hello') != '5d41402abc4b2a76b9719d911017c592') {
-    /**
-     * @ignore
-     */
+  if (hex(md51('hello')) != '5d41402abc4b2a76b9719d911017c592') {
     add32 = function(x, y) {
       var lsw = (x & 0xFFFF) + (y & 0xFFFF),
           msw = (x >> 16) + (y >> 16) + (lsw >> 16);
       return (msw << 16) | (lsw & 0xFFFF);
-    }
+    };
   }
+
+  /**
+   * A simple singleton providing md5 functionality to javascript.
+   * Note this is an almost unaltered rip of Myers (released under an unknown license). All credits go to him.
+   *
+   * @namespace
+   * @name Mingus.crypto.md5
+   * @see  http://www.myersdaily.org/joseph/javascript/md5-text.html
+   */
+
+  /**
+   * Performs a md5 of a given string.
+   * @function
+   * @name Mingus.crypto.md5.crypt
+   * @param {String} str A string to hash.
+   * @returns {String} The md5 hash of the string.
+   */
+
+  Mingus.crypto.md5 = {
+    crypt: function(str) {
+      return hex(md51(str));
+    }
+  };
+
 })();

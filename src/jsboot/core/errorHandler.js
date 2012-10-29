@@ -1,6 +1,9 @@
-'use strict';
+(function() {
+  /*global console:true, jsBoot:true*/
+  'use strict';
 
-(function(scope) {
+  var scope = jsBoot.core;
+
   // Consumer may register an handler instead of the dumb one
   scope.registerErrorHandler = function(hnd) {
     handlers.push(hnd);
@@ -16,7 +19,7 @@
   };
 
   // Register as error handler
-  this.onerror = function() {
+  this.onerror = function(e) {
     var args = Array.prototype.slice.call(arguments);
     try {
       return handlers.some(function(item) {
@@ -27,4 +30,5 @@
       err('"Lost" error was:', e);
     }
   };
-}).apply(this, [jsBoot.core]);
+
+}).apply(this);

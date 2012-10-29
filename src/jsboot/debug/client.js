@@ -1,5 +1,3 @@
-'use strict';
-
 // A way to extract as much client navigator informations as possible
 /*
   var safeStringify = function(data, depth) {

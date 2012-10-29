@@ -1,5 +1,5 @@
-'use strict';
-
-(function(scope) {
-  scope.core = {};
-}).apply(this, [jsBoot]);
+(function() {
+  /*global jsBoot:true*/
+  'use strict';
+  jsBoot.core = {};
+})();
