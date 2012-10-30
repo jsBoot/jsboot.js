@@ -7,7 +7,7 @@
  */
 
 (function() {
-  /*jshint browser:true*/
+  /*jshint browser:true, maxcomplexity:18, maxdepth:6*/
   'use strict';
 
   var require, define;

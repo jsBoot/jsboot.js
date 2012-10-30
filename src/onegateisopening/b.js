@@ -18,7 +18,6 @@
 
 (function(aDoc, gull) {
   /*jshint browser:true*/
-  /*global gulliver:true*/
   'use strict';
 
   var waiters = [];

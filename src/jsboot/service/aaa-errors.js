@@ -14,7 +14,7 @@
     }, this);
 
 
-    Object.keys(err.prototype).forEach(function(i){
+    Object.keys(err.prototype).forEach(function(i) {
       this.ServiceError.prototype[i] = err.prototype[i];
     }, this);
 

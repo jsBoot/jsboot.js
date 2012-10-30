@@ -14,7 +14,6 @@
 
 
 (function() {
-  /*jshint supernew:true*/
   /*global Mingus*/
   'use strict';
 

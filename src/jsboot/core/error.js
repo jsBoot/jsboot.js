@@ -22,7 +22,7 @@
     scope.Error[item] = scope.Error.prototype[item] = idx;
   });
 
-  Object.keys(this.Error.prototype).forEach(function(i){
+  Object.keys(this.Error.prototype).forEach(function(i) {
     scope.Error.prototype[i] = this.Error.prototype[i];
   }, this);
 

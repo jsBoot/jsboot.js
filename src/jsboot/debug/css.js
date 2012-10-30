@@ -10,7 +10,7 @@
  */
 
 (function() {
-  /*jshint browser:true, supernew:true*/
+  /*jshint browser:true*/
   /*global jsBoot:true*/
   'use strict';
 

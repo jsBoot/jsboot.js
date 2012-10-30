@@ -153,7 +153,6 @@
 /*global Mingus:true*/
 (function(md5, http) {
   /*global console:true, fixIE:true*/
-  /*jshint supernew:true*/
   'use strict';
   // Private helpers
 

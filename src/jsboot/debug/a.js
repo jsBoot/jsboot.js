@@ -1,5 +1,4 @@
 (function() {
-  /*jshint supernew:true*/
   /*global console:true,jsBoot:true*/
   'use strict';
 

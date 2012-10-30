@@ -16,7 +16,7 @@
 
 (function() {
   /*jshint browser:true*/
-  /*global Spitfire:true, simplePostMessage:true, console:true, BlobBuilder:true, WebKitBlobBuilder:true,
+  /*global simplePostMessage:true, console:true, BlobBuilder:true, WebKitBlobBuilder:true,
   MozBlobBuilder:true*/
   'use strict';
 
@@ -72,8 +72,7 @@
     var parentUrl = decodeURIComponent(document.location.hash.replace(/^#/, ''));
 
     // A very simple xhr wrapper to handle the actual requests
-    var roxeeXhr = function(orsc, id, method, url, headers, data)
-        {
+    var roxeeXhr = function(orsc, id, method, url, headers, data) {
       var _xhr = new XMLHttpRequest();
       _xhr.id = id;
       _xhr.onreadystatechange = orsc;

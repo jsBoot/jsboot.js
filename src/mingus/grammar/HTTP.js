@@ -44,7 +44,6 @@
 
 (function() {
   /*global Mingus*/
-  /*jshint supernew:true*/
   'use strict';
 
   // A simple helper to build case insensitive classes from a given string

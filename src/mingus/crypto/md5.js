@@ -13,6 +13,7 @@
  */
 
 (function() {
+  /*jshint maxstatements:69*/
   /*global Mingus:true, unescape:true*/
   'use strict';
 

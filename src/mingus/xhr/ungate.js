@@ -17,7 +17,7 @@
 // blocking return function calls that are able to throw down in the frame (like open)
 
 (function() {
-  /*jshint browser:true, supernew:true*/
+  /*jshint browser:true*/
   /*global simplePostMessage:true, console:true, File:true, Mingus:true*/
   'use strict';
   Mingus.xhr.gateOpener = new (function() {
@@ -63,22 +63,20 @@
         // console.log(myX);
         var ar, y, ti;
         for (var j in e.data) {
-          if (j != 'id') {
-            if (j == 'responseHeaders') {
-              // XXX need to parse that crap for real
-              ar = e.data[j].split('\r\n');
-              if (ar.length < 2)
-                ar = e.data[j].split('\n');
-              for (y = 0; y < ar.length; y++) {
-                if (ar[y]) {
-                  ti = ar[y].match(/^([^:]+)[:]\s*(.+)/);
-                  ti.shift();
-                  myX.responseHeaders[ti.shift().toLowerCase()] = ti.shift();
-                }
+          if (j == 'responseHeaders') {
+            // XXX need to parse that crap for real
+            ar = e.data[j].split('\r\n');
+            if (ar.length < 2)
+              ar = e.data[j].split('\n');
+            for (y = 0; y < ar.length; y++) {
+              if (ar[y]) {
+                ti = ar[y].match(/^([^:]+)[:]\s*(.+)/);
+                ti.shift();
+                myX.responseHeaders[ti.shift().toLowerCase()] = ti.shift();
               }
-            }else {
-              myX[j] = e.data[j];
             }
+          }else if (j != 'id') {
+            myX[j] = e.data[j];
           }
         }
         console.debug('                    |G| <- request ', e.data.id, ' returned', myX);

@@ -12,7 +12,6 @@
 // Might read almond for culture https://raw.github.com/jrburke/almond/latest/almond.js
 
 (function() {
-  /*global define:true, require:true, exports:true*/
   'use strict';
 
   /**

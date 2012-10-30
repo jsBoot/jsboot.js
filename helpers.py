@@ -160,7 +160,7 @@ def hinter(path, excluding = '', relax=False):
     excluding = ',%s' % excluding
   list = FileList(path, filter = "*.js", exclude = "*-min.js,%s%s" % (excludecrap, excluding))
   res = '"' + '" "'.join(list.get()) + '"'
-  ret = sh('jshint --config %s %s' % ('hinter.json', res), output = False)
+  ret = sh('jshint %s' % res, output = False)
   if ret:
     console.fail(ret)
   else:

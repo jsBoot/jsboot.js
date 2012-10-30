@@ -1,0 +1,70 @@
+{
+  /* We DO relax jshint on these - careful! */
+
+  // DONT enforce systematic curly braces around blocks - this is tricky
+  "curly": false,
+  // DONT try to enforce use of === and !== - you need to deal with implicit coerce
+  "eqeqeq": false,
+  // Let us use ++ and -- operators
+  "plusplus": false,
+  // Allow bitwise operators
+  "bitwise": false,
+  // Allow nasty constructs
+  "supernew": true,
+
+
+  /* We are strict on these */
+
+  // Enforce the use of parentheses around immediate function calls
+  "immed": true,
+  // Disallow callee on args - be ECMA strict ready
+  "noarg": true,
+  // Warn about empty blocks
+  "noempty": true,
+  // Requires capitalization of constructors
+  "newcap": true,
+  // Warn about unsafe use of regexp
+  "regexp": true,
+  // Prohibit use of undeclared variables
+  "undef": true,
+  // Prohibit trailing whitespaces
+  "trailing": true,
+  // Enforce camelCasing of props names
+  "camelcase": true,
+  // Warn about enumerations without hasOwnProperty calls
+  "forin": true,
+  // Warn about late definition of local variables
+  "latedef": true,
+  // Warn about constructors missing a "new"
+  "nonew": true,
+  // String quoting style
+  "quotmark": "single",
+  // Warn about unused variables
+  "unused": true,
+  // Use strict
+  "strict": true,
+  // Maximum number of parameters in a function
+  "maxparams": 7,
+  // Maximum depth
+  "maxdepth": 4,
+  // Maximum number of statements in a block
+  "maxstatements": 50,
+  // Maximum function complexity
+  "maxcomplexity": 11,
+  // Maximum line length
+  "maxlen": 120,
+
+
+  // "browser": true,
+
+  "globals": {
+    // AMD
+    "define": true,
+    "exports": true,
+    "require": true,
+
+    // Our dependencies
+    "Spitfire": true,
+    "gulliver": true
+  }
+}

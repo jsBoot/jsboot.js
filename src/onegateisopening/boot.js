@@ -1,8 +1,7 @@
 // This is a nutshell meant to be aggregated AFTER loader-lab.js and spitfire.js
 
 (function() {
-  /*jshint supernew:true, browser:true*/
-  /*global define:true, exports:true, require:true, Spitfire:true*/
+  /*jshint browser:true*/
   'use strict';
 
   // List of available static resources to be served via getPack

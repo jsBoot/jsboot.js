@@ -50,7 +50,6 @@
 
 (function() {
   /*global Mingus:true*/
-  /*jshint supernew:true*/
   'use strict';
 
   (function(ABNF) {
