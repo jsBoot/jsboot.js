@@ -19,7 +19,7 @@
   try {
     whateverthenameofthis = 'will crash';
     try {
-      console.error('This doesn\'t run in strict mode!!!');
+      console.error('Browser doesn\'t support strict mode!!!');
     }catch (e) {
     }
   }catch (e) {
