@@ -20,6 +20,7 @@
     base: null
   };
 
+
   // Extract parameters from script uri
   var ref = document.getElementsByTagName('script');
   for (var i = 0, tup, item; (i < ref.length); i++) {
@@ -120,33 +121,50 @@
      * That is: shims, ember, jsboot
      */
     this.boot = new (function() {
-      var common = function(debug) {
-        bootLoader.use(bootLoader.SHIMS);
+      var common = function(debug, version) {
+        bootLoader.use('normalize', version || '2.0', null, debug);
+        bootLoader.use('h5bp', version || '4.0', null, debug);
+        bootLoader.use(bootLoader.SHIMS, null, null, debug);
         bootLoader.wait();
-        bootLoader.use(bootLoader.MINGUS);
+        bootLoader.use(bootLoader.MINGUS, null, null, debug);
         // Stacktrace should be in core prolly
-        bootLoader.use('stacktrace', params.trunk ? 'trunk' : '0.4');
-        // XXX temporary -
+        bootLoader.use('stacktrace', version || '0.4', null, debug);
         bootLoader.wait();
-        bootLoader.use(bootLoader.CORE);
+        bootLoader.use(bootLoader.CORE, null, null, debug);
         bootLoader.wait();
         if (debug)
-          bootLoader.use(bootLoader.DEBUG);
-        bootLoader.use(bootLoader.SERVICE);
-        // XXX Is a separate stack obviously
+          bootLoader.use(bootLoader.DEBUG, null, null, debug);
+        bootLoader.use(bootLoader.SERVICE, null, null, debug);
+        // XXX is a separate stack obviously
         // bootLoader.use(bootLoader.UI);
       };
 
-      this.backbone = function(cbk, debug) {
-        common(params.debug || debug);
-        bootLoader.use(bootLoader.BACKBONE_STACK, params.trunk);
+      this.backbone = function(cbk, debug, trunk) {
+        trunk = (params.trunk || trunk) && 'trunk';
+        debug = params.debug || debug;
+        common(debug, trunk);
+
+        bootLoader.use('jquery', trunk || '1.8', null, debug);
+        bootLoader.use('i18n', trunk || '3.0', null, debug);
+        // this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
+        bootLoader.wait();
+        bootLoader.use('backbone', trunk || '0.9', null, debug);
+        bootLoader.wait(function() {
+          throw 'Backbone stack is largely untested. You may continue at your own risks';
+        });
         bootLoader.wait(cbk);
         return bootLoader;
       };
 
-      this.ember = function(cbk, debug) {
-        common(params.debug || debug);
-        bootLoader.use(bootLoader.EMBER_STACK, params.trunk, params.debug || debug);
+      this.ember = function(cbk, debug, trunk) {
+        trunk = (params.trunk || trunk) && 'trunk';
+        debug = params.debug || debug;
+        common(debug, trunk);
+        bootLoader.use('jquery', trunk || '1.8', null, debug);
+        bootLoader.use('handlebars', trunk || '1.0', 'main', debug);// runtime? 1.b6
+        bootLoader.use('i18n', trunk || '3.0', null, debug);
+        bootLoader.wait();
+        bootLoader.use('ember', trunk || '1.0', debug ? 'debug' : 'prod', debug);
         bootLoader.wait(cbk);
         return bootLoader;
       };
@@ -221,6 +239,16 @@
         return statics;
       };
 
+      this.params = function(name) {
+        var c = document.getElementsByTagName('script');
+        var re = new RegExp(name);
+        for (var x = 0, it; x < c.length; x++) {
+          it = c[x].getAttribute('src');
+          if (it && re.test(it))
+            return it.split('#').pop();
+        }
+      };
+
       /**
        * Use main
        */
@@ -230,7 +258,7 @@
           case this.SHIMS:
             // Use of version is undocumented - allows to use placeholders shims - will fuck up
             // feature detection
-            getShims(!params.notminified, params.experimental);
+            getShims(!params.notminified && !forceFull, params.experimental);
             this.wait();
             break;
 
@@ -240,7 +268,7 @@
           case this.SERVICE:
           case this.GISTER:
           case this.DEBUG:
-            insertThing(thing, !params.notminified);
+            insertThing(thing, !params.notminified && !forceFull);
             break;
 
           // "Complete" stacks

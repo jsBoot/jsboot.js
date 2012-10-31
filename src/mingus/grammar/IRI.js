@@ -41,10 +41,10 @@
  * https://github.com/bestiejs/punycode.js
  *
  * http://jsperf.com/url-parsing/2
+ * http://url.spec.whatwg.org/
  *
- * @kind namespace
- * @name IRI
- * @memberof Mingus.grammar
+ * @namespace
+ * @name Mingus.grammar.IRI
  * @requires Mingus.grammar.ABNF
  */
 
