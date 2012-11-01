@@ -1,7 +1,6 @@
 (function() {
-  /*global jsBoot:true,I18n:true,console:true*/
+  /*global I18n, console*/
   'use strict';
-
 
   (function() {
     if (typeof I18n == 'undefined')

@@ -14,7 +14,7 @@
 
 (function() {
   /*jshint maxstatements:69*/
-  /*global Mingus:true, unescape:true*/
+  /*global Mingus, unescape*/
   'use strict';
 
   var md5cycle = function(x, k) {

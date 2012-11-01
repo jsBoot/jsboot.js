@@ -1,10 +1,21 @@
+/**
+ * @file
+ * @summary Provides a way to filter out console verbosity.
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
+ * @version {PUKE-PACKAGE-VERSION}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/jsboot/debug/console.js{PUKE-GIT-REVISION}
+ */
+
 (function() {
-  /*global jsBoot:true*/
   'use strict';
 
   var scope = jsBoot.debug;
+
   // Verbosity controller
-  scope.console = {};
   var e = {
     'DEBUG': 1,
     'LOG': 2,
@@ -13,6 +24,10 @@
     'ERROR': 16,
     'TRACE': 32,
     'ALL': 63
+  };
+
+  scope.console = {
+    VERBOSITY: e.ALL
   };
 
   // console.time('start');
@@ -38,7 +53,5 @@
       }
     };
   });
-  scope.console.VERBOSITY = scope.console.INFO | scope.console.WARN | scope.console.ERROR | scope.console.LOG |
-      scope.console.DEBUG | scope.console.TRACE;
 
 }).apply(this);

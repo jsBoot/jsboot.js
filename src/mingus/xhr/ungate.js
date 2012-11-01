@@ -18,7 +18,7 @@
 
 (function() {
   /*jshint browser:true*/
-  /*global simplePostMessage:true, console:true, File:true, Mingus:true*/
+  /*global simplePostMessage, console, File, Mingus*/
   'use strict';
   Mingus.xhr.gateOpener = new (function() {
 

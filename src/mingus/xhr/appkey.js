@@ -11,7 +11,7 @@
 
 
 (function() {
-  /*global Mingus:true, console:true*/
+  /*global Mingus, console*/
   'use strict';
 
   /**

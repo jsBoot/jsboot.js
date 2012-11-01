@@ -1,7 +1,6 @@
 (function() {
-  /*global jsBoot:true,KeyboardJS:true,Mousetrap:true,console:true*/
+  /*global KeyboardJS, Mousetrap, console*/
   'use strict';
-
 
   (function() {
     if (typeof KeyboardJS == 'undefined')

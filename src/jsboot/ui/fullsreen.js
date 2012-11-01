@@ -1,6 +1,5 @@
 (function() {
-
-  /*global jsBoot:true,BigScreen:true,console:true*/
+  /*global BigScreen, console*/
   'use strict';
 
   // http://brad.is/coding/BigScreen/

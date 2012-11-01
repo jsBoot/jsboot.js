@@ -16,8 +16,7 @@
 
 (function() {
   /*jshint browser:true*/
-  /*global simplePostMessage:true, console:true, BlobBuilder:true, WebKitBlobBuilder:true,
-  MozBlobBuilder:true*/
+  /*global Spitfire, simplePostMessage, console, BlobBuilder, WebKitBlobBuilder, MozBlobBuilder*/
   'use strict';
 
   /**

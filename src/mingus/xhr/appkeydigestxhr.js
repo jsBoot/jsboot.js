@@ -23,11 +23,11 @@
 
 // XXX digest and key engine are used with host alone (no port) for now - which is somewhat wrong
 
-/*global Mingus:true*/
+/*global Mingus*/
 (function(iri, ake, dig, transport) {
   'use strict';
 
-  /*global console:true, fixIE:true*/
+  /*global console, fixIE*/
   var hax = this.XMLHttpRequest = function() {
 
     // UA-like signature

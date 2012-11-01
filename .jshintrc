@@ -64,7 +64,7 @@
     "require": true,
 
     // Our dependencies
-    "Spitfire": true,
-    "gulliver": true
+    // Our NS - to be removed when migrated to modules
+    "jsBoot":true
   }
 }

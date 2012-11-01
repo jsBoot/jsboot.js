@@ -1,26 +1,32 @@
 /**
- * Declare a dummy debug default error handler
+ * @file
+ * @summary Declare a dummy debug default error handler
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
+ * @version {PUKE-PACKAGE-VERSION}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/jsboot/debug/console.js{PUKE-GIT-REVISION}
  */
 
 (function() {
-  /*jshint browser:true*/
-  /*global console:true, jsBoot:true*/
+  /*global console, location*/
   'use strict';
 
-  (function() {
-    // The default error handler is a stupid logger to console
-    var markee = ' ┌∩┐(◣_◢)┌∩┐ ';
+  var core = jsBoot.core;
+  // The default error handler is a stupid logger to console
+  var markee = ' ┌∩┐(◣_◢)┌∩┐ ';
 
-    this.registerErrorHandler(function(str, fileName, lineNumber) {
-      console.error(markee, markee, markee);
-      console.error('File:', fileName);
-      console.error('Number:', lineNumber);
-      console.error('Date', new Date());
-      console.error('Location', location.href);
-      console.error('Exception:', str);
-      console.error(markee, markee, markee);
-      return false;
-    });
-  }).apply(jsBoot.core);
+  core.registerErrorHandler(function(str, fileName, lineNumber) {
+    console.error(markee, markee, markee);
+    console.warn('File:', fileName);
+    console.warn('Number:', lineNumber);
+    console.warn('Date', new Date());
+    console.warn('Location', location.href);
+    console.error('Exception:', str);
+    console.error(markee, markee, markee);
+    return false;
+  });
 
 })();

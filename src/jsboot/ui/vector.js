@@ -1,7 +1,6 @@
 (function() {
-  /*global jsBoot:true,Raphael:true,console:true*/
+  /*global Raphael, console*/
   'use strict';
-
 
   (function() {
     if (typeof Raphael == 'undefined')

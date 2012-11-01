@@ -230,6 +230,10 @@ def build():
     # Then md5 dep
       "src/mingus/crypto/md5.js",
 
+
+    # Not necessary per-se, but darn useful
+      "src/mingus/converters/entity.js",
+
     # Then bases
       "src/mingus/xhr/ungate.js",
       "src/mingus/xhr/appkey.js",
@@ -250,10 +254,8 @@ def build():
     combine(list, Yak.build_root + "/debug.js", replace=sed)
 
     list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
+    # list.merge(FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*'));
     combine(list, Yak.build_root + "/core.js", replace=sed)
-
-    list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*');
-    combine(list, Yak.build_root + "/gister.js", replace=sed)
 
     list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');
     combine(list, Yak.build_root + "/service.js", replace=sed)

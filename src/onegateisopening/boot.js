@@ -2,6 +2,7 @@
 
 (function() {
   /*jshint browser:true*/
+  /*global Spitfire*/
   'use strict';
 
   // List of available static resources to be served via getPack
@@ -168,7 +169,6 @@
         bootLoader.wait(cbk);
         return bootLoader;
       };
-
     })();
 
 

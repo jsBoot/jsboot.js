@@ -1,5 +1,5 @@
 (function() {
-  /*global jsBoot:true,moment:true,console:true*/
+  /*global moment, console*/
   'use strict';
 
   (function() {

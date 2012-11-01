@@ -19,7 +19,7 @@
  */
 
 (function() {
-  /*global Mingus:true*/
+  /*global Mingus*/
   'use strict';
 
   (function(ABNF) {

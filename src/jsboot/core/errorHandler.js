@@ -1,25 +1,47 @@
+/**
+ * Provides a simple declarative mechanism to get hooked onto exceptions
+ *
+ * @file
+ * @summary Mechanism to catch exceptions.
+ *
+ * @author {PUKE-RIGHTS-AUTHOR}
+ * @version {PUKE-PACKAGE-VERSION}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/jsboot/core/errorHandler.js{PUKE-GIT-REVISION}
+ */
+
 (function() {
-  /*global console:true, jsBoot:true*/
+  /*global window, console*/
   'use strict';
 
   var scope = jsBoot.core;
 
+
   // Consumer may register an handler instead of the dumb one
+  /**
+   * Call this declare a callback for exceptions
+   * @summary
+   * @function
+   * @name jsBoot.core.registerErrorHandler
+   * @param   {Function} hnd Callback to be notified of exceptions.
+   * @returns undefined
+   */
+
   scope.registerErrorHandler = function(hnd) {
     handlers.push(hnd);
   };
 
   var handlers = [];
-  if (this.onerror)
-    handlers.push(this.onerror);
+  if (window.onerror)
+    handlers.push(window.onerror);
 
-  // Dull private helper
   var err = function(message, ex) {
     console.error(' [jsBoot.core.errorHandler]', message, ex);
   };
 
-  // Register as error handler
-  this.onerror = function(e) {
+  window.onerror = function(e) {
     var args = Array.prototype.slice.call(arguments);
     try {
       return handlers.some(function(item) {
@@ -31,4 +53,4 @@
     }
   };
 
-}).apply(this);
+})();

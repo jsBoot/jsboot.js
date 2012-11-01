@@ -1,7 +1,6 @@
 (function() {
-  /*global jsBoot:true,$:true,console:true*/
+  /*global $, console*/
   'use strict';
-
 
   // XXX build that with the chosen plugin
   // http://harvesthq.github.com/chosen/
