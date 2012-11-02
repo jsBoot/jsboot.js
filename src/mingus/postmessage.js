@@ -49,13 +49,12 @@
 // 0.5 - (9/11/2009) Improved cache-busting
 // 0.4 - (8/25/2009) Initial release
 
-/*jshint browser:true*/
-window.simplePostMessage = {};
-
-(function($) {
+(function() {
+  /*jshint browser:true*/
   'use strict';
   '$:nomunge'; // Used by YUI compressor.
 
+  var $ = window.simplePostMessage = {};
   // A few vars used in non-awesome browsers.
   var intervalId,
       lastHash,
@@ -248,4 +247,4 @@ window.simplePostMessage = {};
     }
   };
 
-})(window.simplePostMessage);
+})();
