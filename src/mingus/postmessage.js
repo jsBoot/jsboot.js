@@ -116,7 +116,7 @@
   //
   //  Nothing.
 
-  $[postMessage] = function(message, targetUrl, target ) {
+  $[postMessage] = function(message, targetUrl, target) {
     /*jshint regexp:false*/
     if (!targetUrl) { return; }
 
@@ -188,7 +188,7 @@
   //
   //  Nothing!
 
-  $.receiveMessage = pReceiveMessage = function(callback, sourceOrigin, delay ) {
+  $.receiveMessage = pReceiveMessage = function(callback, sourceOrigin, delay) {
     if (hasPostMessage) {
       // Since the browser supports window.postMessage, the callback will be
       // bound to the actual event associated with window.postMessage.
