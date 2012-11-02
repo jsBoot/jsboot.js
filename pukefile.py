@@ -183,6 +183,7 @@ def build():
     # ================================
     # XXX this must die and be replaced by a proper postmessage shim
     postmessageshim = PH.getstaticmanifest('postmessage', Yak.istrunk)
+    postmessageshim = 'src/mingus/postmessage.js';
 
     gateList = [
       spitman['loader-lab'],
