@@ -194,9 +194,12 @@ def build():
     combine(gateList, Yak.build_root + '/toobsj.ylno.si.ereht.js', replace=sed)
     # FileSystem.copyfile(Yak.build_root + '/gates/gate-frame.js', Yak.build_root + '/gates/gate-frame-min.js')
 
+    shortversion = Yak.package['version'].split('-').pop(0).split('.')
+    shortversion = shortversion[0] + "." + shortversion[1]
+
     # Build-up the frame to deploy connect to
     # XXX whether this works is undefined... because of shortversion and selectable versioned deploy
-    sed.add('{PUKE-GATE-OPENER}', Yak.links['self']['url'] + "/"+ Yak.package['name'] + "/" + Yak.package['version'] + "/toobsj.ylno.si.ereht.js")
+    sed.add('{PUKE-GATE-OPENER}', Yak.links['self']['url'] + "/"+ Yak.package['name'] + "/" + shortversion + "/toobsj.ylno.si.ereht.js")
     combine('src/onegateisopening/gate.html', Yak.build_root + '/gate.html', replace=sed)
 
 
@@ -266,8 +269,6 @@ def build():
 
 
 
-    shortversion = Yak.package['version'].split('-').pop(0).split('.')
-    shortversion = shortversion[0] + "." + shortversion[1]
 
     spitroot = Yak.package['name'] + "/" + shortversion
 
