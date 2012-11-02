@@ -196,18 +196,18 @@ window.simplePostMessage = {};
 
       if (callback) {
         // Unbind an existing callback if it exists.
-        if(rmCallback)
+        if (rmCallback)
           pReceiveMessage();
 
         // Bind the callback. A reference to the callback is stored for ease of
         // unbinding.
         rmCallback = function(e) {
           if ((typeof sourceOrigin === 'string' && e.origin !== sourceOrigin) ||
-            ((typeof sourceOrigin === 'function') && sourceOrigin(e.origin) === FALSE)) {
+              ((typeof sourceOrigin === 'function') && sourceOrigin(e.origin) === FALSE)) {
             return FALSE;
           }
           var f = {};
-          Object.keys(e).forEach(function(i){
+          Object.keys(e).forEach(function(i) {
             f[i] = e[i];
           });
           callback(f);
@@ -224,14 +224,14 @@ window.simplePostMessage = {};
       // Since the browser sucks, a polling loop will be started, and the
       // callback will be called whenever the location.hash changes.
 
-      if(intervalId)
+      if (intervalId)
         clearInterval(intervalId);
       intervalId = null;
 
       if (callback) {
         delay = typeof sourceOrigin === 'number' ?
-          sourceOrigin :
-          typeof delay === 'number' ?
+            sourceOrigin :
+            typeof delay === 'number' ?
             delay :
             100;
 
