@@ -255,6 +255,7 @@ def build():
 
     list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
     # list.merge(FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*'));
+    list.merge(['src/jsboot/gister/amdadapter.js', 'src/jsboot/gister/packman.js'])
     combine(list, Yak.build_root + "/core.js", replace=sed)
 
     list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');

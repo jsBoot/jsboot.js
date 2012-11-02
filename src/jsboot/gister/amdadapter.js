@@ -23,13 +23,17 @@
    * and then your dependencies as additional arguments.
    * Note that for modules, a parent module will also be defined with access to its "childs".
    *
+   * So, this ISN'T about having AMD-like functions everywhere, instead of... AMD.
+   * This IS about being able to write a nice package manager on top of it for (internal) needs,
+   * that will adapt itself nicely to whatever the user ultimately wants.
+   *
    * @param  {String} identifier The name of the root namespace to bind to (eg: "MyLibary.Something").
    * @param  [ {Array} deps]      An optional array of dependencies (use the identifier syntax).
    * @param  {Function} factory  The closure that defines your code.
    * @return {undefined}          Doesn't return anything.
    */
 
-  this.simpleRequire = function(deps, factory) {
+  this.simpleRequire = (function(deps, factory) {
     var isLoader = typeof define === 'function' && define.amd;
     var internalObj = typeof exports == 'object' && exports;
 
@@ -43,18 +47,18 @@
       }
     } else {
       deps = deps.map(function(depName) {
-        var scope = this;
+        var sc = this;
         depName.split('.').map(function(fragment) {
-          scope = scope[fragment];
+          sc = sc[fragment];
         });
-        return scope;
+        return sc;
       }, this);
       // Pass-up the dependencies to the function applied on scope
       factory.apply(this, deps);
     }
-  };
+  }.bind(this));
 
-  this.simpleDefine = function(identifier, deps, factory) {
+  this.simpleDefine = (function(identifier, deps, factory) {
     // Handle varied syntax (with or without deps)
     if (typeof deps == 'function') {
       factory = deps;
@@ -91,30 +95,30 @@
       // XXX not ready for COJS
     } else {
       // Export for browsers and JavaScript engines.
-      var scope = this;
+      var sc = this;
       var topScope;
       var topFragment;
       // Build-up namespace if necessary
       identifier.split('.').forEach(function(fragment) {
         topFragment = fragment;
-        topScope = scope;
-        scope = scope[fragment] || (scope[fragment] = {});
+        topScope = sc;
+        sc = sc[fragment] || (sc[fragment] = {});
       });
       // Fetch dependencies
       deps = deps.map(function(depName) {
-        var scope = this;
+        var insc = this;
         depName.split('.').map(function(fragment) {
-          scope = scope[fragment];
+          insc = insc[fragment];
         });
-        return scope;
+        return insc;
       }, this);
       // Pass-up the dependencies to the function applied on scope
-      var ret = factory.apply(scope, deps) || scope;
+      var ret = factory.apply(sc, deps) || sc;
       // If the factory returned, use that instead of whatever was altered on the root
       if (ret)
         topScope[topFragment] = ret;
     }
-  };
+  }.bind(this));
 }).apply(this);
 
 /*

@@ -16,6 +16,228 @@
 
 
 
+/*
+Inline module declarations
+
+// Define sources
+gister.module('Bar').at('bar.js');
+gister.module('Foo').at('foo.js');
+
+Modules can be declared inline:
+
+gister.module('Foo', function() {
+    export let x = 42;
+});
+
+gister.import('bar.js').as('Bar');
+gister.import({'y': 'localName'}).from('Bar');
+gister.import('y').from("bar.js");
+
+External module load
+
+Modules can be loaded from external resources:
+
+    // Variant A: import URL syntax
+
+    // Variant B: module = syntax
+It is not necessary to bind a module to a local name, if the programmer simply wishes to import
+directly from the module:
+
+*/
+
+
+/*
+gister.use('Module').as('Toto').from('Thing');
+gister.use('Module').as('Toto').from('Thing');
+gister.add('Toto1234').as('TotoVariableName');
+gister.pack('Stuffy.Thing', function(){
+});
+
+
+    define = function(name, deps, callback) {
+    require = req = function(deps, callback, relName, forceSync, alt) {
+
+*/
+
+(function() {
+  /*global simpleDefine, simpleRequire*/
+  'use strict';
+  var backDefine = simpleDefine;
+  var backRequire = simpleRequire;
+
+  /*  backDefine = function(name, deps, callback){
+    window.waiting[name] = [name, deps, callback];
+  };
+
+  backRequire = function(deps, callback){
+    window.callDep(window.makeMap(deps, callback).f);
+  };*/
+
+
+  var toUse = [];
+  var lastUse;
+  var toAdd = [];
+  var lastAdd;
+
+  var flush = function() {
+    if (lastUse) {
+      toUse.push(lastUse);
+      lastUse = null;
+    }
+    if (lastAdd) {
+      if (!lastAdd.name)
+        throw new jsBoot.core.Error('NEED_A_NAME');
+      toAdd.push(lastAdd);
+      lastAdd = null;
+    }
+  };
+
+  jsBoot.use = function(a) {
+    lastUse = {module: a, name: a};
+    return this;
+  };
+
+  jsBoot.add = function(a) {
+    flush();
+    lastAdd = {value: a};
+    return this;
+  };
+
+  jsBoot.as = function(a) {
+    if (lastUse)
+      lastUse.name = a;
+    else if (lastAdd)
+      lastAdd.name = a;
+    flush();
+  };
+
+  jsBoot.pack = function(name, factory) {
+    flush();
+    var localUse = toUse;
+    var localAdd = toAdd;
+    backDefine(name, toUse.map(function(item) {return item.module;}), function() {
+      var module = {};
+      var api = {};
+      var args = Array.prototype.slice.call(arguments);
+      args.forEach(function(item, idx) {
+        api[localUse[idx].name] = item;
+      });
+      localAdd.forEach(function(item) {
+        api[item.name] = item.value;
+      });
+      factory.apply(module, [api]);
+      return module;
+    });
+    toUse = [];
+    toAdd = [];
+  };
+
+  jsBoot.run = function(factory) {
+    flush();
+    var localUse = toUse;
+    var localAdd = toAdd;
+    backRequire(toUse.map(function(item) {return item.module;}), function() {
+      var api = {};
+      var args = Array.prototype.slice.call(arguments);
+      args.forEach(function(item, idx) {
+        api[localUse[idx].name] = item;
+      });
+      localAdd.forEach(function(item) {
+        api[item.name] = item.value;
+      });
+      return factory.apply({}, [api]);
+    });
+    toUse = [];
+    toAdd = [];
+  };
+})();
+
+/*
+
+jsBoot.add(Mingus).as('mimi');
+jsBoot.add('TotoValue').as('toto');
+
+jsBoot.pack('NewPack.biotch', function(gisty) {
+  console.warn(gisty, this);
+  this.couilledegnou = function() {
+
+  };
+  console.error("inside new pack");
+});
+
+// backRequire('NewPack', function(){
+//   console.warn("tTOTO");
+// });
+
+jsBoot.use('NewPack.biotch');
+
+jsBoot.run(function(gisty) {
+  console.warn("require", gisty, this);
+  console.error("inside runner");
+});
+
+*/
+
+/*
+Loader objects
+
+The initial global environment contains a global binding System, which is an object that reflects
+the host environment’s code loading capability as a loader object. This section describes the
+interface of loader objects.
+
+There is a constructor Loader, available via a standard module, which is a constructor for creating
+new loaders.
+
+new Loader : function(Loader, {
+                          global: Object = Object.create(null),
+                          baseURL: string = arguments[0].baseURL,
+                          linkedTo: Loader | null = arguments[0],
+                          strict: boolean = false,
+                          resolve: function(string, string) -> any
+                          fetch: function(string, string, request, any) -> void
+                          translate: function(string, string, string, any) -> string
+                      })
+          -> Loader
+Loader.prototype.get global     : Object
+Loader.prototype.get baseURL    : string
+Loader.prototype.load           : function(string, function(Module) -> any, function(any) -> any)
+-> this
+Loader.prototype.eval           : function(string) -> any
+Loader.prototype.evalAsync      : function(string, function(any) -> any, function(any) -> any)
+ -> this
+Loader.prototype.get            : function(string) -> Module | null
+Loader.prototype.set            : function(string, Object) -> this
+                                : function({ string: Object, ... }) -> this
+Loader.prototype.defineBuiltins : function(Object = this.global) -> Object
+The details of this API can be found below.
+
+*/
+/*
+
+var Loader = function(){
+
+};
+
+Loader.prototype.global = {};
+Loader.prototype.baseURL = {};
+Loader.prototype.load = {};
+Loader.prototype.eval = {};
+Loader.prototype.evalAsync = {};
+Loader.prototype.defineBuiltins = function(){
+};
+
+Loader.prototype.load = function(uri, callback, errback) {
+// The load method takes a string representing a module URL and a callback that receives the result of
+//  oading, compiling, and executing the module at that URL. The compiled code is statically associated
+//  with this loader, and its URL is the given URL. The additional callback is used if an error occurs.
+
+};
+
+Loader.prototype.eval( src )
+Loader.prototype.evalAsync( src, callback, errback )
+ */
+
+
 // import()
 
 // module Foo {
@@ -74,7 +296,8 @@
 /**
  * Gister.import('URL').as('ModuleName');
  * Gister.import('SubName').from('ModuleName'); // Implicitely from URL
- * Gister.import('SubName').from('OtherModuleName'); // From package explicitely registred  as OtherModuleName
+ * Gister.import('SubName').from('OtherModuleName'); // From package explicitely registred
+ *  as OtherModuleName
  */
 
 // this.simpleRequire = function(deps, factory) {
@@ -82,10 +305,10 @@
 
 (function() {
   /*jshint browser:true*/
-  /*global simpleDefine:true*/
+  /*global simpleRequire*/
   'use strict';
 
-  simpleDefine('jsBoot.gister', ['Spitfire.loader'], function(loader) {
+  simpleRequire(['Spitfire.loader'], function(loader) {
     // Next package will be attached to this root
     var nextRoot;
     // Next dependencies for the next package
@@ -347,7 +570,7 @@
     };
 
     // Expose publicly - and I mean PUBLICLY - no fuck AMD
-    return hiddenPackages.gister = new Builder();
+    window.gister = hiddenPackages.gister = new Builder();
     // Check [native] on used functions?
   });
 
