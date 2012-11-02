@@ -162,7 +162,7 @@
             this.__postTrigger = function() {
               console.debug('                    |G| -> sending after defer', s);
               ongoing[i] = this;
-              simplePostMessage.postMessage(JSON.stringify(s), frameHost + framePath, framy.contentWindow);
+              simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
             };
             debt.push(this);
           }
