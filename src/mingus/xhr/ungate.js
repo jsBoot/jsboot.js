@@ -156,7 +156,7 @@
           if (isReady) {
             console.debug('                    |G| -> sending now', s);
             ongoing[i] = this;
-            simplePostMessage.postMessage(JSON.stringify(s), frameHost + framePath, framy.contentWindow);
+            simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
           }else {
             console.debug('                    |G| -> defering send');
             this.__postTrigger = function() {

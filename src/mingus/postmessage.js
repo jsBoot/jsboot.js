@@ -50,7 +50,7 @@
 // 0.4 - (8/25/2009) Initial release
 
 (function() {
-  /*jshint browser:true*/
+  /*jshint browser:true, devel:true*/
   'use strict';
   '$:nomunge'; // Used by YUI compressor.
 
@@ -126,6 +126,7 @@
     if (hasPostMessage) {
       // The browser supports window.postMessage, so call it with a targetOrigin
       // set appropriately, based on the targetUrl parameter.
+      console.warn('SENNNNNNDINNNNNG', message);
       target[postMessage](message, targetUrl.replace(/([^:]+:\/\/[^\/]+).*/, '$1'));
 
     } else if (targetUrl) {
@@ -205,11 +206,8 @@
               ((typeof sourceOrigin === 'function') && sourceOrigin(e.origin) === FALSE)) {
             return FALSE;
           }
-          var f = {};
-          Object.keys(e).forEach(function(i) {
-            f[i] = e[i];
-          });
-          callback(f);
+          console.warn('RECEVIGINNNNN----->', e);
+          callback(e);
         };
       }
 
