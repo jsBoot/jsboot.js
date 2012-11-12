@@ -11,13 +11,11 @@
  * @name {PUKE-GIT-ROOT}/jsboot/core/errorHandler.js{PUKE-GIT-REVISION}
  */
 
-(function() {
-  /*global console*/
+/*global console*/
+jsBoot.add(console).as('nativeConsole');
+jsBoot.pack('jsBoot.core', function(api) {
   'use strict';
 
-  var scope = jsBoot.core;
-
-  var nativeConsole = console;
   var fakeConsole = {
     debug: function() {},
     log: function() {},
@@ -27,10 +25,10 @@
     error: console.error
   };
 
-  scope.toggleConsole = function(on) {
-    var mesh = on ? nativeConsole : fakeConsole;
+  this.toggleConsole = function(on) {
+    var mesh = on ? api.nativeConsole : fakeConsole;
     Object.getOwnPropertyNames(mesh).forEach(function(i) {
       console[i] = mesh[i];
     });
   };
-})();
+});

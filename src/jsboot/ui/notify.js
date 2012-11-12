@@ -1,16 +1,14 @@
-(function() {
+jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
 
-  (function() {
-    if (typeof $.gritter == 'undefined')
-      console.warn(' [jsBoot.ui]: Gritter is not loaded - growl like notifications support disabled');
-    else
-      this.notify = function() {
-        return $.gritter;
-      };
-  }).apply(jsBoot.ui);
-})();
+  if (typeof $.gritter == 'undefined')
+    console.warn(' [jsBoot.ui]: Gritter is not loaded - growl like notifications support disabled');
+  else
+    this.notify = function() {
+      return $.gritter;
+    };
+});
 
 /*
 

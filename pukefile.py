@@ -41,7 +41,7 @@ def doc():
 
 @task("Lint")
 def lint():
-  PH.linter("src")
+  PH.linter("src", excluding = "*tests*")
 
 @task("Hint")
 def hint():
@@ -257,13 +257,19 @@ def build():
     list = FileList('src/jsboot/debug', filter = '*.js', exclude = '*xxx*');
     combine(list, Yak.build_root + "/debug.js", replace=sed)
 
-    list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
+    list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*')
+    list.merge(FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*'));
     # list.merge(FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*'));
-    list.merge(['src/jsboot/gister/amdadapter.js', 'src/jsboot/gister/packman.js'])
     list.merge(['src/jsboot/types/eventdispatcher.js'])
     combine(list, Yak.build_root + "/core.js", replace=sed)
 
-    list = FileList('src/jsboot/service', filter = '*.js', exclude = '*xxx*');
+    list = [
+      'src/jsboot/service/errors.js',
+      'src/jsboot/service/client.js',
+      'src/jsboot/service/core.js',
+      'src/jsboot/service/flaves/account.js'
+    ]
+
     combine(list, Yak.build_root + "/service.js", replace=sed)
 
     list = FileList('src/jsboot/ui', filter = '*.js', exclude = '*xxx*');

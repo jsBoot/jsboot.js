@@ -159,7 +159,6 @@
           if (_xhr.getResponseHeader('X-WWW-Authenticate')) {
             digestMod.challenge = _xhr.getResponseHeader('X-WWW-Authenticate');
           }
-
           // And... is this a 401? Have a challenge? Then replay - otherwise, consider we are doomed
           if (('nonce' in digestMod.challenge) && _xhr.status == 401) {
             // Abort no matter

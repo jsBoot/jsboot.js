@@ -10,15 +10,16 @@
  * @name {PUKE-GIT-ROOT}/jsboot/debug/console.js{PUKE-GIT-REVISION}
  */
 
-(function() {
+
+jsBoot.use('jsBoot.core');
+jsBoot.pack('jsBoot.debug', function(api) {
   /*global console, location*/
   'use strict';
 
-  var core = jsBoot.core;
   // The default error handler is a stupid logger to console
   var markee = ' ┌∩┐(◣_◢)┌∩┐ ';
 
-  core.registerErrorHandler(function(str, fileName, lineNumber) {
+  api.core.registerErrorHandler(function(str, fileName, lineNumber) {
     console.error(markee, markee, markee);
     console.warn('File:', fileName);
     console.warn('Number:', lineNumber);
@@ -28,5 +29,4 @@
     console.error(markee, markee, markee);
     return false;
   });
-
-})();
+});

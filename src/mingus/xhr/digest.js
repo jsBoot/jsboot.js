@@ -330,6 +330,8 @@
     var hosters = {};
 
     this.getEngine = function(host) {
+      // Engine is port independant - authentication is name wide
+      host = host.replace(/:[0-9]+$/, '');
       if (!(host in hosters))
         hosters[host] = new DigestModule(new Locker());
       console.debug('    |DE| got module for host', host);

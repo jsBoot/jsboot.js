@@ -18,11 +18,12 @@
 
 (function() {
   /*jshint browser:true*/
-  /*global simplePostMessage, console, File, Mingus*/
+  /*global console, File, Mingus*/
   'use strict';
   Mingus.xhr.gateOpener = new (function() {
 
     // XXX bien joué Tony!
+    // XXX - should implement a timeout to handle frame failure to load
     // This must be adjusted depending on the host...
     var bridgePath = null; // '/1.0/connect/gate/0.6/gate.html';
 
@@ -83,10 +84,12 @@
         myX.onreadystatechange();
       };
 
-      simplePostMessage.receiveMessage(msgHook, function(source) {
-        return source == frameHost;
-      });
 
+      window.addEventListener('message', function(e) {
+        if (e.origin != frameHost)
+          return false;
+        msgHook(e);
+      }, false);
 
       framy = document.createElement('iframe');
       framy.setAttribute('id', '_roxee_frame_hack');
@@ -156,13 +159,15 @@
           if (isReady) {
             console.debug('                    |G| -> sending now', s);
             ongoing[i] = this;
-            simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
+            framy.contentWindow.postMessage(s, frameHost); // .replace(/^([^:]+:\/\/[^\/]+).*/, '$1')
+            // simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
           }else {
             console.debug('                    |G| -> defering send');
             this.__postTrigger = function() {
               console.debug('                    |G| -> sending after defer', s);
               ongoing[i] = this;
-              simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
+              framy.contentWindow.postMessage(s, frameHost);
+              // simplePostMessage.postMessage(s, frameHost + framePath, framy.contentWindow);
             };
             debt.push(this);
           }

@@ -12,12 +12,9 @@
  * @name {PUKE-GIT-ROOT}/jsboot/core/errorHandler.js{PUKE-GIT-REVISION}
  */
 
-(function() {
+jsBoot.pack('jsBoot.core', function() {
   /*global window, console*/
   'use strict';
-
-  var scope = jsBoot.core;
-
 
   // Consumer may register an handler instead of the dumb one
   /**
@@ -29,7 +26,7 @@
    * @returns undefined
    */
 
-  scope.registerErrorHandler = function(hnd) {
+  this.registerErrorHandler = function(hnd) {
     handlers.push(hnd);
   };
 
@@ -53,4 +50,4 @@
     }
   };
 
-})();
+});

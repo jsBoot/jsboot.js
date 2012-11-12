@@ -10,11 +10,9 @@
  * @name {PUKE-GIT-ROOT}/jsboot/debug/css.js{PUKE-GIT-REVISION}
  */
 
-(function() {
+jsBoot.pack('jsBoot.debug', function() {
   /*jshint browser:true*/
   'use strict';
-
-  var scope = jsBoot.debug;
 
   var cssReload = function() {
     Array.prototype.forEach.call(document.getElementsByTagName('link'), function(item) {
@@ -38,14 +36,14 @@
   };
 
   var cssPollerTout;
-  scope.cssPoller = new (function() {
+  this.cssPoller = new (function() {
     this.start = function() {
       cssReload();
-      cssPollerTout = window.setTimeout(this.start, 1000);
+      cssPollerTout = setTimeout(this.start, 1000);
     };
 
     this.stop = function() {
-      window.clearTimeout(cssPollerTout);
+      clearTimeout(cssPollerTout);
       cssPollerTout = null;
     };
 
@@ -58,5 +56,5 @@
     };
   })();
 
-})();
+});
 

@@ -86,14 +86,15 @@ gister.pack('Stuffy.Thing', function(){
     }
     if (lastAdd) {
       if (!lastAdd.name)
-        throw new jsBoot.core.Error('NEED_A_NAME');
+        throw new Error('NEED_A_NAME', 'Trying to bind something without name');
       toAdd.push(lastAdd);
       lastAdd = null;
     }
   };
 
   jsBoot.use = function(a) {
-    lastUse = {module: a, name: a};
+    flush();
+    lastUse = {module: a, name: a.split('.').pop()};
     return this;
   };
 
@@ -115,19 +116,36 @@ gister.pack('Stuffy.Thing', function(){
     flush();
     var localUse = toUse;
     var localAdd = toAdd;
-    backDefine(name, toUse.map(function(item) {return item.module;}), function() {
-      var module = {};
+    var deps = toUse.map(function(item) {
+      return item.module;
+    });
+    deps.unshift(name);
+
+    // Try to land on appropriately
+    backDefine(name, deps, function(mod) {
+      var module = mod || {};
       var api = {};
-      var args = Array.prototype.slice.call(arguments);
+      var args = Array.prototype.slice.call(arguments, 1);
       args.forEach(function(item, idx) {
+        if (item === undefined)
+          throw new Error('UNDEFINED', 'This is undefined: ' + localUse[idx].name);
+        if (localUse[idx].name in api)
+          throw new Error('ALREADY_DEFINED', 'You are shadowing ' + api[localUse[idx].name] + ' with ' +
+              item + ' for name ' + localUse[idx].name);
         api[localUse[idx].name] = item;
       });
       localAdd.forEach(function(item) {
+        if (item.value === undefined)
+          throw new Error('UNDEFINED', 'This is undefined: ' + item.name);
+        if (item.name in api)
+          throw new Error('ALREADY_DEFINED', 'You are shadowing ' + api[item.name] + ' with ' +
+              item + ' for name ' + item.name);
         api[item.name] = item.value;
       });
       factory.apply(module, [api]);
       return module;
     });
+
     toUse = [];
     toAdd = [];
   };
@@ -136,13 +154,24 @@ gister.pack('Stuffy.Thing', function(){
     flush();
     var localUse = toUse;
     var localAdd = toAdd;
-    backRequire(toUse.map(function(item) {return item.module;}), function() {
+    var deps = toUse.map(function(item) {return item.module;});
+    backRequire(deps, function() {
       var api = {};
       var args = Array.prototype.slice.call(arguments);
       args.forEach(function(item, idx) {
+        if (item === undefined)
+          throw new Error('UNDEFINED', 'This is undefined: ' + localUse[idx].name);
+        if (localUse[idx].name in api)
+          throw new Error('ALREADY_DEFINED', 'You are shadowing ' + api[localUse[idx].name] + ' with ' +
+              item + ' for name ' + localUse[idx].name);
         api[localUse[idx].name] = item;
       });
       localAdd.forEach(function(item) {
+        if (item.value === undefined)
+          throw new Error('UNDEFINED', 'This is undefined: ' + item.name);
+        if (item.name in api)
+          throw new Error('ALREADY_DEFINED', 'You are shadowing ' + api[item.name] + ' with ' +
+              item + ' for name ' + item.name);
         api[item.name] = item.value;
       });
       return factory.apply({}, [api]);

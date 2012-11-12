@@ -10,13 +10,12 @@
  * @name {PUKE-GIT-ROOT}/jsboot/debug/tick.js{PUKE-GIT-REVISION}
  */
 
-(function() {
+jsBoot.pack('jsBoot.debug', function() {
   /*global console*/
   'use strict';
-  var scope = jsBoot.debug;
 
   var started = false;
-  scope.tick = function(message, end) {
+  this.tick = function(message, end) {
     console.info(' [jsBoot.debug.tick]', message);
     if (started) {
       console.timeEnd('Time since last tick');
@@ -31,6 +30,6 @@
     }
   };
 
-  scope.tick('Debug module fully loaded. Starting time measurement');
+  this.tick('Debug module fully loaded. Starting time measurement');
 
-})();
+});

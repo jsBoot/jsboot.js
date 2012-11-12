@@ -1,17 +1,13 @@
 /**
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
- * @version {PUKE-PACKAGE-VERSION}
- * @location {PUKE-PACKAGE-GIT-ROOT}/lib/com/wiu/mingus/converters/entity.js
- * @fileOverview Basic helper class to help converting various entities to their utf conterparts.
- * @author {PUKE-PACKAGE-AUTHOR}
- */
-
-/**
+ * @file
+ * @summary Basic helper class to help converting various entities to their utf conterparts.
  *
- * A rather crude stuff to convert all entities (hex, dec, html) to unicode.
- * @namespace Convert entities.
+ * @author {PUKE-RIGHTS-AUTHOR}
+ * @version {PUKE-PACKAGE-VERSION}
+ *
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @name {PUKE-GIT-ROOT}/mingus/converters/entity.js{PUKE-GIT-REVISION}
  */
 
 (function() {
@@ -308,21 +304,28 @@
     return exit;
   };
 
-  Mingus.converters = {};
+  Mingus.converters = Mingus.converters || {};
+
+  /**
+   * A couple methods meant to convert/escape/protect stuff.
+   *
+   * @namespace
+   * @name Mingus.converters.entity
+   */
   Mingus.converters.entity = {
 
     /**
-   * Decode entity: a function to decode all html and unicode code points
-   * entities in a string.
-   *
-   * @memberOf Mingus.converters.entity
-   * @function
-   * @static
-   * @param {String} entry A string to analyze.
-   * @param {Boolean} [killOrphans=false] wether to leave unrecognized entities untouched or erase them.
-   * @returns {String} the decoded string
-   */
-
+     * Decode entity: a function to decode all html and unicode code points
+     * entities in a string.
+     * BEWARE it will decode escaped XML entities like < > & and quotes as well!
+     * Thus, this might break
+     *
+     * @name Mingus.converters.entity.decodeEntities
+     * @function
+     * @param {String} entry A string to analyze.
+     * @param {Boolean} [killOrphans=false] wether to leave unrecognized entities untouched or erase them.
+     * @returns {String} the decoded string
+     */
     decodeEntities: function(entry, killOrphans) {
       _killundec = killOrphans;
       // Replace all html, hex and dec unicode entities.
@@ -330,15 +333,14 @@
     },
 
     /**
-   * Safe escape a string for xml consumption.
-   *
-   * @memberOf Mingus.converters.entity
-   * @function
-   * @static
-   * @param {String} string A string to protect.
-   * @param {Boolean} [leaveapos=false] wether to explicitely leave single quotes alone (or not, which is default).
-   * @returns {String} the protected string
-   */
+     * Safe escape a string for xml consumption.
+     *
+     * @function
+     * @name Mingus.converters.entity.safeXML
+     * @param {String} string A string to protect.
+     * @param {Boolean} [leaveapos=false] wether to explicitely leave single quotes alone (or not, which is default).
+     * @returns {String} the protected string
+     */
     safeXML: function(string, leaveapos) {
       string = string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       if (!leaveapos)

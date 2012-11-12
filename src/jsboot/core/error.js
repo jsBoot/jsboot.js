@@ -16,16 +16,15 @@
  * @see  http://stackoverflow.com/questions/332422/how-do-i-get-the-name-of-an-objects-type-in-javascript
  */
 
-(function() {
-  /*global Error, window, printStackTrace*/
+/*global Error, window, printStackTrace*/
+jsBoot.add(Error).as('NativeError');
+jsBoot.pack('jsBoot.core', function(api) {
   'use strict';
 
-  var scope = jsBoot.core;
-
   // Possibly pb related to X-Domain limitation shit
-  scope.Error = function(name, message) {
+  this.Error = function(name, message) {
     // Error behavior is strange...
-    var b = Error.apply(this, [message]);
+    var b = api.NativeError.apply(this, [message]);
     // Not too sure this leads anywhere safe though (google code fux...)
     if ((this == window) || (this === undefined))
       return;
@@ -36,22 +35,22 @@
       this.stack = (typeof 'printStackTrace' != 'undefined') ? printStackTrace() : [];
   };
 
-  Object.getOwnPropertyNames(Error.prototype).forEach(function(i) {
+  Object.getOwnPropertyNames(api.NativeError.prototype).forEach(function(i) {
     if (i != 'constructor')
-      scope.Error.prototype[i] = Error.prototype[i];
+      this.Error.prototype[i] = api.NativeError.prototype[i];
   }, this);
 
   ['NOT_IMPLEMENTED', 'UNSPECIFIED', 'NOT_INITIALIZED', 'WRONG_ARGUMENTS',
    'UNSUPPORTED', 'NATURAL_BORN_CRASH'].forEach(function(item, idx) {
-    scope.Error[item] = scope.Error.prototype[item] = idx;
-  });
+    this.Error[item] = this.Error.prototype[item] = idx;
+  }, this);
 
-  scope.Error.prototype.toString = function() {
+  this.Error.prototype.toString = function() {
     return this.name + ': ' + this.message + '\nStack: ' +
         ((typeof this.stack == 'array') ? this.stack.join('\n') : this.stack);
   };
 
-})();
+});
 
 /**
  * @namespace

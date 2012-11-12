@@ -10,10 +10,10 @@
  * @name {PUKE-GIT-ROOT}/jsboot/debug/console.js{PUKE-GIT-REVISION}
  */
 
-(function() {
+/*jshint devel:true*/
+jsBoot.add(console).as('nativeConsole');
+jsBoot.pack('jsBoot.debug', function(api) {
   'use strict';
-
-  var scope = jsBoot.debug;
 
   // Verbosity controller
   var e = {
@@ -26,17 +26,16 @@
     'ALL': 63
   };
 
-  scope.console = {
+  this.console = {
     VERBOSITY: e.ALL
   };
 
   // console.time('start');
-  var c = this.console;
   Object.keys(e).forEach(function(i) {
-    var level = scope.console[i] = e[i];
-    var meth = c[i.toLowerCase()];
-    c[i.toLowerCase()] = function() {
-      if (scope.console.VERBOSITY & level) {
+    var level = this.console[i] = e[i];
+    var nativeMeth = api.nativeConsole[i.toLowerCase()];
+    api.nativeConsole[i.toLowerCase()] = (function() {
+      if (this.console.VERBOSITY & level) {
         // var args = Array.prototype.slice(arguments);
         // args.push(Date.now());
         // console.timeEnd('start');
@@ -44,14 +43,14 @@
         // console.time('previous');
         // Might very well crash IE bitch
         try {
-          meth.apply(c, arguments);
+          nativeMeth.apply(api.nativeConsole, arguments);
         }catch (e) {
           Array.prototype.slice(arguments).forEach(function(arg) {
-            meth.apply(c, [arg]);
+            nativeMeth.apply(api.nativeConsole, [arg]);
           });
         }
       }
-    };
-  });
+    }.bind(this));
+  }, this);
 
-}).apply(this);
+});

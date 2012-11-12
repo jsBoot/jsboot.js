@@ -16,7 +16,8 @@ tiojs.wait(function() {
     jsBoot.loader.use(jsBoot.loader.MINGUS);
     jsBoot.loader.use(jsBoot.loader.TOOLING_STACK);
     jsBoot.loader.wait();
-    jsBoot.loader.use('specs/http.js');
+    // jsBoot.loader.use('specs/http.js');
+    jsBoot.loader.use('specs/xhr.js');
     jsBoot.loader.wait(function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;

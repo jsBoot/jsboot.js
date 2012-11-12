@@ -33,9 +33,12 @@
    * @return {undefined}          Doesn't return anything.
    */
 
+  // Adapted from JSON3 (credit Oyvind Sean Kinsey)
+  // Detect the "define" function exposed by asynchronous module loaders
+  var isLoader = typeof define === 'function' && define.amd;
+  var internalObj = typeof exports == 'object' && exports;
+
   this.simpleRequire = (function(deps, factory) {
-    var isLoader = typeof define === 'function' && define.amd;
-    var internalObj = typeof exports == 'object' && exports;
 
     // Export for asynchronous module loaders, CommonJS environments, web browsers, and JavaScript engines.
     if (isLoader || internalObj) {
@@ -50,6 +53,8 @@
         var sc = this;
         depName.split('.').map(function(fragment) {
           sc = sc[fragment];
+          if (sc === undefined)
+            throw new Error('MISSING', 'Trying to require something that doesn\'t exist');
         });
         return sc;
       }, this);
@@ -64,10 +69,6 @@
       factory = deps;
       deps = [];
     }
-    // Adapted from JSON3 (credit Oyvind Sean Kinsey)
-    // Detect the "define" function exposed by asynchronous module loaders
-    var isLoader = typeof define === 'function' && define.amd;
-    var internalObj = typeof exports == 'object' && exports;
 
     // Export for asynchronous module loaders, CommonJS environments, web browsers, and JavaScript engines.
     if (isLoader || internalObj) {
@@ -87,6 +88,7 @@
           internalObj = {};
           internalObj = factory.apply(internalObj, deps) || internalObj;
           for (var i in internalObj) {
+            // XXX is this anywhere near working naming?
             if (internalObj.hasOwnProperty(i))
               exports[i] = internalObj[i];
           }
