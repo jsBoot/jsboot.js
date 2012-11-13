@@ -1,4 +1,5 @@
-jsBoot.use('Mingus.xhr.digest');
+/*global Mingus*/
+jsBoot.add(Mingus.xhr.digest).as('digest');
 
 jsBoot.use('jsBoot.service.core');
 

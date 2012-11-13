@@ -350,9 +350,16 @@
     if (isLoader) {
       // Export for asynchronous module loaders. The namespace is
       // redefined because module loaders do not provide the "exports" object.
-      define('jsBoot/boot', (root = {}));
-      require(['Spitfire/loader', 'Spitfire'], function(sl, s) {
+      // define('jsBoot', (root = {}));
+      // require(['Spitfire/loader', 'Spitfire'], function(sl, s) {
+      //   beWise.call(root, sl, s);
+      // });
+      root = {};
+      define('jsBoot', ['Spitfire/loader', 'Spitfire'], function(sl, s) {
         beWise.call(root, sl, s);
+        // define('jsBoot/loader', root.loader);
+        // define('jsBoot/boot', root.boot);
+        return root;
       });
     }
   } else {

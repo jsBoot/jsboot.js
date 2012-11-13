@@ -1,6 +1,7 @@
-jsBoot.use('Mingus.xhr.XMLHttpRequest');
-jsBoot.use('Mingus.xhr.digest');
-jsBoot.use('Mingus.xhr.appKeyEngine');
+/*global Mingus*/
+jsBoot.add(Mingus.xhr.XMLHttpRequest).as('XMLHttpRequest');
+jsBoot.add(Mingus.xhr.digest).as('digest');
+jsBoot.add(Mingus.xhr.appKeyEngine).as('appKeyEngine');
 
 jsBoot.use('jsBoot.service.SimpleClient');
 jsBoot.use('jsBoot.service.Error');

@@ -103,6 +103,7 @@ jsBoot.pack('jsBoot.service', function(api) {
     try {
       userId = inner.getResponseHeader('X-UID') || userId;
     }catch (e) {
+      this.exception = e;
       throw new api.Error(api.Error.FAILED_UID, 'Cant read UID', this);
     }
 
@@ -213,6 +214,7 @@ jsBoot.pack('jsBoot.service', function(api) {
     try {
       inner.open(method, url, true);
     }catch (e) {
+      options.exception = e.toString();
       throw new api.Error(api.Error.OPENING_FAILED, 'Failed opening likely bogus request', options);
     }
 
@@ -250,6 +252,7 @@ jsBoot.pack('jsBoot.service', function(api) {
     try {
       inner.send(payload);
     }catch (e) {
+      options.exception = e;
       throw new api.Error(api.Error.SEND_FAILED, 'Failed sending. Bogus payload?', options);
     }
   };

@@ -27,7 +27,7 @@
 (function(iri, ake, dig, transport) {
   'use strict';
 
-  /*global console, fixIE*/
+  /*global console*/
   var hax = this.XMLHttpRequest = function() {
 
     // UA-like signature
@@ -185,9 +185,6 @@
       };
     };
   };
-
-  // IE crap take 2
-  this.XMLHttpRequest = fixIE(this.XMLHttpRequest);
 
   this.XMLHttpRequest.gatePath = undefined;
   // Allow to set the _gatePath manually

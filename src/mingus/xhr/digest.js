@@ -91,68 +91,8 @@
  */
 
 
-
-/**#nocode+*/
-
-// Some PONYNASTY code to have IE support getters/setters on ANY object
-(function() {
-  /*jshint browser:true*/
-  'use strict';
-
-  this.fixIE = function(myObject) {
-    return myObject;
-  };
-
-  // Match IE8 profile: has defineProperty, and fail on javascript objects
-  if ('defineProperty' in Object)
-    try {
-      Object.defineProperty({}, 'blanket', {get: function() {return 'don\'t you lie to me bastard!';}});
-      // XXX namespace that
-    }catch (e) {
-      var x = Object.defineProperty;
-      var ripIt = function(obj, prop, descriptor) {
-        // Must delete (won't be erased otherwise)
-        if (prop in obj)
-          delete obj[prop];
-        // XXX Property attributes must be set to some values. true, true, true for data descriptor
-        descriptor.configurable = true;
-        descriptor.enumerable = false;
-        x(obj, prop, descriptor);
-      };
-
-      /**
-       * @ignore
-       */
-      Object.defineProperty = ripIt;
-      // XXX namespace that
-      /*  var fixIE = function(myObject) {
-        // Create a fake DOM object
-        var _IEIsInfamous = document.createElement('span');
-        // Apply the real object mechanic on it
-        myObject.apply(_IEIsInfamous, arguments;
-        return _IEIsInfamous;
-      };*/
-      this.fixIE = function(myClass) {
-        return function() {
-          // Create a fake DOM object
-          var _IEIsInfamous = document.createElement('span');
-          // Apply the real object mechanic on it
-          myClass.apply(_IEIsInfamous, arguments);
-          return _IEIsInfamous;
-        };
-      };
-    }
-}).apply(window);
-
-/**#nocode-*/
-
-
-
-
-
 /*global Mingus:true*/
 (function(md5, http) {
-  /*global console:true, fixIE:true*/
   'use strict';
   // Private helpers
 
@@ -163,7 +103,7 @@
 
   // Private helper to increment a nc
   var incrementNC = function(nc) {
-    var l = nc.length, n = parseInt(nc, 10), str = '' + (n + 1);
+    var l = nc.length, str = '' + (parseInt(nc, 10) + 1);
     while (str.length < l) {
       str = '0' + str;
     }
@@ -172,27 +112,16 @@
 
   // Private helper to generate a HA1
   var generateHA1 = function(log, pass, realm) {
-    console.debug('    |DE| Generating HA1 for ', log, pass, realm, md5.crypt(log + ':' + realm + ':' + pass));
     return md5.crypt(log + ':' + realm + ':' + pass);
   };
 
   // Private helper to generate a suitable answer string
   var generateResponse = function(ha1, nonce, nc, cnonce, qop, method, url) {
-    console.debug('    |DE| Generating response for ', ha1, nonce, nc, cnonce, qop, method, url);
     var ha2 = md5.crypt(method.toUpperCase() + ':' + url);
     return md5.crypt(ha1 + ':' + nonce + ':' + nc + ':' + cnonce + ':' + qop + ':' + ha2);
   };
 
-  // Internal lock helper
-  var Locker = function() {};
-
-
-  var DigestModule = function(lock) {
-    if (!(lock instanceof Locker) && (lock != 'dirtyTrix')) {
-      throw 'You can\'t instanciate a DigestModule directly. Call Mingus.xhr.digestFactory.getDigest(host) instead.';
-    }
-
-    console.debug('    |DE| constructed module');
+  var DigestModule = function() {
     // Login and password accessors
     var _login, _password, _ha1;
 
@@ -210,7 +139,6 @@
         return _login;
       },
       set: function(log) {
-        console.debug('    |DE| setting login', log);
         _login = log;
         // Login change means reseting HA1
         _ha1 = null;
@@ -225,25 +153,23 @@
       set: function(value) {
         _challenge.realm = value;
       },
-      enumerable: false
+      enumerable: true
     });
 
     Object.defineProperty(this, 'password', {
       set: function(pass) {
-        console.debug('    |DE| setting password', pass);
         _password = pass;
         // Password change means reseting HA1
         _ha1 = null;
       },
-      enumerable: true
+      enumerable: false
     });
 
     Object.defineProperty(this, 'ha1', {
-      get: function() {
+      /*get: function() {
         return _ha1;
-      },
+      },*/
       set: function(ha1) {
-        console.debug('    |DE| setting ha1', ha1);
         _ha1 = ha1;
       },
       enumerable: false
@@ -251,14 +177,12 @@
 
     Object.defineProperty(this, 'challenge', {
       get: function() {
-        console.debug('    |DE| getting challenge', _challenge);
         return _challenge;
       },
 
       set: function(header) {
         var oldrealm = (_challenge && 'realm' in _challenge) ? _challenge.realm : null;
         var t = http.digest.parse(header);
-        console.debug('    |DE| parsing challenge', header, 'resulting in', t);
         // Aggregate onto last challenge info
         for (var i in t) {
           if (t.hasOwnProperty(i))
@@ -283,7 +207,7 @@
           _ha1 = null;
         }
       },
-      enumerable: true
+      enumerable: false
     });
 
     // And a method to get the answer string for a given url and method
@@ -310,31 +234,22 @@
         nc: _nc
       };
 
-      var authArray = [];
-      for (var key in auth) {
-        if (auth.hasOwnProperty(key))
-          authArray.push(key + '="' + auth[key] + '"');
-      }
-      console.debug('    |DE| generate response with', _challenge, authArray.join(', '));
-      return 'Digest ' + authArray.join(', ');
+      return 'Digest ' + Object.keys(auth).map(function(key){
+        return key + '="' + auth[key] + '"';
+      }).join(', ');
     };
     /**#@-*/
   };
 
-  // IE crap
-  DigestModule = fixIE(DigestModule);
-
-
   this.digest = new (function() {
     // Modules per hosts
-    var hosters = {};
+    var hosters = this.data = {};
 
     this.getEngine = function(host) {
-      // Engine is port independant - authentication is name wide
+      // For us, engine is port independant - authentication is hostname wide
       host = host.replace(/:[0-9]+$/, '');
       if (!(host in hosters))
-        hosters[host] = new DigestModule(new Locker());
-      console.debug('    |DE| got module for host', host);
+        hosters[host] = new DigestModule();
       return hosters[host];
     };
     /*
@@ -348,8 +263,6 @@
       enumerable: true
     });
     */
-    // XXX prevent too much acrobatic stunts with IE
-    this.data = hosters;
 
   })();
 

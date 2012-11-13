@@ -109,56 +109,46 @@ def build():
     spitfireList = [
       spitman['spitfire-lab'],
       'src/onegateisopening/boot.js',
+      'src/jsboot/gister/packman.js'
     ]
-
-
-
-
-    # print open('.pukecache/34825187585a6d8cd0794b79d0381a9904633e2d4ef5b23a4cc0b0b608514c07').encoding
-    # print open('src/onegateisopening/boot.js').encoding
-
-    # d = FileSystem.readfile('.pukecache/34825187585a6d8cd0794b79d0381a9904633e2d4ef5b23a4cc0b0b608514c07')
-    # e = FileSystem.readfile('src/onegateisopening/boot.js')
-    # d += e
-    # print "coucou"
-    # print "------------------------- %s" % d
-
     combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.js", replace=sed)
 
-    spitfireList = [
-      spitman['spitfire'],
-      'src/onegateisopening/boot.js',
-    ]
-    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.vanilla.js", replace=sed)
+    # spitfireList = [
+    #   spitman['spitfire'],
+    #   'src/onegateisopening/boot.js',
+    # ]
+    # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.vanilla.js", replace=sed)
 
-    spitfireList = [
-      spitman['spitfire-require'],
-      'src/onegateisopening/boot.js',
-    ]
-    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.require.js", replace=sed)
+    # spitfireList = [
+    #   spitman['spitfire-require'],
+    #   'src/onegateisopening/boot.js',
+    # ]
+    # # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.require.js", replace=sed)
+    # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.require.js", replace=sed)
 
-    spitfireList = [
-      spitman['spitfire-head'],
-      'src/onegateisopening/boot.js',
-    ]
-    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.head.js", replace=sed)
+    # spitfireList = [
+    #   spitman['spitfire-head'],
+    #   'src/onegateisopening/boot.js',
+    # ]
+    # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.head.js", replace=sed)
 
-    # These two don't support strict mode - the hell with them!
-    spitfireList = [
-      spitman['spitfire-yahoo'],
-      'src/onegateisopening/boot.js',
-    ]
-    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yahoo.js", replace=sed)
+    # # These two don't support strict mode - the hell with them!
+    # spitfireList = [
+    #   spitman['spitfire-yahoo'],
+    #   'src/onegateisopening/boot.js',
+    # ]
+    # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yahoo.js", replace=sed)
 
-    spitfireList = [
-      spitman['spitfire-yepnope'],
-      'src/onegateisopening/boot.js',
-    ]
-    combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yepnope.js", replace=sed)
+    # spitfireList = [
+    #   spitman['spitfire-yepnope'],
+    #   'src/onegateisopening/boot.js',
+    # ]
+    # combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.yepnope.js", replace=sed)
+
+
 
     # XXX Have unified XHR bundled to be safe (?)
     # spitman['xhr'],
-
 
     # ================================
     # Monolithic ember stack test
@@ -257,8 +247,8 @@ def build():
     list = FileList('src/jsboot/debug', filter = '*.js', exclude = '*xxx*');
     combine(list, Yak.build_root + "/debug.js", replace=sed)
 
-    list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*')
-    list.merge(FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*'));
+    # list = FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*')
+    list = FileList('src/jsboot/core', filter = '*.js', exclude = '*xxx*');
     # list.merge(FileList('src/jsboot/gister', filter = '*.js', exclude = '*xxx*'));
     list.merge(['src/jsboot/types/eventdispatcher.js'])
     combine(list, Yak.build_root + "/core.js", replace=sed)

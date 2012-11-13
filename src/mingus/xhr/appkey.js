@@ -11,7 +11,7 @@
 
 
 (function() {
-  /*global Mingus, console*/
+  /*global Mingus*/
   'use strict';
 
   /**
@@ -66,7 +66,6 @@
    * @returns {undefined}
    */
     this.getSignature = function(host, path, method) {
-      console.debug('    |AE| get signature for', host, path, method);
       if (!(host in this.data))
         throw new Error(err.UNREGISTERED_HOST);
       var keyId = this.data[host].keyId;
@@ -90,13 +89,10 @@
    * @returns {undefined}
    */
     this.setAppKey = function(host, keyId, secretKey) {
-      console.debug('    |AE| set key for', host, keyId, secretKey);
       if (!(host in this.data))
-        this.data[host] = {keyId: keyId, secretKey: secretKey, delta: 0};
-      else {
-        this.data[host].keyId = keyId;
-        this.data[host].secretKey = secretKey;
-      }
+        this.data[host] = {delta: 0};
+      this.data[host].keyId = keyId;
+      this.data[host].secretKey = secretKey;
     };
 
     /**
@@ -109,7 +105,6 @@
    * @returns {undefined}
    */
     this.setTime = function(host, serverDate) {
-      console.debug('    |AE| set time for', host, serverDate);
       var ts = Date.parse(serverDate) / 1000;
       if (isNaN(ts))
         throw new Error(err.UNPARSABLE_DATE);
