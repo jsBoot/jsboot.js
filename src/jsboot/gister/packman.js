@@ -61,7 +61,7 @@ gister.pack('Stuffy.Thing', function(){
 
 /*global window*/
 
-if(typeof jsBoot == 'undefined')
+if (typeof jsBoot == 'undefined')
   var jsBoot = {};
 
 (function(globalObject) {
@@ -97,7 +97,7 @@ if(typeof jsBoot == 'undefined')
   };
 
   this.add = function(a) {
-    if(a === undefined)
+    if (a === undefined)
       throw new Error('UNDEFINED', 'Requesting something local that is undefined');
     flush();
     lastAdd = {value: a};
@@ -114,21 +114,21 @@ if(typeof jsBoot == 'undefined')
 
 
 
-  var simplePull = function(glob, name){
+  var simplePull = function(glob, name) {
     name.split('.').forEach(function(fragment) {
-      if(!(fragment in glob))
+      if (!(fragment in glob))
         throw new Error('MISSING', 'Trying to require something that doesn\'t exist');
       glob = glob[fragment];
     });
     return glob;
   };
 
-  var parentPull = function(glob, name){
+  var parentPull = function(glob, name) {
     var ret = {};
     name.split('.').forEach(function(fragment) {
       ret.o = glob;
       ret.k = fragment;
-      if(!(fragment in glob))
+      if (!(fragment in glob))
         glob[fragment] = {};
       glob = glob[fragment];
     });
@@ -156,7 +156,7 @@ if(typeof jsBoot == 'undefined')
     });
 
     // If AMD pattern
-/*
+    /*
     if (isLoader || internalObj) {
       // Get dependencies names
       var deps = [];
@@ -241,7 +241,7 @@ if(typeof jsBoot == 'undefined')
 
     var r = parentPull(globalObject, name);
     r.o[r.k] = factory.apply(r.o[r.k], [api]) || r.o[r.k];
-//    }
+    //    }
   };
 
   this.run = function(factory) {
@@ -262,7 +262,7 @@ if(typeof jsBoot == 'undefined')
     });
 
     // If AMD pattern
-/*    if (isLoader || internalObj) {
+    /*    if (isLoader || internalObj) {
       // Get dependencies names
       var deps = localUse.map(function(item) {
         return item.module.replace(/\./g, '/');

@@ -234,7 +234,7 @@
         nc: _nc
       };
 
-      return 'Digest ' + Object.keys(auth).map(function(key){
+      return 'Digest ' + Object.keys(auth).map(function(key) {
         return key + '="' + auth[key] + '"';
       }).join(', ');
     };
