@@ -117,7 +117,7 @@ if (typeof jsBoot == 'undefined')
   var simplePull = function(glob, name) {
     name.split('.').forEach(function(fragment) {
       if (!(fragment in glob))
-        throw new Error('MISSING', 'Trying to require something that doesn\'t exist');
+        throw new Error('MISSING', 'Trying to require something that doesn\'t exist: ' + name);
       glob = glob[fragment];
     });
     return glob;
