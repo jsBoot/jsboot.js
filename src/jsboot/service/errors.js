@@ -7,9 +7,7 @@ jsBoot.pack('jsBoot.service', function(api) {
     this.details = details;
   };
 
-  Object.keys(api.Error.prototype).forEach(function(i) {
-    this.prototype[i] = api.Error.prototype[i];
-  }, this.Error);
+  this.Error.prototype = Object.create(api.Error.prototype);
 
   ['OPENING_FAILED', 'SEND_FAILED', 'FAILED_UID', 'MEANINGLESS_DATA', 'BAD_REQUEST',
    'MISSING', 'BAD_REQUEST', 'UNAUTHORIZED', 'INVALID_SIGNATURE', 'WRONG_CREDENTIALS',

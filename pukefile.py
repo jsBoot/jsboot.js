@@ -109,7 +109,7 @@ def build():
     spitfireList = [
       spitman['spitfire-lab'],
       'src/onegateisopening/boot.js',
-      'src/jsboot/gister/packman.js'
+      'src/gister/packman.js'
     ]
     combine(spitfireList, Yak.build_root + "/there.is.only.jsboot.js", replace=sed)
 

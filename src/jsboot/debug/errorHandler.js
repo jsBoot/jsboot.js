@@ -12,7 +12,7 @@
 
 
 jsBoot.use('jsBoot.core');
-jsBoot.pack('jsBoot.debug', function(api) {
+jsBoot.run(function(api) {
   /*global console, location*/
   'use strict';
 

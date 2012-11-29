@@ -36,15 +36,18 @@ jsBoot.pack('jsBoot.debug', function() {
   };
 
   var cssPollerTout;
+
   this.cssPoller = new (function() {
-    this.start = function() {
-      cssReload();
-      cssPollerTout = setTimeout(this.start, 1000);
+    this.boot = function(time) {
+      this.shutdown();
+      cssPollerTout = setInterval(cssReload, (time || 1) * 1000);
     };
 
-    this.stop = function() {
-      clearTimeout(cssPollerTout);
-      cssPollerTout = null;
+    this.shutdown = function() {
+      if (cssPollerTout) {
+        clearInterval(cssPollerTout);
+        cssPollerTout = null;
+      }
     };
 
     this.trigger = function() {

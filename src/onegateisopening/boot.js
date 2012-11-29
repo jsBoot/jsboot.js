@@ -123,6 +123,13 @@
      */
     this.boot = new (function() {
       var common = function(debug, version) {
+        // XXX technically, this is not the same thing as HTML cond includes...
+        // So, this may or may not be a good idea...
+        if (false /*@cc_on || @_jscript_version <= 8 @*/) {
+          bootLoader.use('ie7', '2.1');
+          bootLoader.wait();
+        }
+
         bootLoader.use('normalize', version || '2.0', null, debug);
         bootLoader.use('h5bp', version || '4.0', null, debug);
         bootLoader.use(bootLoader.SHIMS, null, null, debug);
@@ -169,6 +176,20 @@
         bootLoader.wait(cbk);
         return bootLoader;
       };
+
+
+      this.tooling = function(cbk, debug, trunk) {
+        trunk = (params.trunk || trunk) && 'trunk';
+        debug = params.debug || debug;
+        common(debug, trunk);
+        bootLoader.use('prettify', params.trunk ? 'trunk' : '1.0', 'prettify');
+        bootLoader.use('jasmine', params.trunk ? 'trunk' : '1.2', 'core');
+        bootLoader.wait();
+        bootLoader.use('prettify', params.trunk ? 'trunk' : '1.0', 'lang');
+        bootLoader.use('jasmine', params.trunk ? 'trunk' : '1.2', 'html');
+        bootLoader.wait(cbk);
+        return bootLoader;
+      };
     })();
 
 
@@ -178,9 +199,6 @@
        * Available "stacks" to be spoofed to the use method
        */
       this.SHIMS = 'shims-stack';
-      this.EMBER_STACK = 'ember-stack';
-      this.BACKBONE_STACK = 'backbone-stack';
-      this.TOOLING_STACK = 'tooling-stack';
 
       // Shortcut to request trunk versions for something
       this.TRUNK = 'trunk';
@@ -189,9 +207,9 @@
       this.MINGUS = params.base + 'mingus.js';
       // *Basic* jsBoot functionality required for anything else to work
       this.CORE = params.base + 'core.js';
-      // Any of these below depend on core *stressing that*
+      // Any of these below depend on core - *stressing that*
       this.DEBUG = params.base + 'debug.js';
-      this.GISTER = params.base + 'gister.js';
+      // Also depend on Mingus
       this.SERVICE = params.base + 'service.js';
       this.UI = params.base + 'ui.js';
 
@@ -263,42 +281,12 @@
             break;
 
           // Modules
-          case this.MINGUS:
           case this.CORE:
-          case this.SERVICE:
-          case this.GISTER:
           case this.DEBUG:
+          case this.MINGUS:
+          case this.SERVICE:
+          case this.UI:
             insertThing(thing, !params.notminified && !forceFull);
-            break;
-
-          // "Complete" stacks
-          case this.BACKBONE_STACK:
-            this.use('jquery', params.trunk ? 'trunk' : 1.8);
-            // this.use('handlebars', params.trunk ? 'trunk' : '1.b6', 'main');// runtime?
-            this.wait();
-            this.use('backbone', params.trunk ? 'trunk' : '0.9');
-            this.use('i18n', params.trunk ? 'trunk' : '3.0');
-            this.wait(function() {
-              throw 'Backbone stack is largely untested. You may continue at your own risks';
-            });
-            break;
-
-          case this.EMBER_STACK:
-            this.use('jquery', params.trunk ? 'trunk' : 1.8);
-            this.use('handlebars', params.trunk ? 'trunk' : '1.0', 'main');// runtime? 1.b6
-            this.use('i18n', params.trunk ? 'trunk' : '3.0');
-            this.wait();
-            this.use('ember', params.trunk ? 'trunk' : '1.0', sub ? 'debug' : 'prod');
-            this.wait();
-            break;
-
-          case this.TOOLING_STACK:
-            this.use('prettify', params.trunk ? 'trunk' : '1.0', 'prettify');
-            this.use('jasmine', params.trunk ? 'trunk' : '1.2', 'core');
-            this.wait();
-            this.use('prettify', params.trunk ? 'trunk' : '1.0', 'lang');
-            this.use('jasmine', params.trunk ? 'trunk' : '1.2', 'html');
-            this.wait();
             break;
 
           default:
