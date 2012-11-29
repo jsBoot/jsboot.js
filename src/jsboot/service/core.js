@@ -102,7 +102,7 @@ jsBoot.pack('jsBoot.service', function(api) {
       }
 
       // Base pattern
-      this.requestor.query(this.requestor.GET, {
+      this.requestor.query(this.requestor.POST, {
         service: USER,
         onsuccess: onSuccess,
         onfailure: onFailure,

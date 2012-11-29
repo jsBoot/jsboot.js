@@ -12,7 +12,6 @@
  * @name LISTENER_FAILURE
  */
 
-
 jsBoot.add(1).as('delay');
 jsBoot.pack('jsBoot.types', function(api) {
   /*jshint browser:true*/
@@ -43,7 +42,8 @@ jsBoot.pack('jsBoot.types', function(api) {
         return;
 
       listeners[type].some(function(l, x) {
-        return (listener == l.bound) && (context == l.context) && listeners[type].splice(x, 1);
+        if ((listener == l.bound) && (context == l.context))
+          listeners[type].splice(x, 1);
       });
 
       // for (var x = 0, l; (x < listeners[type].length) && (l = listeners[type][x]); x++)

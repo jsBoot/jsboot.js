@@ -3,7 +3,7 @@ jsBoot.pack('jsBoot.ui', function() {
   'use strict';
 
   if (typeof KeyboardJS == 'undefined')
-    console.info(' [jsBoot.ui]: KeyboardJS is not loaded - keyboard support disabled');
+    console.warn(' [jsBoot.ui]: KeyboardJS is not loaded - keyboard support disabled - will try MouseTrap');
   else
     this.keyboard = KeyboardJS;
 

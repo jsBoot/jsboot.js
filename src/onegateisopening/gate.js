@@ -72,27 +72,27 @@
 
     // A very simple xhr wrapper to handle the actual requests
     var roxeeXhr = function(orsc, id, method, url, headers, data) {
-      var _xhr = new XMLHttpRequest();
-      _xhr.id = id;
-      _xhr.onreadystatechange = orsc;
+      var xhr = new XMLHttpRequest();
+      xhr.id = id;
+      xhr.onreadystatechange = orsc;
       // Open can fail in a number of circunstances
       try {
-        _xhr.open(method, url, true);
+        xhr.open(method, url, true);
         for (var i in headers) {
           if (headers.hasOwnProperty(i))
-            _xhr.setRequestHeader(i, headers[i]);
+            xhr.setRequestHeader(i, headers[i]);
         }
         // Chrome sets Origin on POST, but not GET, and Firefox does not
         // - and neither allow it to be overriden
-        // _xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
-        _xhr.setRequestHeader('X-Gate-Origin', parentUrl.match(/^(http[s]?:\/\/[^\/]+)/).pop());
+        // xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
+        xhr.setRequestHeader('X-Gate-Origin', parentUrl.match(/^(http[s]?:\/\/[^\/]+)/).pop());
         // Do we have a file by any chance?
         if (data && (typeof data == 'string') && (data.substr(0, 5) == 'data:'))
           data = dataURItoBlob(data);
-        _xhr.send(data);
+        xhr.send(data);
       }catch (e) {
         console.warn('Something very bad happened deep-down inside!', e);
-        bouncer.apply(_xhr);
+        bouncer.apply(xhr);
       }
     };
 

@@ -66,8 +66,8 @@ jsBoot.pack('jsBoot.service', function(api) {
         service: USER,
         onsuccess: onSuccess,
         onfailure: onFailure,
-        // Dirty trick while manu fixes his internal redirects lacking trailing slash
-        command: '#', //   var USER_CMD_NEW = 'new';
+        // XXX Dirty trick while manu fixes his internal redirects lacking trailing slash
+        command: '#',
         payload: payload
       });
     };

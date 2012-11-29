@@ -7,4 +7,4 @@ jsBoot.pack('jsBoot.ui', function() {
   else
     this.date = moment;
 
-})();
+});
