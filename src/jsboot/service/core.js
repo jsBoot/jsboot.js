@@ -101,7 +101,7 @@ jsBoot.pack('jsBoot.service', function(api) {
         digestEngine.realm = realm;
       }
 
-      // Base pattern
+      // Base pattern - XXX Roxee still uses GET for authenticate prolly
       this.requestor.query(this.requestor.POST, {
         service: USER,
         onsuccess: onSuccess,

@@ -124,6 +124,7 @@ jsBoot.pack('jsBoot.service', function(api) {
 
     switch (inner.status) {
       case 200:
+      case 201:
         break;
       case 308:
         this.id = null;
