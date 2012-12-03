@@ -253,6 +253,7 @@ def build():
     list.merge(['src/jsboot/types/eventdispatcher.js'])
 
     # Not exactly "core" per-se
+    list.merge(['src/jsboot/types/mutable.js'])
     list.merge(['src/jsboot/controllers/idle.js'])
     list.merge(['src/jsboot/controllers/singleapp.js'])
     list.merge(['src/jsboot/utils/storage.js'])
