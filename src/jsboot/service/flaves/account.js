@@ -58,17 +58,18 @@ jsBoot.pack('jsBoot.service', function(api) {
      * @see Roxee.gist.services.account.validate
      */
     this.create = function(onSuccess, onFailure, username, email, password, payload) {
-      payload = payload || {};
-      payload.username = username;
-      payload.email = email.toLowerCase();
-      payload.password = password;
       requestor.query(requestor.POST, {
         service: USER,
         onsuccess: onSuccess,
         onfailure: onFailure,
         // XXX Dirty trick while manu fixes his internal redirects lacking trailing slash
         command: '#',
-        payload: payload
+        payload: {
+          username: username,
+          email: email.toLowerCase(),
+          password: password,
+          extra: payload || {}
+        }
       });
     };
 
