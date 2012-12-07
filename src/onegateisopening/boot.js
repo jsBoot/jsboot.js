@@ -142,7 +142,6 @@
         bootLoader.wait();
         if (debug)
           bootLoader.use(bootLoader.DEBUG, null, null, debug);
-        bootLoader.use(bootLoader.SERVICE, null, null, debug);
         // XXX is a separate stack obviously
         // bootLoader.use(bootLoader.UI);
       };
@@ -174,6 +173,12 @@
         bootLoader.wait();
         bootLoader.use('ember', trunk || '1.0', debug ? 'debug' : 'prod', debug);
         bootLoader.wait(cbk);
+        // XXX singletons here now unfortunately have conditionnals on Ember
+        // This could be solved by being asynchronous on package execution
+        // but would break everything else, likely...
+        // Or by splitting out the App controller and other singleton stuff like that
+        // maybe having a centralized jsBoot.start
+        bootLoader.use(bootLoader.SERVICE, null, null, debug);
         return bootLoader;
       };
 
@@ -188,6 +193,8 @@
         bootLoader.use('prettify', params.trunk ? 'trunk' : '1.0', 'lang');
         bootLoader.use('jasmine', params.trunk ? 'trunk' : '1.2', 'html');
         bootLoader.wait(cbk);
+        // XXX singletons here now unfortunately have conditionnals on Ember
+        bootLoader.use(bootLoader.SERVICE, null, null, debug);
         return bootLoader;
       };
     })();

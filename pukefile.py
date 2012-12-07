@@ -266,7 +266,8 @@ def build():
       'src/jsboot/service/errors.js',
       'src/jsboot/service/client.js',
       'src/jsboot/service/core.js',
-      'src/jsboot/service/flaves/account.js'
+      'src/jsboot/service/flaves/account.js',
+      'src/jsboot/controllers/application.js'
     ]
 
     combine(list, Yak.build_root + "/service.js", replace=sed)
