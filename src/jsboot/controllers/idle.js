@@ -15,7 +15,7 @@
 /*jshint browser:true*/
 jsBoot.use('jsBoot.types.EventDispatcher');
 jsBoot.add(500).as('idleTime');
-jsBoot.add(20000).as('staleTime');
+jsBoot.add(5000).as('staleTime');
 jsBoot.pack('jsBoot.controllers', function(api) {
   'use strict';
 

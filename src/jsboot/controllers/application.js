@@ -13,7 +13,10 @@
  */
 
 // Time to fail on asynchronous initialization of stuff
+
+/*global Mingus*/
 jsBoot.add(5000).as('failureGrace');
+jsBoot.add(Mingus.xhr.digest).as('digest');
 jsBoot.use('jsBoot.core.Error');
 jsBoot.use('jsBoot.types.Mutable');
 jsBoot.use('jsBoot.service.core').as('service');
@@ -31,12 +34,14 @@ jsBoot.pack('jsBoot.controllers', function(api) {
 
     this.NOT_INITED = 'not';
     this.LOCKED_OUT = 'fail';
-    this.INITIALIZED = 'inited';
-    var USER_READY = this.USER_READY = 'uready';
-    this.USER_FAIL = 'ufail';
     this.USER_OUT = 'uout';
     this.SHUTDOWN = 'end';
+    var INITIALIZED = this.INITIALIZED = 'inited';
+    var USER_READY = this.USER_READY = 'uready';
+    var USER_FAIL = this.USER_FAIL = 'ufail';
+
     this.status = this.NOT_INITED;
+
     Object.defineProperty(this, 'userIdentifier', {
       configurable: true,
       enumerable: true,
@@ -102,7 +107,31 @@ jsBoot.pack('jsBoot.controllers', function(api) {
     }.bind(this));
 
 
+    var autologin = {};
+    var wantAuto = false;
+    var onloginupdate = function(login, ha1, realm) {
+      autologin.login = login;
+      autologin.ha1 = ha1;
+      autologin.realm = realm;
+      api.storage.commit();
+    };
+
+    // Autocommit magic
+    var needCommit = true;
+    var commitonstale = function() {
+      api.userActivity.addEventListener(api.userActivity.STATE_CHANGED, function() {
+        if (api.userActivity.staled && needCommit) {
+          needCommit = false;
+          api.storage.commit();
+        }
+        if (api.userActivity.status == api.userActivity.ACTIVE)
+          needCommit = true;
+      });
+    };
+
     this.boot = function(appKeyStore, serviceConfig) {
+      if (this.status != this.NOT_INITED)
+        throw new api.Error('ALREADY_BOOTED', 'You cant boot twice darling');
       // This is a singled app - don't boot anything unless acquiring the lock
       api.singleApp.addEventListener(api.singleApp.STATE_CHANGED, function() {
         // Wait until the lock is owned - but notify everyone still
@@ -110,10 +139,21 @@ jsBoot.pack('jsBoot.controllers', function(api) {
           this.set('status', this.LOCKED_OUT);
           return;
         }
-        // Boot the storage - but allow
-        api.storage.boot(appKeyStore, (function() {
-          cautiousStatus(this.INITIALIZED);
-        }.bind(this)));
+        // Boot the storage if we can own the lock
+        api.storage.boot(appKeyStore, function() {
+          // Init the storage space for autologin
+          if (!('autologin' in api.storage.persistent))
+            api.storage.persistent.autologin = {
+              login: null,
+              ha1: null,
+              realm: null
+            };
+          // Hook ourselves onto that
+          autologin = api.storage.persistent.autologin;
+          // Register listeners so we commit on stale
+          commitonstale();
+          cautiousStatus(INITIALIZED);
+        });
       }, this);
 
       api.userActivity.boot();
@@ -122,19 +162,30 @@ jsBoot.pack('jsBoot.controllers', function(api) {
         api.service.initialize(serviceConfig.key, serviceConfig.server, serviceConfig.anonymous);
     };
 
-    this.login = function(login, password) {
-      if (this.status != this.INITIALIZED && this.status != this.USER_FAIL)
+    this.login = function(login, password, wantAutoLogin, ha1, realm) {
+      if (this.status != this.INITIALIZED)
         throw new api.Error('NOT_READY', 'You must init the app before you can login');
 
+      wantAuto = wantAutoLogin;
       api.service.authenticate(function() {
-        // Boot storage as well
+        // Save credentials if we want autologin
+        if (wantAuto) {
+          var d = api.digest.getEngine(api.service.requestor.hostPort);
+          onloginupdate(
+              login,
+              d.ha1,
+              d.realm,
+              wantAutoLogin
+          );
+        }
+
+        // Boot user-storage as well
         api.storage.login(api.service.id, function() {
           cautiousStatus(USER_READY);
         });
-      }, (function() {
-        this.set('status', this.USER_FAIL);
-        this.set('status', this.INITIALIZED);
-      }.bind(this)), login, password);
+      }, function() {
+        cautiousStatus(USER_FAIL);
+      }, login, password, ha1, realm);
     };
 
     this.logout = function() {
@@ -142,21 +193,41 @@ jsBoot.pack('jsBoot.controllers', function(api) {
       cautiousStatus(this.USER_OUT);
     };
 
+    // XXX that just works randomly if already in a unload routine...
     this.shutdown = function() {
       cautiousStatus(this.SHUTDOWN);
     };
 
     this.addEventListener(this.AFTER_MUTATION, function() {
       switch (this.status) {
+        case this.INITIALIZED:
+          // If we hold credentials, try them directly
+          if (autologin.login)
+            this.login(autologin.login, null, true, autologin.ha1, autologin.realm);
+          break;
+        case this.USER_FAIL:
+          // Reset any stored property on failure
+          onloginupdate(null, null, null);
+          // Go back to initialize without pre-hooks (?)
+          this.set('status', this.INITIALIZED);
+          // cautiousStatus(this.INITIALIZED);
+          break;
         case this.USER_OUT:
+          // Explicit logout should destroy stored properties
+          onloginupdate(null, null, null);
+          // Logout of the service
           api.service.logout();
-          api.storage.logout((function() {
-            cautiousStatus(this.INITIALIZED);
-          }.bind(this)));
+          // Logout of the storage, and say initialized cautiously then
+          api.storage.logout(function() {
+            cautiousStatus(INITIALIZED);
+          });
           break;
         case this.SHUTDOWN:
+          // Shutdown storage
           api.storage.shutdown(function() {
+            // Shutdown single app
             api.singleApp.shutdown();
+            // Shutdown user activity watcher
             api.userActivity.shutdown();
           });
           break;
@@ -171,6 +242,7 @@ jsBoot.pack('jsBoot.controllers', function(api) {
 
   this.application = new Application();
 
+  // This will just NOT work
   window.onbeforeunload = (function(/*e*/) {
     this.shutdown();
   }.bind(this.application));

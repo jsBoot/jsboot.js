@@ -160,7 +160,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
         setTimeout(oncomplete, 1);
     };
 
-    this.flush = function() {
+    this.commit = function() {
       if (userKey) {
         persistentAdapter.write(userKey, this.userPersistent);
         cacheAdapter.write(userKey, this.userCache);

@@ -166,9 +166,9 @@
     });
 
     Object.defineProperty(this, 'ha1', {
-      /*get: function() {
+      get: function() {
         return _ha1;
-      },*/
+      },
       set: function(ha1) {
         _ha1 = ha1;
       },
