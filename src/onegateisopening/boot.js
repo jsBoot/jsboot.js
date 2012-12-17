@@ -1,8 +1,8 @@
 // This is a nutshell meant to be aggregated AFTER loader-lab.js and spitfire.js
 
 (function() {
-  /*jshint browser:true*/
-  /*global Spitfire*/
+  /*jshint browser:true,evil:true*/
+  /*global Spitfire:false*/
   'use strict';
 
   // List of available static resources to be served via getPack
@@ -125,7 +125,7 @@
       var common = function(debug, version) {
         // XXX technically, this is not the same thing as HTML cond includes...
         // So, this may or may not be a good idea...
-        var isIe = eval("/*@cc_on @_jscript_version <= 8 && !@*/false");
+        var isIe = eval('/*@cc_on @_jscript_version <= 8 && !@*/false');
         if (isIe) {
           bootLoader.use('ie7', '2.1');
           bootLoader.wait();
@@ -141,7 +141,7 @@
         bootLoader.wait();
         bootLoader.use(bootLoader.CORE, null, null, debug);
         bootLoader.wait();
-        if (debug){
+        if (debug) {
           // And so console
           bootLoader.use('console', version || 'stable', null, debug);
           bootLoader.use(bootLoader.DEBUG, null, null, debug);
