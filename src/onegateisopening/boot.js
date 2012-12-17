@@ -125,7 +125,8 @@
       var common = function(debug, version) {
         // XXX technically, this is not the same thing as HTML cond includes...
         // So, this may or may not be a good idea...
-        if (false /*@cc_on || @_jscript_version <= 8 @*/) {
+        var isIe = eval("/*@cc_on @_jscript_version <= 8 && !@*/false");
+        if (isIe) {
           bootLoader.use('ie7', '2.1');
           bootLoader.wait();
         }
@@ -136,12 +137,15 @@
         bootLoader.wait();
         bootLoader.use(bootLoader.MINGUS, null, null, debug);
         // Stacktrace should be in core prolly
-        bootLoader.use('stacktrace', version || '0.4', null, debug);
+        bootLoader.use('stacktrace', version || 'stable', null, debug);
         bootLoader.wait();
         bootLoader.use(bootLoader.CORE, null, null, debug);
         bootLoader.wait();
-        if (debug)
+        if (debug){
+          // And so console
+          bootLoader.use('console', version || 'stable', null, debug);
           bootLoader.use(bootLoader.DEBUG, null, null, debug);
+        }
         // XXX is a separate stack obviously
         // bootLoader.use(bootLoader.UI);
       };
