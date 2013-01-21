@@ -88,7 +88,7 @@ config-www-data-linux:
         version: '1.0'
         url: 'https://www.education-et-numerique.fr/spitfire.json'
     self:
-      url: '//www.education-et-numerique.fr/'
+      url: '//www.education-et-numerique.fr'
 
 config-dmp-darwin:
   root: "${HOME}/buildd/stage.webitup.org"

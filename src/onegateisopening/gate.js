@@ -51,7 +51,6 @@
         ia[i] = byteString.charCodeAt(i);
       }
 
-      // write the ArrayBuffer to a blob, and you're done
       var bb;
       try {
         bb = new BlobBuilder();
@@ -59,12 +58,20 @@
         try {
           bb = new WebKitBlobBuilder();
         } catch (e2) {
-          bb = new MozBlobBuilder();
+          try{
+            bb = new MozBlobBuilder();
+          }catch(e){
+
+          }
         }
       }
 
-      bb.append(ab);
-      return bb.getBlob(mimeString);
+      if(bb){
+        bb.append(ab);
+        return bb.getBlob(mimeString);
+      }else{
+        return new Blob([ab], { "type" : mimeString } );
+      }
     };
 
     // The "caller" url
@@ -91,8 +98,9 @@
           data = dataURItoBlob(data);
         xhr.send(data);
       }catch (e) {
-        console.warn('Something very bad happened deep-down inside!', e);
         bouncer.apply(xhr);
+        console.warn('Something very bad happened deep-down inside!', e);
+        throw e;
       }
     };
 
