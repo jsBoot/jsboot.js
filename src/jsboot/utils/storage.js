@@ -215,14 +215,16 @@ jsBoot.pack('jsBoot.utils', function(api) {
       },
 
       write: function(key, data, callback) {
-        console.warn('jey writte!');
+        console.warn('jey writte!', key, data, callback);
         key = prefix + '_' + (key || '');
         try {
           store.setItem(key, json.stringify(data));
-          setTimeout(callback, 1, true);
+          if(callback)
+            setTimeout(callback, 1, true);
         }catch (e) {
           store.removeItem(key);
-          setTimeout(callback, 1, false);
+          if(callback)
+            setTimeout(callback, 1, false);
           throw new api.Error('DATA_CORRUPTION',
               'Writing into the dataStore failed. This may be indicative of a possible data corruption.');
         }
