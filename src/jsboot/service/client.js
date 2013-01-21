@@ -183,6 +183,7 @@ jsBoot.pack('jsBoot.service', function(api) {
 
     if (success && !this.error)
       success(this.data);
+    // XXX Roxee depends on this old API
     if (failure && this.error)
       failure(this.error, this.data);
   };
