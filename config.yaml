@@ -75,20 +75,20 @@ config-jenkins-linux:
     self:
       url: '//static.sn.ackitup.net/lib/webitup'
 
+
 # Roxee box
-config-roxee-Linux:
+config-www-data-linux:
   paths:
-    deploy: '/home/roxee/www/static/lib/webitup'
-    # DOC_ROOT: '/home/roxee/doc/spitfire'
+    deploy: '/home/lxxl-deploy/lxxl'
   links:
     airstrip:
       version: '1.0'
-      url: 'https://static.roxee.net/airstrip.json'
+      url: 'https://www.education-et-numerique.fr/airstrip.json'
     spitfire:
         version: '1.0'
-        url: 'https://static.roxee.net/lib/webitup/spitfire.json'
+        url: 'https://www.education-et-numerique.fr/spitfire.json'
     self:
-      url: '//static.roxee.net/lib/webitup'
+      url: '//www.education-et-numerique.fr'
 
 config-dmp-darwin:
   root: "${HOME}/buildd/stage.webitup.org"
