@@ -1,12 +1,12 @@
 /**
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Utility class that provides regexp easing the parsing of IRIs.
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/grammar/IRI.js{PUKE-PACKAGE-GIT-REV}
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @location {PUKE-GIT-ROOT}/mingus/grammar/IRI.js{PUKE-GIT-REVISION}
  */
 
 /**

@@ -1,32 +1,28 @@
 {
-  "name": "jsBoot.js",
-  "version": "0.2.0",
+  "name": "jsboot.js",
+  "version": "0.3.0",
 
-  "description": "jsBoot!",
-  "keywords": ["jsBoot"],
+  "description": "There is only jsBoot",
+  "keywords": ["framework", "library", "RAD"],
+  "author": "WebItUp",
   "maintainers": [
     {
       "name": "Mangled Deutz",
       "email": "dev@webitup.fr",
-      "web": "http://www.webitup.fr"
+      "url": "http://www.webitup.fr"
     }
   ],
   "contributors":[
     {
       "name": "Mangled Deutz",
       "email": "dev@webitup.fr",
-      "web": "http://www.webitup.fr"
-    },
-    {
-      "name": "Raildecom",
-      "email": "dev@webitup.fr",
-      "web": "http://www.webitup.fr"
+      "url": "http://www.webitup.fr"
     }
   ],
   "bugs": "https://github.com/jsBoot/jsboot.js/issues",
   "licenses": [
      {
-         "type": "AferoGPL",
+         "type": "AGPL",
          "url": "http://www.gnu.org/licenses/agpl-3.0.html"
      }
   ],
@@ -37,16 +33,20 @@
          }
   ],
   "dependencies": {
-    "Spitfire.js": "1.0.x",
-    "Airstrip.js": "1.0.x"
   },
 
-  "homepage": "http://airstrip.jsboot.com",
+  "homepage": "http://core.jsboot.com",
 
   "directories": {
     "src": "src",
-    "doc": "build/doc",
-    "test": "build/dist/jsboot.js/1.0/tests",
-    "lib": "build/dist/jsboot.js/1.0/"
+    "tests": "src/tests",
+    "build": ".build",
+    "tmp": ".tmp",
+    "doc": "doc",
+    "dist": "dist"
+  },
+
+  "config": {
+    "self": "//static.sn.ackitup.net/lib/webitup"
   }
 }

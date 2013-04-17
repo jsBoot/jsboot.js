@@ -1,12 +1,12 @@
 /**
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Root namespace for the Mingus library.
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/crypto/md5.js{PUKE-PACKAGE-GIT-REV}
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @location {PUKE-GIT-ROOT}/mingus/crypto/md5.js{PUKE-GIT-REVISION}
  */
 
 /**

@@ -195,7 +195,8 @@ jsBoot.pack('jsBoot.controllers', function(api) {
 
     // XXX that just works randomly if already in a unload routine...
     this.shutdown = function() {
-      cautiousStatus(this.SHUTDOWN);
+      if (this.status != this.NOT_INITED)
+        cautiousStatus(this.SHUTDOWN);
     };
 
     this.addEventListener(this.AFTER_MUTATION, function() {

@@ -1,12 +1,12 @@
 /**
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file This is the "to be embeded" part that communicates postMessages to the frame. Mimicks a standard XHR.
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/ungate.js{PUKE-PACKAGE-GIT-REV}
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @location {PUKE-GIT-ROOT}/mingus/xhr/ungate.js{PUKE-GIT-REVISION}
  */
 
 /**#nocode+*/

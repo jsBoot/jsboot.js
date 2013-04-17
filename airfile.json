@@ -1,0 +1,8 @@
+{
+    "libraries": {
+        "spitfire": [
+            "1.1.0", 
+            "master"
+        ]
+    }
+}

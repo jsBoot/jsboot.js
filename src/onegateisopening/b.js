@@ -1,8 +1,8 @@
 /**
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file This is a nutshell meant to be aggregated after gulliver and whose sole purpose
  * is to actually load there.is.only.jsboot.
  * This is good ONLY if one wants an ABSOLUTE MINIMAL bootstrapper instead of loading
@@ -11,9 +11,9 @@
  * to tiojs.wait(function(){//do some}) first.
  * Does allow alternate loaders by using extra "loader-THING" param in the script url
  * (use an hastag)
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/onegateisopening/b.js{PUKE-PACKAGE-GIT-REV}
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @location {PUKE-GIT-ROOT}/onegateisopening/b.js{PUKE-GIT-REVISION}
  */
 
 (function(aDoc, gull) {

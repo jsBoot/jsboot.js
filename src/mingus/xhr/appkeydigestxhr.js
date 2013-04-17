@@ -1,12 +1,12 @@
 /**
  * @version {PUKE-PACKAGE-VERSION}
- * @author {PUKE-PACKAGE-AUTHOR}
+ * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
- * @homepage {PUKE-PACKAGE-HOME}
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Provides a digest+appkey enabled XHR, using the gate xhr backend
- * @license {PUKE-PACKAGE-LICENSE}.
- * @copyright {PUKE-PACKAGE-COPYRIGHT}
- * @location {PUKE-PACKAGE-GIT-ROOT}/mingus/xhr/digest.js{PUKE-PACKAGE-GIT-REV}
+ * @license {PUKE-RIGHTS-LICENSE}.
+ * @copyright {PUKE-RIGHTS-COPYRIGHT}
+ * @location {PUKE-GIT-ROOT}/mingus/xhr/digest.js{PUKE-GIT-REVISION}
  */
 
 
