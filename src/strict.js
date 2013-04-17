@@ -14,7 +14,7 @@
 
 (function() {
   // fool linter
-  /*global whateverthenameofthis:true, console:true*/
+  /*global whateverthenameofthis:false, console:false*/
   'use strict';
   try {
     whateverthenameofthis = 'will crash';

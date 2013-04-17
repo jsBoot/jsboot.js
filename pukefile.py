@@ -233,10 +233,13 @@ def build():
 
 @task("Deploy package")
 def deploy():
+  spitversion = '1.1.0'
+
   # Libraries usually have a versioned path (True)
   # help.deployer(True)
   # Sites or apps dont
   help.deployer(Yak.paths['build'], True)
   # In case you wanna deploy dependencies as well
-  # help.deployer('dependencies', True, 'dependencies')
+  p = 'dependencies/spitfire/%s/burnscars' % spitversion
+  help.deployer(p, True, 'burnscars')
 
