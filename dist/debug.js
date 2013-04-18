@@ -7,7 +7,7 @@
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 /*jshint devel:true*/
@@ -64,7 +64,7 @@ jsBoot.pack('jsBoot.debug', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/css.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/css.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 jsBoot.pack('jsBoot.debug', function() {
@@ -128,7 +128,7 @@ jsBoot.pack('jsBoot.debug', function() {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 
@@ -161,7 +161,7 @@ jsBoot.run(function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/tick.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/tick.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 jsBoot.pack('jsBoot.debug', function() {

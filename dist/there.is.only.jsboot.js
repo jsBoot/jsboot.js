@@ -1418,7 +1418,7 @@
   'use strict';
 
   // List of available static resources to be served via getPack
-  var statics = '{SPIT-STATICS}';
+  // var statics = '{SPIT-STATICS}';
 
   /**
    * Hash-passed parameters handling
@@ -1675,9 +1675,9 @@
       /**
        * Simple "debug" helper to get a list of available dependencies
        */
-      this.list = function() {
-        return statics;
-      };
+      // this.list = function() {
+      //   return statics;
+      // };
 
       this.params = function(name) {
         var c = document.getElementsByTagName('script');
@@ -1712,10 +1712,10 @@
             break;
 
           default:
-            if (thing in statics)
-              getPackedObjects(statics[thing], version, sub, params.notminified || forceFull);
-            else
-              insertThing(thing);
+            // if (thing in statics)
+            //   getPackedObjects(statics[thing], version, sub, params.notminified || forceFull);
+            // else
+            insertThing(thing);
             break;
         }
         return this;
@@ -1931,7 +1931,7 @@
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/gister/packman.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/gister/packman.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 

@@ -6,8 +6,7 @@
   'use strict';
 
   // List of available static resources to be served via getPack
-  var statics = '{SPIT-STATICS}';
-  var spitBase = '{SPIT-BASE}/';
+  // var statics = '{SPIT-STATICS}';
 
   /**
    * Hash-passed parameters handling
@@ -84,7 +83,7 @@
       var shims = shim.boot(!minified);
       // Kind of tricky - don't double minify
       for (var x = 0; x < shims.length; x++)
-        insertThing(spitBase + shims[x]);
+        insertThing(params.base + shims[x]);
     };
 
     /**
@@ -264,9 +263,9 @@
       /**
        * Simple "debug" helper to get a list of available dependencies
        */
-      this.list = function() {
-        return statics;
-      };
+      // this.list = function() {
+      //   return statics;
+      // };
 
       this.params = function(name) {
         var c = document.getElementsByTagName('script');
@@ -301,10 +300,10 @@
             break;
 
           default:
-            if (thing in statics)
-              getPackedObjects(statics[thing], version, sub, params.notminified || forceFull);
-            else
-              insertThing(thing);
+            // if (thing in statics)
+            //   getPackedObjects(statics[thing], version, sub, params.notminified || forceFull);
+            // else
+            insertThing(thing);
             break;
         }
         return this;

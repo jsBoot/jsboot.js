@@ -115,7 +115,7 @@
  * (use an hastag)
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/onegateisopening/b.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/onegateisopening/b.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 (function(aDoc, gull) {

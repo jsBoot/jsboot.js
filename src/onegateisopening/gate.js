@@ -22,11 +22,20 @@
   /**
  * Shiming boot section
  */
-  var shims = Spitfire.boot(location.href.match(/jsboot-debug/));
+  var shims = Spitfire.boot(/jsboot-debug/.test(location.href));
 
-  // XXX remove SpitBoot and use runtime path detection
+  // Extract parameters from script uri
+  var base;
+  var ref = document.getElementsByTagName('script');
+  for (var i = 0, tup, item; (i < ref.length); i++) {
+    item = ref[i].src;
+    if (/toobsj\.ylno\.si\.ereht\.js/.test(item))
+      // Have a base on us - still, allow for deplaced routing
+      base = item.replace(/[^\/]+(?:[#]+)?$/, '');
+  }
+
   for (var x = 0; x < shims.length; x++)
-    Spitfire.loader.script('{SPIT-BASE}/' + shims[x]);
+    Spitfire.loader.script(base + shims[x]);
 
   /**
  * Actual gate implementation

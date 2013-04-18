@@ -620,7 +620,7 @@ jsBoot.pack('jsBoot.service', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#65-b772c23316bf59b80f8239279cff657afb13e37e
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
  */
 
 // Time to fail on asynchronous initialization of stuff
