@@ -88,6 +88,7 @@ def build():
 
   # There is only
   spitfireList = [
+    'src/strict.js',
     'dependencies/spitfire/%s/spitfire-labjs.js' % spitversion,
     'src/onegateisopening/boot.js',
     'src/gister/packman.js'
@@ -105,6 +106,7 @@ def build():
 
   postmessageshim = 'src/mingus/postmessage.js'
   gateList = [
+    'src/strict.js',
     'dependencies/spitfire/%s/spitfire-labjs.js' % spitversion,
     postmessageshim,
     'src/onegateisopening/gate.js'
@@ -126,7 +128,6 @@ def build():
   # ================================
 
   mingusList = [
-    "src/strict.js",
     # Have postmessage shit
     postmessageshim,
   # Better safe than sorry - always include that
@@ -238,8 +239,8 @@ def deploy():
   # Libraries usually have a versioned path (True)
   # help.deployer(True)
   # Sites or apps dont
-  help.deployer(Yak.paths['build'], True)
+  help.deployer(Yak.paths['build'], False)
   # In case you wanna deploy dependencies as well
   p = 'dependencies/spitfire/%s/burnscars' % spitversion
-  help.deployer(p, True, 'burnscars')
+  help.deployer(p, False, 'burnscars')
 

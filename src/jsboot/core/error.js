@@ -32,7 +32,7 @@ jsBoot.pack('jsBoot.core', function(api) {
     this.stack = b.stack;
     this.name = name;
     if (!this.stack)
-      this.stack = (typeof 'printStackTrace' != 'undefined') ? printStackTrace() : [];
+      this.stack = (typeof printStackTrace != 'undefined') ? printStackTrace() : [];
   };
 
   Object.getOwnPropertyNames(api.NativeError.prototype).forEach(function(i) {
