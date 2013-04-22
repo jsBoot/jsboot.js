@@ -8,7 +8,7 @@
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /*global console*/
@@ -46,7 +46,7 @@ jsBoot.pack('jsBoot.core', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/error.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/error.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  * @see  http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/
  * @see  http://stackoverflow.com/questions/332422/how-do-i-get-the-name-of-an-objects-type-in-javascript
  */
@@ -169,7 +169,7 @@ jsBoot.pack('jsBoot.core', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 jsBoot.pack('jsBoot.core', function() {
@@ -643,7 +643,7 @@ jsBoot.pack('jsBoot.types', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/idle.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/idle.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /*jshint browser:true*/
@@ -768,7 +768,7 @@ jsBoot.pack('jsBoot.controllers', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /*jshint browser:true*/
@@ -927,7 +927,7 @@ jsBoot.pack('jsBoot.controllers', function(api) {
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/utils/storage.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/utils/storage.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 

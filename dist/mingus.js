@@ -1,31 +1,3 @@
-/**
- * This file is a build-system helper and can be safely ignored.
- *
- * @file
- * @summary "Strict" tester.
- *
- * @author WebItUp
- * @version 0.3.0
- *
- * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
- * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/strict.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
- */
-
-(function() {
-  // fool linter
-  /*global whateverthenameofthis:false, console:false*/
-  'use strict';
-  try {
-    whateverthenameofthis = 'will crash';
-    try {
-      console.error('Browser doesn\'t support strict mode!!!');
-    }catch (e) {
-    }
-  }catch (e) {
-  }
-}).apply(this);
-
 /*!
  * This is adapter from original source code:
  * jQuery postMessage - v0.5 - 9/11/2009
@@ -137,7 +109,7 @@
  * @file Root namespace for the Mingus library.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**
@@ -192,7 +164,7 @@
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/ABNF.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/ABNF.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 
@@ -499,7 +471,7 @@ B.1.  Core Rules
  * @file Basic utility class providing regexp atoms for the address part of the internet message format RFC.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IMF.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IMF.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**
@@ -971,7 +943,7 @@ RFC 5322                Internet Message Format             October 2008
  * @file Utility class that provides regexp easing the parsing of IRIs.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IRI.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IRI.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**
@@ -1317,7 +1289,7 @@ RFC 5322                Internet Message Format             October 2008
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/HTTP.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/HTTP.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**
@@ -1868,7 +1840,7 @@ start-line      = Request-Line | Status-Line
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 (function() {
@@ -2095,7 +2067,7 @@ start-line      = Request-Line | Status-Line
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/converters/entity.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/converters/entity.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 (function() {
@@ -2447,7 +2419,7 @@ start-line      = Request-Line | Status-Line
  * @file This is the "to be embeded" part that communicates postMessages to the frame. Mimicks a standard XHR.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/ungate.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/ungate.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**#nocode+*/
@@ -2666,7 +2638,7 @@ start-line      = Request-Line | Status-Line
  * @file Provides an app key engine.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/appkey.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/appkey.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 
@@ -2785,7 +2757,7 @@ start-line      = Request-Line | Status-Line
  * @file Provides a digest engine.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 /**
@@ -3072,7 +3044,7 @@ start-line      = Request-Line | Status-Line
  * @file Provides a digest+appkey enabled XHR, using the gate xhr backend
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#66-ded0862374472fd32d2197f203e1984938eb1e1d
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
  */
 
 

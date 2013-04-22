@@ -1,3 +1,31 @@
+/**
+ * This file is a build-system helper and can be safely ignored.
+ *
+ * @file
+ * @summary "Strict" tester.
+ *
+ * @author WebItUp
+ * @version 0.3.0
+ *
+ * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
+ * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/strict.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ */
+
+(function() {
+  // fool linter
+  /*global whateverthenameofthis:false, console:false*/
+  'use strict';
+  try {
+    whateverthenameofthis = 'will crash';
+    try {
+      console.error('Browser doesn\'t support strict mode!!!');
+    }catch (e) {
+    }
+  }catch (e) {
+  }
+}).apply(this);
+
 /*! LAB.js (LABjs :: Loading And Blocking JavaScript)
     v2.0 (c) Kyle Simpson
     MIT License
