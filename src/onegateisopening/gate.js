@@ -27,7 +27,7 @@
   // Extract parameters from script uri
   var base;
   var ref = document.getElementsByTagName('script');
-  for (var i = 0, tup, item; (i < ref.length); i++) {
+  for (var i = 0, item; (i < ref.length); i++) {
     item = ref[i].src;
     if (/toobsj\.ylno\.si\.ereht\.js/.test(item))
       // Have a base on us - still, allow for deplaced routing
@@ -67,19 +67,19 @@
         try {
           bb = new WebKitBlobBuilder();
         } catch (e2) {
-          try{
+          try {
             bb = new MozBlobBuilder();
-          }catch(e){
+          }catch (e) {
 
           }
         }
       }
 
-      if(bb){
+      if (bb) {
         bb.append(ab);
         return bb.getBlob(mimeString);
-      }else{
-        return new Blob([ab], { "type" : mimeString } );
+      }else {
+        return new Blob([ab], { 'type' : mimeString });
       }
     };
 

@@ -59,7 +59,7 @@ jsBoot.pack('jsBoot.controllers', function(api) {
       }
     }.bind(this));
 
-    var isActive = (function(e) {
+    var isActive = (function(/*e*/) {
       if (lastState == BLURRED)
         return;
       lastActive = Date.now();

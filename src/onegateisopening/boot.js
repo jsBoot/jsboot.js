@@ -2,7 +2,7 @@
 
 (function() {
   /*jshint browser:true,evil:true*/
-  /*global Spitfire:false*/
+  /*global Spitfire:false, define:false, exports:false*/
   'use strict';
 
   // List of available static resources to be served via getPack
@@ -94,7 +94,7 @@
      * Private helper to load a specific entry from a pack (eg: an array of urls)
      * Technically, abstract the statics.
      */
-    var getPackedObjects = function(pack, version, sub, useFull) {
+    /*    var getPackedObjects = function(pack, version, sub, useFull) {
       // Sub pattern matching on the pack (useful for stuff that come in non-versioned flavors)
       var re = sub && new RegExp(sub);
       // Version itself - defaulting on trunk
@@ -114,7 +114,7 @@
       }
       if (!inserting)
         throw 'Failed inserting requested ' + pack + ' version: ' + version + ' sub: ' + sub;
-    };
+    };*/
 
     /**
      * Boot main: this will load the default / recommended jsboot stack.

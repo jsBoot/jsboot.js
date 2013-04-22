@@ -93,6 +93,7 @@
 
 /*global Mingus:true*/
 (function(md5, http) {
+  /*jshint maxparams:7*/
   'use strict';
   // Private helpers
 

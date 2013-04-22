@@ -219,11 +219,11 @@ jsBoot.pack('jsBoot.utils', function(api) {
         key = prefix + '_' + (key || '');
         try {
           store.setItem(key, json.stringify(data));
-          if(callback)
+          if (callback)
             setTimeout(callback, 1, true);
         }catch (e) {
           store.removeItem(key);
-          if(callback)
+          if (callback)
             setTimeout(callback, 1, false);
           throw new api.Error('DATA_CORRUPTION',
               'Writing into the dataStore failed. This may be indicative of a possible data corruption.');
