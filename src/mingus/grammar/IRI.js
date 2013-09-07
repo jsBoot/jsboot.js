@@ -286,7 +286,7 @@
      * @memberof Mingus.grammar.IRI
      * @name IRI_REFERENCE
      * @kind member
-     * @type String
+     * @type {String}
      * @static
      * @constant
      */

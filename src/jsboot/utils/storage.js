@@ -68,7 +68,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the persistent dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name persistent
      */
     this.persistent = {};
@@ -76,7 +76,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the volatile (caching) dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name cache
      */
     this.cache = {};
@@ -84,7 +84,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the caching private dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name userCache
      */
 
@@ -93,7 +93,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the persistent private dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name userPersistent
      */
 

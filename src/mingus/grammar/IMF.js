@@ -405,7 +405,7 @@ RFC 5322                Internet Message Format             October 2008
    * @name DOMAIN
    * @summary Regexp for "domain"
    * @description A string to create a regexp that matches the "domain" part of a mail address
-   * @type String
+   * @type {String}
    * @memberof Mingus.grammar.IMF
    * @constant
    * @example
@@ -419,7 +419,7 @@ RFC 5322                Internet Message Format             October 2008
    * @name DOMAIN
    * @summary Regexp for "local part"
    * @description A string to create a regexp that matches the "local" part of a mail address
-   * @type String
+   * @type {String}
    * @memberof Mingus.grammar.IMF
    * @constant
    */

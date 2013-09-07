@@ -177,7 +177,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.ALPHA
- * @type String
+ * @type {String}
  * @constant
  */
 
@@ -187,7 +187,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.BIT
- * @type String
+ * @type {String}
  * @constant
  */
     this.BIT = '01';
@@ -196,7 +196,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CHAR
- * @type String
+ * @type {String}
  * @constant
  */
     this.CHAR = '\\x01-\\x7f';
@@ -204,7 +204,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CR
- * @type String
+ * @type {String}
  * @constant
  */
     this.CR = '\\x0D';
@@ -212,7 +212,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.LF
- * @type String
+ * @type {String}
  * @constant
  */
     this.LF = '\\x0A';
@@ -220,7 +220,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CTL
- * @type String
+ * @type {String}
  * @constant
  */
     this.CTL = '\\x00-\\x1F\\x7F';
@@ -228,7 +228,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.DIGIT
- * @type String
+ * @type {String}
  * @constant
  */
     this.DIGIT = '\\x30-\\x39';//'0-9';
@@ -236,7 +236,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.DQUOTE
- * @type String
+ * @type {String}
  * @constant
  */
     this.DQUOTE = '\\x22';
@@ -244,7 +244,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.HEXDIG
- * @type String
+ * @type {String}
  * @constant
  */
     this.HEXDIG = this.DIGIT + 'ABCDEFabcdef';
@@ -252,7 +252,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.HTAB
- * @type String
+ * @type {String}
  * @constant
  */
     this.HTAB = '\\x09'; // \t
@@ -260,7 +260,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.SP
- * @type String
+ * @type {String}
  * @constant
  */
     this.SP = '\\x20';
@@ -268,7 +268,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.WSP
- * @type String
+ * @type {String}
  * @constant
  */
     this.WSP = this.SP + this.HTAB;
@@ -276,7 +276,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.OCTET
- * @type String
+ * @type {String}
  * @constant
  */
     this.OCTET = '\\x00-\\xff';
@@ -284,14 +284,14 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.VCHAR
- * @type String
+ * @type {String}
  * @constant
  */
     this.VCHAR = '\\x21-\\x7E';
     /**
  * @member
  * @name Mingus.grammar.ABNF.CRLF
- * @type String
+ * @type {String}
  * @constant
  */
     this.CRLF = this.makeClass(this.CR) + this.makeClass(this.LF);
@@ -299,7 +299,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.LWSP
- * @type String
+ * @type {String}
  * @constant
  */
 

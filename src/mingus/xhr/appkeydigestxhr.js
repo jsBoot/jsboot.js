@@ -16,7 +16,7 @@
  * @name Mingus.xhr.XMLHttpRequest
  * @requires Mingus.xhr.appKeyEngine
  * @requires Mingus.xhr.digest
- * @type Object
+ * @type {Object}
  */
 
 /**#nocode+*/
