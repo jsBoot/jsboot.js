@@ -7,7 +7,7 @@
  * A listener failed during execution.
  * @memberOf Roxee.gist.errors.eventDispatcher
  * @property
- * @type String
+ * @type {String}
  * @constant
  * @name LISTENER_FAILURE
  */

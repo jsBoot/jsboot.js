@@ -3,7 +3,8 @@
 
 # Build systems
 .pukecache/
-.airstrip*
+bower_components
+node_modules
 */.sass-cache/*
 
 # IDE

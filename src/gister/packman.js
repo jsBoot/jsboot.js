@@ -13,6 +13,7 @@
 /*global window*/
 
 (function(globalObject) {
+  /*jshint boss:true*/
   'use strict';
 
   var toUse = [];
@@ -103,6 +104,10 @@
     else if (lastAdd)
       lastAdd.name = a;
     flush();
+  };
+
+  this.has = function(name) {
+    return simplePull(globalObject, name, true) !== undefined;
   };
 
   this.pack = function(name, factory) {

@@ -35,7 +35,7 @@
  * @kind member
  * @static
  * @name data
- * @type Object
+ * @type {Object}
  */
 
 /**
@@ -53,7 +53,7 @@
 
 /**
  * @name login
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
@@ -61,7 +61,7 @@
 /**
  * @summary You can only *set* that. Credentials can't be retrieved.
  * @name password
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
@@ -69,14 +69,14 @@
 /**
  * @summary You can only *set* that. Credentials can't be retrieved.
  * @name ha1
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
 
 /**
  * @name challenge
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */

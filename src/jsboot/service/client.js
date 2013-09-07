@@ -185,11 +185,12 @@ jsBoot.pack('jsBoot.service', function(api) {
       success(this.data);
     // XXX Roxee depends on this old API
     if (failure && this.error)
-      failure(this.error, this.data);
+      failure(this.error, this.data, inner);
   };
 
 
   this.SimpleClient.prototype.query = function(method, options, headers) {
+    /*jshint maxcomplexity: 12*/
     // Default method
     method = (method || this.GET);
     var url = options.url || this.url(options);

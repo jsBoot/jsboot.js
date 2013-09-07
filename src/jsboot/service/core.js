@@ -106,7 +106,9 @@ jsBoot.pack('jsBoot.service', function(api) {
         service: USER,
         onsuccess: onSuccess,
         onfailure: onFailure,
-        command: USER_CMD_AUTHENTICATE
+        command: USER_CMD_AUTHENTICATE,
+        // XXX because of Varnish pendantric attitude, need a payload
+        payload: {}
       });
     };
 

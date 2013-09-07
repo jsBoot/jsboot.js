@@ -11,7 +11,7 @@ jsBoot.pack('jsBoot.service', function(api) {
 
   ['OPENING_FAILED', 'SEND_FAILED', 'FAILED_UID', 'MEANINGLESS_DATA', 'BAD_REQUEST',
    'MISSING', 'BAD_REQUEST', 'UNAUTHORIZED', 'INVALID_SIGNATURE', 'WRONG_CREDENTIALS',
-   'SHOULD_NOT_HAPPEN', 'SERVICE_UNAVAILABLE', 'UNAUTHORIZED', 'UNSPECIFIED'].
+   'SHOULD_NOT_HAPPEN', 'SERVICE_UNAVAILABLE', 'UNSPECIFIED'].
       forEach(function(item) {
         this[item] = this.prototype[item] = item;
       }, this.Error);

@@ -1,15 +1,15 @@
 /**
- * This file is a build-system helper and can be safely ignored.
+ * @file "Strict" tester.
  *
- * @file
- * @summary "Strict" tester.
+ * This file is a build-system helper and can be safely ignored.
  *
  * @author {PUKE-RIGHTS-AUTHOR}
  * @version {PUKE-PACKAGE-VERSION}
  *
  * @license {PUKE-RIGHTS-LICENSE}.
  * @copyright {PUKE-RIGHTS-COPYRIGHT}
- * @name {PUKE-GIT-ROOT}/strict.js{PUKE-GIT-REVISION}
+ * @name strict.js
+ * @location {PUKE-GIT-ROOT}/strict.js{PUKE-GIT-REVISION}
  */
 
 (function() {

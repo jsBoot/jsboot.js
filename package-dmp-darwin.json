@@ -5,10 +5,10 @@
 
   "directories": {
     "src": "src",
-    "tests": "src/tests",
+    "tests": "tests",
     "build": ".build",
     "tmp": ".tmp",
     "doc": "doc",
-    "dist": "~/dev/projects/roxee/roxee/dependencies/jsboot/master/"
+    "dist": "dist"
   }
 }

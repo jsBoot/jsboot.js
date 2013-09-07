@@ -3,7 +3,8 @@
  * @author {PUKE-RIGHTS-AUTHOR}
  * @name {PUKE-PACKAGE-NAME}
  * @homepage {PUKE-PACKAGE-HOMEPAGE}
- * @file Private class providing the "gate" to embed inside the iframe, and does the actual XHR communication
+ * @file Private class providing the "gate" to embed inside the iframe, and does the actual XHR
+ * communication
  * to the services in the frame mode.
  * @license {PUKE-RIGHTS-LICENSE}.
  * @copyright {PUKE-RIGHTS-COPYRIGHT}
@@ -100,7 +101,8 @@
         }
         // Chrome sets Origin on POST, but not GET, and Firefox does not
         // - and neither allow it to be overriden
-        // xhr.setRequestHeader('Origin', document.location.protocol + '//' + document.location.host);
+        // xhr.setRequestHeader('Origin', document.location.protocol + '//' +
+        // document.location.host);
         xhr.setRequestHeader('X-Gate-Origin', parentUrl.match(/^(http[s]?:\/\/[^\/]+)/).pop());
         // Do we have a file by any chance?
         if (data && (typeof data == 'string') && (data.substr(0, 5) == 'data:'))
@@ -144,7 +146,8 @@
       }
     };
 
-    // Anyone can use this gate - the server will just enforce origin restriction based on app key host declarations
+    // Anyone can use this gate - the server will just enforce origin restriction based on app key
+    // host declarations
     simplePostMessage.receiveMessage(receiver, function() {return true;});
 
     // Say we are ready
