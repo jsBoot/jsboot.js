@@ -1,10 +1,11 @@
+/*global tiojs:false,require:false,jasmine*/
 tiojs.wait(function() {
-
+  /*jshint browser:true*/
+  'use strict';
   var noShims = !!location.href.match(/use-unpatched/);
 
   if (typeof require != 'undefined')
     require(['jsBoot/loader'], function(jbc) {
-      console.warn('Ok AMD');
       jbc.boot();
       jbc.wait();
       jbc.use('All.js');

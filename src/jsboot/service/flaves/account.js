@@ -36,7 +36,7 @@ jsBoot.pack('jsBoot.service', function(api) {
    * @namespace The "account" service manager
    * @name Roxee.gist.services.account
    * @requires  Roxee.gist.services
-   * @extends Object
+   * @type {Object}
    */
   this.account = new (function() {
     /**#@+

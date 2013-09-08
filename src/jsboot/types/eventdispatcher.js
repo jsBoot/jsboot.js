@@ -5,7 +5,7 @@
 
 /**
  * A listener failed during execution.
- * @memberOf Roxee.gist.errors.eventDispatcher
+ * @memberof Roxee.gist.errors.eventDispatcher
  * @property
  * @type {String}
  * @constant

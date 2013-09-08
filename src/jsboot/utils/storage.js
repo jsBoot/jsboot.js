@@ -62,7 +62,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
 
   this.storage = new (function() {
     /**#@+
-     * @memberOf Roxee.gist.dataStore
+     * @memberof Roxee.gist.dataStore
      */
 
     /**

@@ -32,7 +32,7 @@ jsBoot.pack('jsBoot.service', function(api) {
      * @requires Mingus.digestEngine
      * @requires Mingus.XMLHttpRequest
      * @requires Roxee.gist.services.errors
-     * @extends Object
+     * @type {Object}
      *
      */
 
