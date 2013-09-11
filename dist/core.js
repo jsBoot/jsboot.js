@@ -4,11 +4,11 @@
  * Otherwise, you really shouldn't have console calls in your code...
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /*global console*/
@@ -32,7 +32,6 @@ jsBoot.pack('jsBoot.core', function(api) {
     });
   };
 });
-
 /**
  * The overloaded Error object has an additional (array) member "stack".
  * If there is a printStackTrace method available in the scope at the moment the Error is built,
@@ -42,11 +41,11 @@ jsBoot.pack('jsBoot.core', function(api) {
  * @summary An enhanced Error object with stacktrace.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/error.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/error.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  * @see  http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/
  * @see  http://stackoverflow.com/questions/332422/how-do-i-get-the-name-of-an-objects-type-in-javascript
  */
@@ -67,7 +66,7 @@ jsBoot.pack('jsBoot.core', function(api) {
     this.stack = b.stack;
     this.name = name;
     if (!this.stack)
-      this.stack = (typeof 'printStackTrace' != 'undefined') ? printStackTrace() : [];
+      this.stack = (typeof printStackTrace != 'undefined') ? printStackTrace() : [];
   };
 
   Object.getOwnPropertyNames(api.NativeError.prototype).forEach(function(i) {
@@ -157,7 +156,6 @@ jsBoot.pack('jsBoot.core', function(api) {
  * @constant
  * @name jsBoot.core.Error.NATURAL_BORN_CRASH
  */
-
 /**
  * Provides a simple declarative mechanism to get hooked onto exceptions
  *
@@ -165,11 +163,11 @@ jsBoot.pack('jsBoot.core', function(api) {
  * @summary Mechanism to catch exceptions.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/core/errorHandler.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 jsBoot.pack('jsBoot.core', function() {
@@ -211,7 +209,6 @@ jsBoot.pack('jsBoot.core', function() {
   };
 
 });
-
 /**
  * @namespace Errors spat by eventDispatchers
  * @name Roxee.gist.errors.eventDispatcher
@@ -219,9 +216,9 @@ jsBoot.pack('jsBoot.core', function() {
 
 /**
  * A listener failed during execution.
- * @memberOf Roxee.gist.errors.eventDispatcher
+ * @memberof Roxee.gist.errors.eventDispatcher
  * @property
- * @type String
+ * @type {String}
  * @constant
  * @name LISTENER_FAILURE
  */
@@ -371,7 +368,6 @@ jsBoot.pack('jsBoot.types', function(api) {
     return ret;
   };
 });
-
 jsBoot.use('jsBoot.types.EventDispatcher').as('dispatcher');
 
 // An object that when mutating (eg: via a call to the change method) will dispatch a change event
@@ -631,7 +627,6 @@ jsBoot.pack('jsBoot.types', function(api) {
 });
 
 */
-
 /**
  * User activity controller that dispatch changes (blur, idle, active).
  *
@@ -639,11 +634,11 @@ jsBoot.pack('jsBoot.types', function(api) {
  * @summary User activity helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/idle.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/idle.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /*jshint browser:true*/
@@ -693,7 +688,7 @@ jsBoot.pack('jsBoot.controllers', function(api) {
       }
     }.bind(this));
 
-    var isActive = (function(e) {
+    var isActive = (function(/*e*/) {
       if (lastState == BLURRED)
         return;
       lastActive = Date.now();
@@ -756,7 +751,6 @@ jsBoot.pack('jsBoot.controllers', function(api) {
 
   this.userActivity = new UserActivityController();
 });
-
 /**
  * Single app helper.
  *
@@ -764,11 +758,11 @@ jsBoot.pack('jsBoot.controllers', function(api) {
  * @summary Single app helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /*jshint browser:true*/
@@ -911,7 +905,6 @@ jsBoot.pack('jsBoot.controllers', function(api) {
 
 });
 
-
 /**
  * Storage backend providing temporary and persistent spaces for both the app and the user.
  * Note that it proceeds by loading/saving entirely the objects.
@@ -923,11 +916,11 @@ jsBoot.pack('jsBoot.controllers', function(api) {
  * @summary Storage helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/utils/storage.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/utils/storage.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 
@@ -976,13 +969,13 @@ jsBoot.pack('jsBoot.utils', function(api) {
 
   this.storage = new (function() {
     /**#@+
-     * @memberOf Roxee.gist.dataStore
+     * @memberof Roxee.gist.dataStore
      */
 
     /**
      * An accessor to the persistent dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name persistent
      */
     this.persistent = {};
@@ -990,7 +983,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the volatile (caching) dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name cache
      */
     this.cache = {};
@@ -998,7 +991,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the caching private dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name userCache
      */
 
@@ -1007,7 +1000,7 @@ jsBoot.pack('jsBoot.utils', function(api) {
     /**
      * An accessor to the persistent private dataStore.
      * @property
-     * @type String
+     * @type {String}
      * @name userPersistent
      */
 
@@ -1133,11 +1126,11 @@ jsBoot.pack('jsBoot.utils', function(api) {
         key = prefix + '_' + (key || '');
         try {
           store.setItem(key, json.stringify(data));
-          if(callback)
+          if (callback)
             setTimeout(callback, 1, true);
         }catch (e) {
           store.removeItem(key);
-          if(callback)
+          if (callback)
             setTimeout(callback, 1, false);
           throw new api.Error('DATA_CORRUPTION',
               'Writing into the dataStore failed. This may be indicative of a possible data corruption.');
@@ -1433,7 +1426,6 @@ jsBoot.pack('jsBoot.utils', function(api) {
 // };
 
 
-
 jsBoot.pack('jsBoot.utils', function() {
   /*jshint browser:true*/
   'use strict';
@@ -1479,4 +1471,3 @@ jsBoot.pack('jsBoot.utils', function() {
     return (current / steps) * range;
   };
 });
-

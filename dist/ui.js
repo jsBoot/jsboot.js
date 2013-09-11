@@ -8,7 +8,6 @@ jsBoot.pack('jsBoot.ui', function() {
     this.date = moment;
 
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -20,7 +19,6 @@ jsBoot.pack('jsBoot.ui', function() {
       return $(selector).uniform(opts);
     };
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global BigScreen, console*/
   'use strict';
@@ -32,7 +30,6 @@ jsBoot.pack('jsBoot.ui', function() {
   else
     this.fullscreen = BigScreen;
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global History, console*/
   'use strict';
@@ -44,7 +41,6 @@ jsBoot.pack('jsBoot.ui', function() {
   else
     this.history = History;
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -56,7 +52,6 @@ jsBoot.pack('jsBoot.ui', function() {
       return $(selector).hoverIntent(opts);
     };
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global I18n, console*/
   'use strict';
@@ -68,7 +63,6 @@ jsBoot.pack('jsBoot.ui', function() {
       return I18n;
     };
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global KeyboardJS, Mousetrap, console*/
   'use strict';
@@ -83,7 +77,6 @@ jsBoot.pack('jsBoot.ui', function() {
   else
     this.keyboard = Mousetrap;
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -189,7 +182,6 @@ $.extend($.gritter.options, {
 
 
 */
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -221,7 +213,6 @@ first element of your select list.
 
 
 */
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -233,7 +224,6 @@ jsBoot.pack('jsBoot.ui', function() {
       return $(selector).dataTable(opts);
     };
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -247,7 +237,6 @@ jsBoot.pack('jsBoot.ui', function() {
 });
 // http://docs.jquery.com/Plugins/Validation#API_Documentation
 // https://github.com/jzaefferer/jquery-validation
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global Raphael, console*/
   'use strict';
@@ -259,7 +248,6 @@ jsBoot.pack('jsBoot.ui', function() {
       return Raphael;
     };
 });
-
 jsBoot.pack('jsBoot.ui', function() {
   /*global $, console*/
   'use strict';
@@ -271,4 +259,3 @@ jsBoot.pack('jsBoot.ui', function() {
       return $(selector).redactor(opts);
     };
 });
-

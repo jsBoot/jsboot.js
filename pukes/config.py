@@ -1,6 +1,7 @@
 import puke2 as puke
 from error import *
 
+
 class Config(puke.config.File):
 
     """A config class extending puke.config.File to support multiple paths and

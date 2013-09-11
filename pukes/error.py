@@ -4,6 +4,7 @@ WRONG_ARGUMENT = "WRONG_ARGUMENT"
 MISSING = "MISSING"
 BROKEN = "BROKEN"
 
+
 class GenericError(Exception):
 
     """Base class for exceptions in airstrip."""

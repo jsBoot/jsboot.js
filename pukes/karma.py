@@ -1,5 +1,6 @@
 import puke2 as puke
 
+
 class Karma:
 
     """ Karma helper to get of the top

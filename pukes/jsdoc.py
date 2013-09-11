@@ -1,5 +1,6 @@
 import puke2 as puke
 
+
 class jsDoc:
 
     """ jsDoc3 helper to get of the top

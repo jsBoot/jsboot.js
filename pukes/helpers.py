@@ -16,7 +16,9 @@ import re
 import json
 import os
 
+
 class Helpers:
+
     """ Simple helpers to streamline common web tasks onto our idiosyncrasy
     """
 
@@ -28,40 +30,41 @@ class Helpers:
         list = puke.find(
             path, filter=filter, exclude="*-min.js,*-min.css,%s" % exclude)
         for burne in list:
-            puke.web.minify(burne, re.sub(r"(.*)[.]([^.]+)$", r"\1-min.\2", burne), mode=mode)
+            puke.web.minify(
+                burne, re.sub(r"(.*)[.]([^.]+)$", r"\1-min.\2", burne), mode=mode)
 
     @staticmethod
     def stats(path, exclude=''):
         list = puke.find(
             path, filter="*.js", exclude="*-min.js,%s" % exclude)
-        puke.display.header("Javascript");
+        puke.display.header("Javascript")
         puke.utils.stats(list)
         list = puke.find(path, filter="*-min.js", exclude="%s" % exclude)
-        puke.display.header("Minified javascript");
+        puke.display.header("Minified javascript")
         puke.utils.stats(list)
         list = puke.find(
             path, filter="*.css", exclude="*-min.css,%s" % exclude)
-        puke.display.header("Css");
+        puke.display.header("Css")
         puke.utils.stats(list)
         list = puke.find(
             path, filter="*-min.css", exclude="%s" % exclude)
-        puke.display.header("Minified css");
+        puke.display.header("Minified css")
         puke.utils.stats(list)
         list = puke.find(
             path, filter="*.html,*.xml,*.tpl,*.txt", exclude="%s" % exclude)
-        puke.display.header("(ht|x)ml, tpl, txt");
+        puke.display.header("(ht|x)ml, tpl, txt")
         puke.utils.stats(list)
         list = puke.find(
             path, exclude="*.html,*.xml,*.tpl,*.txt,*.js,*.css,%s" % exclude)
-        puke.display.header("Other");
+        puke.display.header("Other")
         puke.utils.stats(list)
-
 
     @staticmethod
     def clean(paths):
         for (key, path) in paths:
             if not key == "src" and not key == "tests":
-                resp = puke.display.prompt('Delete %s? y/[N]' % path, default = 'N')
+                resp = puke.display.prompt(
+                    'Delete %s? y/[N]' % path, default='N')
                 if resp == 'y':
                     try:
                         puke.fs.rm(path)
@@ -69,21 +72,18 @@ class Helpers:
                     except:
                         puke.display.fail('Failed removing %s' % path)
 
-
     @staticmethod
     def doc(s, t, d):
         c = jsDoc()
         c.go(s, t, d)
-
 
     @staticmethod
     def test(b):
         c = Karma()
         browsers = b.split(',')
         for i in browsers:
-          puke.display.header("Testing: %s" % i)
-          c.go(i)
-
+            puke.display.header("Testing: %s" % i)
+            c.go(i)
 
 
 class Yawn:
@@ -146,7 +146,6 @@ class Yawn:
             puke.sh.npm.install()
             self.bower = Bower(self.config.bower)
 
-
     # Dependencies management
     def air_search(self, keyword):
         puke.display.header("Package search")
@@ -178,16 +177,15 @@ class Yawn:
     #         puke.display.info(str(puke.sh.bower.info(key)))
     #     except:
     #         puke.display.fail("No such thing! %s" % key)
-    #     # yawner.add(keyword)
+    # yawner.add(keyword)
 
-    def air_add(self, local, short, version = "master", private = False):
+    def air_add(self, local, short, version="master", private=False):
         # Might raise if the package doesn't exist
         try:
             self.bower.info("%s#%s" % (short, version))
         except:
             puke.display.fail("Does not exist! %s#%s" % (short, version))
             raise GenericError("404", "Package does not exist")
-
 
         # Go if it does
         short = short.split('/')
@@ -216,7 +214,8 @@ class Yawn:
             })
 
         self.man.save("package.json")
-        puke.display.info(str(self.bower.add(loc, owner, name, version, private)))
+        puke.display.info(
+            str(self.bower.add(loc, owner, name, version, private)))
         # self.bower.init()
 
         # return b.add(keyword)
@@ -240,12 +239,11 @@ class Yawn:
                     key.replace('_', '-').upper(), str(value))
         return rep
 
-
     def paths(self):
         return self.config.paths
 
-    def deployer(self, src, filter = "", exclude = "", withversion=False, destination=False):
-        list = puke.find(src, filter = filter, exclude = exclude)
+    def deployer(self, src, filter="", exclude="", withversion=False, destination=False):
+        list = puke.find(src, filter=filter, exclude=exclude)
         dist = self.config.paths.dist
         if withversion and dist != 'dist':
             v = self.config.package.version.split('-').pop(0).split('.')
@@ -263,27 +261,31 @@ class Yawn:
 global yawner
 yawner = Yawn()
 
+
 def search(k):
-  yawner.air_search(k)
+    yawner.air_search(k)
+
 
 def versions(k):
-  yawner.air_versions(k)
+    yawner.air_versions(k)
+
 
 def init():
-  yawner.air_init()
+    yawner.air_init()
+
 
 def update():
-  puke.sh.npm.install()
-  yawner.air_update()
+    puke.sh.npm.install()
+    yawner.air_update()
 
-def install(uri, version = "master", local = None, private = False):
-  if not local:
-    local = uri.split('/').pop()
-  yawner.air_add(local, uri, version, private)
+
+def install(uri, version="master", local=None, private=False):
+    if not local:
+        local = uri.split('/').pop()
+    yawner.air_add(local, uri, version, private)
 
 puke.tasks.task(search)
 puke.tasks.task(versions)
 puke.tasks.task(init)
 puke.tasks.task(update)
 puke.tasks.task(install)
-

@@ -3,11 +3,11 @@
  * @summary Provides a way to filter out console verbosity.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /*jshint devel:true*/
@@ -54,17 +54,16 @@ jsBoot.pack('jsBoot.debug', function(api) {
   }, this);
 
 });
-
 /**
  * @file
  * @summary A css-reloader/refresher debugging helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/css.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/css.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 jsBoot.pack('jsBoot.debug', function() {
@@ -118,17 +117,16 @@ jsBoot.pack('jsBoot.debug', function() {
 
 });
 
-
 /**
  * @file
  * @summary Declare a dummy debug default error handler
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/console.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 
@@ -151,17 +149,16 @@ jsBoot.run(function(api) {
     return false;
   });
 });
-
 /**
  * @file
  * @summary Debug core providing a tick method for perf measurements
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/tick.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/debug/tick.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 jsBoot.pack('jsBoot.debug', function() {
@@ -187,4 +184,3 @@ jsBoot.pack('jsBoot.debug', function() {
   this.tick('Debug module fully loaded. Starting time measurement');
 
 });
-

@@ -1,6 +1,7 @@
 import puke2 as puke
 from error import *
 
+
 class Git:
 
     """ Trivial git helper on top of puke.sh

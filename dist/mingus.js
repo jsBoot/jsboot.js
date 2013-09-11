@@ -100,16 +100,15 @@
   }
 
 }).apply(this);
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Root namespace for the Mingus library.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**
@@ -152,7 +151,6 @@
   };
 
 }).apply(window);
-
 /**
  * Basic utility class providing regexp atoms for the core part of the ABNF.
  *
@@ -160,11 +158,11 @@
  * @summary ABNF helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/ABNF.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/ABNF.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 
@@ -332,7 +330,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.ALPHA
- * @type String
+ * @type {String}
  * @constant
  */
 
@@ -342,7 +340,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.BIT
- * @type String
+ * @type {String}
  * @constant
  */
     this.BIT = '01';
@@ -351,7 +349,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CHAR
- * @type String
+ * @type {String}
  * @constant
  */
     this.CHAR = '\\x01-\\x7f';
@@ -359,7 +357,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CR
- * @type String
+ * @type {String}
  * @constant
  */
     this.CR = '\\x0D';
@@ -367,7 +365,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.LF
- * @type String
+ * @type {String}
  * @constant
  */
     this.LF = '\\x0A';
@@ -375,7 +373,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.CTL
- * @type String
+ * @type {String}
  * @constant
  */
     this.CTL = '\\x00-\\x1F\\x7F';
@@ -383,7 +381,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.DIGIT
- * @type String
+ * @type {String}
  * @constant
  */
     this.DIGIT = '\\x30-\\x39';//'0-9';
@@ -391,7 +389,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.DQUOTE
- * @type String
+ * @type {String}
  * @constant
  */
     this.DQUOTE = '\\x22';
@@ -399,7 +397,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.HEXDIG
- * @type String
+ * @type {String}
  * @constant
  */
     this.HEXDIG = this.DIGIT + 'ABCDEFabcdef';
@@ -407,7 +405,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.HTAB
- * @type String
+ * @type {String}
  * @constant
  */
     this.HTAB = '\\x09'; // \t
@@ -415,7 +413,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.SP
- * @type String
+ * @type {String}
  * @constant
  */
     this.SP = '\\x20';
@@ -423,7 +421,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.WSP
- * @type String
+ * @type {String}
  * @constant
  */
     this.WSP = this.SP + this.HTAB;
@@ -431,7 +429,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.OCTET
- * @type String
+ * @type {String}
  * @constant
  */
     this.OCTET = '\\x00-\\xff';
@@ -439,14 +437,14 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.VCHAR
- * @type String
+ * @type {String}
  * @constant
  */
     this.VCHAR = '\\x21-\\x7E';
     /**
  * @member
  * @name Mingus.grammar.ABNF.CRLF
- * @type String
+ * @type {String}
  * @constant
  */
     this.CRLF = this.makeClass(this.CR) + this.makeClass(this.LF);
@@ -454,7 +452,7 @@ B.1.  Core Rules
     /**
  * @member
  * @name Mingus.grammar.ABNF.LWSP
- * @type String
+ * @type {String}
  * @constant
  */
 
@@ -462,16 +460,15 @@ B.1.  Core Rules
 
   })();
 })();
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Basic utility class providing regexp atoms for the address part of the internet message format RFC.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IMF.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IMF.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**
@@ -870,7 +867,7 @@ RFC 5322                Internet Message Format             October 2008
    * @name DOMAIN
    * @summary Regexp for "domain"
    * @description A string to create a regexp that matches the "domain" part of a mail address
-   * @type String
+   * @type {String}
    * @memberof Mingus.grammar.IMF
    * @constant
    * @example
@@ -884,7 +881,7 @@ RFC 5322                Internet Message Format             October 2008
    * @name DOMAIN
    * @summary Regexp for "local part"
    * @description A string to create a regexp that matches the "local" part of a mail address
-   * @type String
+   * @type {String}
    * @memberof Mingus.grammar.IMF
    * @constant
    */
@@ -934,16 +931,15 @@ RFC 5322                Internet Message Format             October 2008
   }).apply(Mingus.grammar, [Mingus.grammar.ABNF]);
 
 })();
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Utility class that provides regexp easing the parsing of IRIs.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IRI.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/IRI.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**
@@ -1223,7 +1219,7 @@ RFC 5322                Internet Message Format             October 2008
      * @memberof Mingus.grammar.IRI
      * @name IRI_REFERENCE
      * @kind member
-     * @type String
+     * @type {String}
      * @static
      * @constant
      */
@@ -1276,7 +1272,6 @@ RFC 5322                Internet Message Format             October 2008
   }).apply(Mingus.grammar, [Mingus.grammar.ABNF]);
 
 })();
-
 /**
  * Basic utility class providing regexp atoms for http (headers).
  *
@@ -1285,11 +1280,11 @@ RFC 5322                Internet Message Format             October 2008
  * @see http://tools.ietf.org/html/rfc2616.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/HTTP.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/grammar/HTTP.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**
@@ -1828,7 +1823,6 @@ start-line      = Request-Line | Status-Line
 
 
 
-
 /**
  * Basic helper to add md5 capabilities to javascript.
  *
@@ -1836,15 +1830,15 @@ start-line      = Request-Line | Status-Line
  * @summary MD5 support.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/crypto/md5.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 (function() {
-  /*jshint maxstatements:69*/
+  /*jshint maxstatements:69, maxparams:7*/
   /*global Mingus, unescape*/
   'use strict';
 
@@ -2057,17 +2051,16 @@ start-line      = Request-Line | Status-Line
   };
 
 })();
-
 /**
  * @file
  * @summary Basic helper class to help converting various entities to their utf conterparts.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/converters/entity.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/converters/entity.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 (function() {
@@ -2410,16 +2403,15 @@ start-line      = Request-Line | Status-Line
   };
 
 })();
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file This is the "to be embeded" part that communicates postMessages to the frame. Mimicks a standard XHR.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/ungate.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/ungate.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**#nocode+*/
@@ -2629,16 +2621,15 @@ start-line      = Request-Line | Status-Line
 
 
 /**#nocode-*/
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Provides an app key engine.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/appkey.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/appkey.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 
@@ -2748,16 +2739,15 @@ start-line      = Request-Line | Status-Line
   })(Mingus.xhr.appKeyErrors, Mingus.crypto.md5);
 
 })();
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Provides a digest engine.
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 /**
@@ -2786,7 +2776,7 @@ start-line      = Request-Line | Status-Line
  * @kind member
  * @static
  * @name data
- * @type Object
+ * @type {Object}
  */
 
 /**
@@ -2804,7 +2794,7 @@ start-line      = Request-Line | Status-Line
 
 /**
  * @name login
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
@@ -2812,7 +2802,7 @@ start-line      = Request-Line | Status-Line
 /**
  * @summary You can only *set* that. Credentials can't be retrieved.
  * @name password
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
@@ -2820,14 +2810,14 @@ start-line      = Request-Line | Status-Line
 /**
  * @summary You can only *set* that. Credentials can't be retrieved.
  * @name ha1
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
 
 /**
  * @name challenge
- * @type String
+ * @type {String}
  * @kind member
  * @memberof Mingus.xhr.digest.Engine
  */
@@ -2844,6 +2834,7 @@ start-line      = Request-Line | Status-Line
 
 /*global Mingus:true*/
 (function(md5, http) {
+  /*jshint maxparams:7*/
   'use strict';
   // Private helpers
 
@@ -3035,16 +3026,15 @@ start-line      = Request-Line | Status-Line
     hosters[host].login = login;
     hosters[host].password = password;
   };*/
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file Provides a digest+appkey enabled XHR, using the gate xhr backend
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/mingus/xhr/digest.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 
@@ -3054,7 +3044,7 @@ start-line      = Request-Line | Status-Line
  * @name Mingus.xhr.XMLHttpRequest
  * @requires Mingus.xhr.appKeyEngine
  * @requires Mingus.xhr.digest
- * @type Object
+ * @type {Object}
  */
 
 /**#nocode+*/
@@ -3242,4 +3232,3 @@ start-line      = Request-Line | Status-Line
 }).apply(Mingus.xhr, [Mingus.grammar.IRI, Mingus.xhr.appKeyEngine, Mingus.xhr.digest, Mingus.xhr.gateOpener.getBridge]);
 
 /**#nocode-*/
-

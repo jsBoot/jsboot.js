@@ -11,13 +11,12 @@ jsBoot.pack('jsBoot.service', function(api) {
 
   ['OPENING_FAILED', 'SEND_FAILED', 'FAILED_UID', 'MEANINGLESS_DATA', 'BAD_REQUEST',
    'MISSING', 'BAD_REQUEST', 'UNAUTHORIZED', 'INVALID_SIGNATURE', 'WRONG_CREDENTIALS',
-   'SHOULD_NOT_HAPPEN', 'SERVICE_UNAVAILABLE', 'UNAUTHORIZED', 'UNSPECIFIED'].
+   'SHOULD_NOT_HAPPEN', 'SERVICE_UNAVAILABLE', 'UNSPECIFIED'].
       forEach(function(item) {
         this[item] = this.prototype[item] = item;
       }, this.Error);
 
 });
-
 /*global Mingus*/
 jsBoot.add(Mingus.xhr.XMLHttpRequest).as('XMLHttpRequest');
 
@@ -205,11 +204,12 @@ jsBoot.pack('jsBoot.service', function(api) {
       success(this.data);
     // XXX Roxee depends on this old API
     if (failure && this.error)
-      failure(this.error, this.data);
+      failure(this.error, this.data, inner);
   };
 
 
   this.SimpleClient.prototype.query = function(method, options, headers) {
+    /*jshint maxcomplexity: 12*/
     // Default method
     method = (method || this.GET);
     var url = options.url || this.url(options);
@@ -287,7 +287,6 @@ jsBoot.pack('jsBoot.service', function(api) {
   this.SimpleClient.DELETE = this.SimpleClient.prototype.DELETE = 'DELETE';
 
 });
-
 /*global Mingus*/
 jsBoot.add(Mingus.xhr.XMLHttpRequest).as('XMLHttpRequest');
 jsBoot.add(Mingus.xhr.digest).as('digest');
@@ -322,7 +321,7 @@ jsBoot.pack('jsBoot.service', function(api) {
      * @requires Mingus.digestEngine
      * @requires Mingus.XMLHttpRequest
      * @requires Roxee.gist.services.errors
-     * @extends Object
+     * @type {Object}
      *
      */
 
@@ -348,7 +347,7 @@ jsBoot.pack('jsBoot.service', function(api) {
       anonymous = anon;
 
       // Set the gate path
-      var shortversion = '0.3.0'.split('.');
+      var shortversion = '0.4.0'.split('.');
       api.XMLHttpRequest.gatePath = '/' + service.version + '/connect/gate/' + shortversion.shift() +
           '.' + shortversion.shift() + '/gate.html';
       // And the requestor end-point
@@ -396,7 +395,9 @@ jsBoot.pack('jsBoot.service', function(api) {
         service: USER,
         onsuccess: onSuccess,
         onfailure: onFailure,
-        command: USER_CMD_AUTHENTICATE
+        command: USER_CMD_AUTHENTICATE,
+        // XXX because of Varnish pendantric attitude, need a payload
+        payload: {}
       });
     };
 
@@ -432,7 +433,6 @@ jsBoot.pack('jsBoot.service', function(api) {
 
   })();
 });
-
 
 /*global Mingus*/
 jsBoot.add(Mingus.xhr.digest).as('digest');
@@ -472,7 +472,7 @@ jsBoot.pack('jsBoot.service', function(api) {
    * @namespace The "account" service manager
    * @name Roxee.gist.services.account
    * @requires  Roxee.gist.services
-   * @extends Object
+   * @type {Object}
    */
   this.account = new (function() {
     /**#@+
@@ -608,7 +608,6 @@ jsBoot.pack('jsBoot.service', function(api) {
      */
   })();
 });
-
 /**
  * Sample application controller.
  *
@@ -616,11 +615,11 @@ jsBoot.pack('jsBoot.service', function(api) {
  * @summary Single app helper.
  *
  * @author WebItUp
- * @version 0.3.0
+ * @version 0.4.0
  *
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @name https://github.com/jsBoot/jsboot.js/blob/master/src/jsboot/controllers/singleapp.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 // Time to fail on asynchronous initialization of stuff
@@ -859,4 +858,3 @@ jsBoot.pack('jsBoot.controllers', function(api) {
     this.shutdown();
   }.bind(this.application));
 });
-

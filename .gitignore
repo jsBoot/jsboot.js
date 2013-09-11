@@ -5,11 +5,7 @@
 .pukecache/
 bower_components
 node_modules
-*/.sass-cache/*
-
-# IDE
-*.sublime-project
-*.sublime-workspace
+.sass-cache
 
 # Build scories
 *.py[co]

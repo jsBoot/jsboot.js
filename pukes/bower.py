@@ -1,6 +1,8 @@
 import puke2 as puke
 
+
 class Bower:
+
     """ Formerly airstrip - just wraps around Bower to handle dependencies
     """
 
@@ -9,16 +11,16 @@ class Bower:
         self.com = puke.sh.Command("./node_modules/.bin/bower")
         pass
 
-
     def init(self):
         for i in self.config:
             d = self.config[i]
             for v in d.versions:
-                puke.display.info("Installing: %s/%s#%s into %s" % (d.owner, d.repo, v, i))
-                puke.display.info(str(self.add(i, d.owner, d.repo, v, True if "private" in d else False)))
+                puke.display.info(
+                    "Installing: %s/%s#%s into %s" % (d.owner, d.repo, v, i))
+                puke.display.info(
+                    str(self.add(i, d.owner, d.repo, v, True if "private" in d else False)))
         # Force update once done
         self.com.update()
-
 
     def update(self):
         return self.com.update()
@@ -35,11 +37,10 @@ class Bower:
                     # ret[i] = 'bower_components/%s-%s' % (i, v)
                     ret[i] = 'bower_components/%s' % i
 
-        return ret#self.config.keys()
+        return ret  # self.config.keys()
 
     # def path(self, key, version):
     #     return self.config[key].owner, self.config[key].repo
-
 
     # def real_list(self):
     #     ls = puke.find(".", filter = "*bower.json*")
@@ -59,17 +60,17 @@ class Bower:
     #             }
     #         result[source]["versions"].append({"path": "bower_components/%s" %name, "version": version})
     #     return result
-
     def search(self, keyword):
         return self.com.search(keyword)
 
     def info(self, name):
         return self.com.info(name)
 
-    def add(self, local, owner, name, version = 'master', private = False):
+    def add(self, local, owner, name, version='master', private=False):
         # Get external shims
         version = version or 'master'
-        remote = 'git@github.com:%s/%s.git' % (owner, name) if private else 'git://github.com/%s/%s' % (owner, name)
+        remote = 'git@github.com:%s/%s.git' % (
+            owner, name) if private else 'git://github.com/%s/%s' % (owner, name)
         # return puke.sh.bower.install("%s-%s=%s#%s" % (local, version, remote, version))
         # return puke.sh.bower.install("%s=%s#%s" % (local, remote, version))
         print "bower install %s#%s" % (remote, version)

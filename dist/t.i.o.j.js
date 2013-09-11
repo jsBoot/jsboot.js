@@ -1,4 +1,6 @@
 /**
+ * @file Tiny bootstrapper for companion script.
+ *
  * This is the *most minimal* bootstrapper possible.
  * It is meant to serve as a loader for an (actually useful) bootstrapper.
  * Don't use directly unless you know what you freaking do.
@@ -6,17 +8,16 @@
  * Code adapted from getify JSLabs' gister.
  * This must work without any shim support, in most browsers.
  *
- * @file
- * @summary Tiny bootstrapper for companion script.
+ * @see https://gist.github.com/603980
  *
- * @author WebItUp
+ * @version 1.2.0
+ * @author WebItUp <dev@webitup.fr> (http://www.webitup.fr/lab)
  * @author Getify
- * @version 1.1.0
  *
  * @license <a href="http://en.wikipedia.org/wiki/MIT_License">MIT</a>.
- * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @see https://gist.github.com/603980
- * @name https://github.com/jsBoot/spitfire.js/blob/master/src/gulliver.js#62-f14fa4a0754ddf2a106d57504b97442407cd7d48
+ * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp <dev@webitup.fr> (http://www.webitup.fr/lab)</a>
+ * @name gulliver.js
+ * @location https://github.com/jsBoot/spitfire.js/blob/master/src/gulliver.js#111-0f8cc49a5082f7c6a0ca6ae84a9d585ad117fcd2
  */
 
 
@@ -60,15 +61,18 @@
         head = head[0]; // reassign from live node list ref to pure node ref --
         // avoids nasty IE bug where changes to DOM invalidate live node lists
       }
-      // Get gulliver itself to guess options
-      var scripts = document.getElementsByTagName('script');
-      var re = new RegExp('(.*)\\/' + (name || 'gulliver') + '((?:-min)?\\.js)');
-      for (var x = 0, baseGulliPath; x < scripts.length; x++) {
-        baseGulliPath = scripts[x];
-        if (baseGulliPath.src && (baseGulliPath = baseGulliPath.src.match(re))) {
-          baseGulliPath.shift();
-          uri = baseGulliPath.shift() + '/' + uri + baseGulliPath.shift();
-          break;
+      // Non absolute uris get resolved against gulliver path - other are left as is
+      if (!/^[a-z]+:\/\//.test(uri)) {
+        // Get gulliver itself to guess options
+        var scripts = document.getElementsByTagName('script');
+        var re = new RegExp('(.*)\\/' + (name || 'gulliver') + '((?:-min)?\\.js)');
+        for (var x = 0, baseGulliPath; x < scripts.length; x++) {
+          baseGulliPath = scripts[x];
+          if (baseGulliPath.src && (baseGulliPath = baseGulliPath.src.match(re))) {
+            baseGulliPath.shift();
+            uri = baseGulliPath.shift() + '/' + uri + baseGulliPath.shift();
+            break;
+          }
         }
       }
       var scriptElem = document.createElement('script'),
@@ -99,12 +103,11 @@
     }
   };
 }).apply(this);
-
 /**
- * @version 0.3.0
+ * @version 0.4.0
  * @author WebItUp
  * @name jsboot.js
- * @homepage http://core.jsboot.com
+ * @homepage {PUKE-PACKAGE-HOMEPAGE}
  * @file This is a nutshell meant to be aggregated after gulliver and whose sole purpose
  * is to actually load there.is.only.jsboot.
  * This is good ONLY if one wants an ABSOLUTE MINIMAL bootstrapper instead of loading
@@ -115,7 +118,7 @@
  * (use an hastag)
  * @license <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
  * @copyright All rights reserved <a href="http://www.webitup.fr">copyright WebItUp</a>
- * @location https://github.com/jsBoot/jsboot.js/blob/master/src/onegateisopening/b.js#67-2d67af0d1f5b3951ddd752b731b84e0a15941993
+ * @location https://github.com/jsBoot/jsboot.js/blob/master/src/onegateisopening/b.js#74-70c39446998be95596b03bc170b23bba337ce8b4
  */
 
 (function(aDoc, gull) {
@@ -157,4 +160,3 @@
   };
   booter();
 }).apply(this, [document, gulliver]);
-

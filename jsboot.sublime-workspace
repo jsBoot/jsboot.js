@@ -1,0 +1,1035 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"default",
+				"defaultname"
+			],
+			[
+				"AIR",
+				"AIRSTRIP_RC_PATH"
+			],
+			[
+				"GITHU",
+				"GITHUB_ROOT"
+			],
+			[
+				"licen",
+				"licences"
+			],
+			[
+				"has",
+				"hasGlobal"
+			],
+			[
+				"remove",
+				"removeNotification"
+			],
+			[
+				"isM",
+				"isMaximized"
+			],
+			[
+				"data",
+				"dataFactory"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"is",
+				"isStarted"
+			],
+			[
+				"shi",
+				"shittyshitty"
+			],
+			[
+				"local",
+				"localCollection"
+			],
+			[
+				"watched",
+				"watchedDirs"
+			],
+			[
+				"Local",
+				"LocalFolder"
+			],
+			[
+				"watch",
+				"watchedDirs"
+			],
+			[
+				"media",
+				"mediamatched"
+			],
+			[
+				"refresh",
+				"refreshSize"
+			],
+			[
+				"get",
+				"getNextTagSibling"
+			],
+			[
+				"S",
+				"SUPPORTED"
+			],
+			[
+				"ses",
+				"sessionStorage"
+			],
+			[
+				"UNK",
+				"UNKNOWN"
+			],
+			[
+				"UN",
+				"UNCERTAIN"
+			],
+			[
+				"NO",
+				"NOT_RECOMMENDED"
+			],
+			[
+				"app",
+				"appVersion"
+			],
+			[
+				"use",
+				"userAgent"
+			],
+			[
+				"packa",
+				"packageName"
+			],
+			[
+				"to",
+				"toLowerCase"
+			],
+			[
+				"application",
+				"applicationKey"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"getTorre",
+				"getTorrentsLength"
+			],
+			[
+				"inter",
+				"interlockClass"
+			],
+			[
+				"Reference",
+				"referencedIn"
+			],
+			[
+				"USER",
+				"USER_READY"
+			],
+			[
+				"BOO",
+				"BOOT"
+			],
+			[
+				"User",
+				"UserInstance"
+			],
+			[
+				"AFTER",
+				"AFTER_MUTATION"
+			],
+			[
+				"receive",
+				"receivedRequests"
+			],
+			[
+				"getUser",
+				"getUserId"
+			],
+			[
+				"rece",
+				"receivedRequests"
+			],
+			[
+				"getU",
+				"getUserId"
+			],
+			[
+				"login",
+				"loginManager"
+			],
+			[
+				"notify",
+				"notifyPropertyChange"
+			],
+			[
+				"store",
+				"storeBind"
+			],
+			[
+				"n",
+				"now"
+			],
+			[
+				"co",
+				"controller"
+			],
+			[
+				"NOT",
+				"NOT_INITIALIZED"
+			],
+			[
+				"SERVICE_",
+				"SERVICE_UNAVAILABLE"
+			],
+			[
+				"type",
+				"@type"
+			],
+			[
+				"property",
+				"@property"
+			],
+			[
+				"return",
+				"@return"
+			],
+			[
+				"A",
+				"@author"
+			],
+			[
+				"param",
+				"@param"
+			],
+			[
+				"see",
+				"@see"
+			],
+			[
+				"p",
+				"@preserve"
+			],
+			[
+				"name",
+				"@name"
+			],
+			[
+				"function",
+				"@function"
+			],
+			[
+				"memberOf",
+				"@memberOf"
+			],
+			[
+				"namespace",
+				"@namespace"
+			],
+			[
+				"require",
+				"@requires"
+			],
+			[
+				"ame",
+				"@name"
+			],
+			[
+				"extends",
+				"@extends"
+			],
+			[
+				"lends",
+				"@lends"
+			],
+			[
+				"returns",
+				"returns"
+			],
+			[
+				"r",
+				"@requires"
+			],
+			[
+				"se",
+				"@see"
+			],
+			[
+				"pre",
+				"@preserve"
+			],
+			[
+				"re",
+				"@requires"
+			],
+			[
+				"example",
+				"@example"
+			],
+			[
+				"ignore",
+				"@ignore"
+			],
+			[
+				"i",
+				"@ignore"
+			],
+			[
+				"id",
+				"@inheritDoc"
+			],
+			[
+				"requires",
+				"@requires"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/onegateisopening/boot.js",
+			"settings":
+			{
+				"buffer_size": 16567,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 251 files for \"pack =\"\n\n/Users/dmp/dev/projects/jsboot/jsboot.js/dist/there.is.only.jsboot.js:\n 2058    };\n 2059  \n 2060:   this.pack = function(name, factory) {\n 2061      var api = packer();\n 2062      var r = parentPull(globalObject, name);\n\n/Users/dmp/dev/projects/jsboot/jsboot.js/src/gister/packman.js:\n  106    };\n  107  \n  108:   this.pack = function(name, factory) {\n  109      var api = packer();\n  110      var r = parentPull(globalObject, name);\n\n2 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 494,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "src/gister/packman.js",
+			"settings":
+			{
+				"buffer_size": 3026,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/jsboot/core/console.js",
+			"settings":
+			{
+				"buffer_size": 889,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/jsboot/types/eventdispatcher.js",
+			"settings":
+			{
+				"buffer_size": 5394,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Puke/Puke.sublime-build",
+	"command_palette":
+	{
+		"height": 254.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 115.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": true,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/service/errors.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/package.json",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/service/flaves/key.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/service/flaves/account.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/service/core.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/service/client.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/debug/errorHandler.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/controllers/singleapp.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/controllers/application.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/dist/there.is.only.jsboot.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/.jshintrc",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/controllers/idle.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/mingus/crypto/md5.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/mingus/xhr/digest.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/onegateisopening/boot.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/onegateisopening/gate.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/strict.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/TODO",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/ui/date.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/utils/tweener.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/ui/wysiwyg.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/gister/packman.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/core/error.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/core/console.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/jsboot/debug/css.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/package-dmp-darwin.json",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/pukefile.py",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/mingus/postmessage.js",
+		"/Users/dmp/dev/projects/jsboot/jsboot.js/src/gister/xxx.notes",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airs/hoverintent.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airs/raphael.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airs/mousetrap.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airs/moment.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airrc.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/project.sublime-project",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/pukefile.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/__init__.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airs/phoneapp.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/githelper.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/github.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/TODO",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/project.sublime-project",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/project.sublime-workspace",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/package.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/src/index.html",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/LICENSE.md",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/setup.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/README.md",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/.gitignore",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/.gitignore",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/global.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airfile.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airconfig.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/TODO",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airlicenses.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/seeder.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/package.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airs/backbone.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airs/ember.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airlicense.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/licenses/agpl",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/licenses/mit",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/licenses/license-plate.mit",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/licenses/license-plate.agpl",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/airstriprc.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/air.py",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airfile.json",
+		"/Users/dmp/dev/projects/jsboot/airstrip.js/airstrip/boilerplates/src/miniboot.ico",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/strict.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/tests/index.html",
+		"/Users/dmp/dev/jsboot/jsboot.js/xxxdeprecated/pukefile.py",
+		"/Users/dmp/dev/jsboot/jsboot.js/dist/toobsj.ylno.si.ereht.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/dist/there.is.only.jsboot.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/jsboot/service/core.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/xxxdeprecated/config.yaml",
+		"/Users/dmp/dev/jsboot/jsboot.js/package-dmp-darwin.json",
+		"/Users/dmp/dev/jsboot/jsboot.js/pukefile.py",
+		"/Users/dmp/dev/jsboot/jsboot.js/package.json",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/gister/xxx.amdadapter.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/namespace.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/grammar/IMF.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/grammar/IRI.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/xhr/appkey.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/xhr/appkeydigestxhr.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/xhr/digest.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/mingus/xhr/ungate.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/onegateisopening/b.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/dist/t.i.o.j.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/onegateisopening/gate.html",
+		"/Users/dmp/dev/jsboot/jsboot.js/dist/gate.html",
+		"/Users/dmp/dev/jsboot/jsboot.js/helpers.py",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/onegateisopening/gate.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/src/xxx/xxxcomcast/xxx.host.js",
+		"/Users/dmp/dev/jsboot/jsboot.js/tests/All.html",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/helpers.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/src/miniboot.css",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/src/index.html",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/src/miniboot.js",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/pie.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/README.md",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/air.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/pukefile.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/json3.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/console.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/es5.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/.gitignore",
+		"/Users/dmp/dev/jsboot/airstrip.js/xxx/src/robots.txt",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/githelper.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/seeder.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/xmlhttprequest.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/xxx/yanks/shims.yaml",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/stacktrace.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/javascript-stacktrace.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/ie7.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/console-shim.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/es5-shim.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/README.md",
+		"/Users/dmp/dev/jsboot/airstrip.js/package.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/boilerplates/package.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/github.py",
+		"/Users/dmp/dev/jsboot/airstrip.js/xxx/yanks/tooling.yaml",
+		"/Users/dmp/dev/jsboot/airstrip.js/airfile.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/headjs.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/jasmine.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/xxx/yanks/loaders.yaml",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/yui3.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/yepnope.js.json",
+		"/Users/dmp/dev/jsboot/airstrip.js/airstrip/airs/labjs.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"-.pukecache/*",
+			"-.pukecache/*,*.py",
+			"-.pukecache/*",
+			"",
+			"/Users/dmp/dev/webitup/spitfire.js",
+			"",
+			"/Users/dmp/dev/webitup/spitfire.js/src,/Users/dmp/dev/webitup/spitfire.js/tests",
+			"/Users/dmp/dev/webitup/spitfire.js/src",
+			"src",
+			"",
+			"/Volumes/dandinette/dev/src/roxee/roxish",
+			"/Volumes/dandinette/dev/src/roxee/roxee",
+			"<open folders>,-*.sublime-workspace",
+			"<open folders>",
+			"<open folders>,-*dist*",
+			"/usr/local/lib/python2.7/site-packages/puke/datas/jsdoc-toolkit/templates/gris_taupe,/Users/dmp/dev/roxee/js.core/src",
+			"src,/usr/local/lib/python2.7/site-packages/puke/datas/jsdoc-toolkit/templates/gris_taupe",
+			"<open folders>,-dist",
+			"<open folders>,-*/dist/*",
+			"<open folders>",
+			"<open folders>,-*.html",
+			"<open folders>",
+			"-dist/*",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pack =",
+			"use =",
+			"dasherize",
+			"singleApp",
+			"┌∩┐(◣_◢)┌∩",
+			"lazyUse",
+			"FAILED_TOKEN",
+			"{PUKE-",
+			"strict.js",
+			"{PUKE-",
+			"jsBoot",
+			"throw new api.Err(api.Err.OPENING_FAILED, {url: url, ",
+			"OPENING_FAILED",
+			"gate-opener",
+			"missing production",
+			"password",
+			"github",
+			"search(",
+			"git checkout",
+			"git --",
+			"commit\"",
+			"commit'",
+			"commit ",
+			"commit",
+			"indent = 4",
+			"ensure",
+			"2.0.0-rc",
+			"2.0.0.rc",
+			"list",
+			"sha",
+			"miniboot.company",
+			"companyname}}",
+			"utf8",
+			"hit enter",
+			"self.rc",
+			"ln",
+			"homepage",
+			"keys",
+			"prompt",
+			"airrc",
+			"json",
+			"license",
+			"os",
+			"FileSystem.writefile",
+			"2.0.0-rc.3",
+			".0.0-rc.3",
+			"json",
+			"2.0.0-rc.",
+			"rc.2",
+			"setup(",
+			"setuo(",
+			"2.0.0-rc.",
+			"spit-",
+			"spit-base",
+			"params.base",
+			"spit-Base",
+			"spit-base",
+			"statics",
+			"spitBase",
+			"base",
+			"SPIT-BASE",
+			"spitBase",
+			"SPIT-",
+			"-STATIC",
+			"STATIC-",
+			"{STATIC",
+			"PUKE-",
+			"Yak.build_root",
+			", exclude = '*xxx*'",
+			"puke-",
+			"PUKE-PACKAGE-GIT-REV",
+			"homepage",
+			"PUKE-PACKAGE-COPYRIGHT",
+			"PUKE-PACKAGE-AUTHOR",
+			"PUKE-PACKAGE-HOME",
+			"PUKE-PACKAGE-LICENSE",
+			"PUKE-PACKAGE-GIT-ROOT",
+			"filesystem.deep",
+			"\"master",
+			"the requested",
+			"reset",
+			"hardreset",
+			"hardreste",
+			"clean)",
+			"print remote",
+			"rstrip(",
+			"rstrip",
+			"rstrip(",
+			"rstrip",
+			"lstrip",
+			"something ver",
+			"rstrip",
+			"/xmlhttprequest",
+			"lstrip(",
+			"rstrip(",
+			"rstrip",
+			"rstriprstrip",
+			"git checkout",
+			"The requested version (",
+			"master",
+			"gh",
+			"\"web\"",
+			"'web'",
+			"\"web\"",
+			"rake",
+			"seed",
+			"build",
+			"thor",
+			"def init",
+			"deploy",
+			"dist",
+			"config",
+			"write",
+			"deepcopy",
+			"miniboot.company",
+			"author",
+			"hinter",
+			"json.dump",
+			"sed",
+			"std =",
+			"miniboot",
+			"airs'",
+			"airs\"",
+			"airs",
+			"assert",
+			"scripties",
+			"lstrip",
+			"dist"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"defaults",
+			"Yak.paths['build']",
+			"",
+			"PUKE-GIT-REVISION",
+			"PUKE-GIT-REV",
+			"PUKE-RIGHTS-COPYRIGHT",
+			"PUKE-RIGHTS-AUTHOR",
+			"PUKE-PACKAGE-HOMEPAGE",
+			"PUKE-RIGHTS-LICENSE",
+			"PUKE-GIT-ROOT",
+			"apiCacheGet",
+			"apiGet",
+			"",
+			"'",
+			"self.general",
+			"self.project",
+			"tmp_root",
+			"build_root",
+			"-stable",
+			"Build",
+			"Source",
+			"Destination",
+			"License",
+			"License  ",
+			"  ",
+			"Spitfire.loader",
+			"",
+			"Spitfire",
+			".js",
+			"{PUKE-JASMINE-LINK}",
+			"stable",
+			"lib/jasmine-1.2.0/",
+			"",
+			"    || ",
+			"    ||",
+			"Roxism.remoter",
+			"evt.",
+			"api.dataStore",
+			"WRITE_COMPLETE",
+			"_api_.rox.application",
+			"_api_.rox.window",
+			"this.gist.",
+			"Roxee.gist.dataStore",
+			"declareBrowser",
+			"Roxee.gist.types.system.Browser",
+			"types.system",
+			".dataStore.",
+			"api",
+			"instanceId",
+			"",
+			"cookie",
+			"Roxee.gister.reveal('Roxism",
+			"_api_.XHR",
+			"xhr",
+			"cache",
+			"_api_.IRI",
+			"_api_.powermanagement",
+			"_api_.application",
+			"_api_.player",
+			"Roxee.gister.use($1).as($2)",
+			"Roxee.gister.openpublic",
+			"Roxee.gister.contains('Roxism')",
+			"_api_.errors.",
+			"this.gist",
+			"/app/",
+			"//",
+			"/app/",
+			"require('Roxism.",
+			"reveal('Roxism",
+			"_api_.types",
+			"identity:",
+			"declareOs",
+			"declareBrowser",
+			"_api_.errors",
+			"shouldHave",
+			"mustHave",
+			"api.errors.",
+			"err",
+			"_internals_['errors']",
+			"errHandler",
+			"_last_",
+			"_root_",
+			"applicationKey",
+			"API",
+			"markee",
+			"_api_.err.",
+			"registerBrowser",
+			"Roxee.gist.browser",
+			"os",
+			"_api_.roxcookie",
+			"_api_.isRunner",
+			"_api_.services.",
+			"_api_.store.",
+			"_api_.lifecycle.",
+			"_api_.lifecycle",
+			"_api_.initTimeout",
+			"_api_.err.",
+			"_api_.eventDispatcher",
+			"_api_.utils.",
+			"_api_.roxup",
+			"_api_.roxpm.",
+			"_api_.roxplayer",
+			"_api_.xhr",
+			"Roxee.gist.namespace",
+			"_api_.mutable",
+			"_api_.utils.",
+			"Roxee.gist.types.utils",
+			"_api_.utils.",
+			"_api_.rox",
+			"Roxee.gist.browser",
+			"_root_.",
+			"_api_.utils",
+			"_api_.utils.",
+			"_api_.utils",
+			"Roxee.gist.types",
+			"Roxee.gist.services",
+			".XMLHttpRequest",
+			"_api_.err",
+			"_api_.xhr",
+			"_api.utils.",
+			"_root_",
+			"_api_.dispatcher.",
+			"_api_.err.",
+			"_api_.err",
+			"_root_",
+			"gist/services",
+			"Roxee.gist.errors",
+			"Roxee.gist.utils"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/onegateisopening/boot.js",
+					"settings":
+					{
+						"buffer_size": 16567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9505,
+								9510
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3442.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 494,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										139,
+										145
+									],
+									[
+										353,
+										359
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								356,
+								356
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/gister/packman.js",
+					"settings":
+					{
+						"buffer_size": 3026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2611,
+								2709
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1045.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/jsboot/core/console.js",
+					"settings":
+					{
+						"buffer_size": 889,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/jsboot/types/eventdispatcher.js",
+					"settings":
+					{
+						"buffer_size": 5394,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1555.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 27.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 147.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/dmp/dev/roxee/roxish/dmp.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 233.0,
+	"status_bar_visible": true
+}

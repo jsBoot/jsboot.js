@@ -145,102 +145,105 @@ def build():
     replace = yawner.replacer()
 
     # Mini tiojs
-    puke.combine(['bower_components/spitfire.js/dist/gulliver.js', 'src/onegateisopening/b.js'], puke.fs.join(destination, "t.i.o.j.js"), replace=replace)
+    puke.combine(
+        ['bower_components/spitfire.js/dist/gulliver.js',
+            'src/onegateisopening/b.js'],
+        puke.fs.join(destination, "t.i.o.j.js"), replace=replace)
 
-    puke.copy(puke.find('src', filter = "*index.html,*miniboot*,*assets*"), destination)
+    puke.copy(
+        puke.find('src', filter="*index.html,*miniboot*,*assets*"), destination)
 
     # There is only
     spitfireList = [
-      'src/strict.js',
-      'bower_components/spitfire.js/dist/spitfire-lab.js',
-      'src/onegateisopening/boot.js',
-      'src/gister/packman.js'
+        'src/strict.js',
+        'bower_components/spitfire.js/dist/spitfire-lab.js',
+        'src/onegateisopening/boot.js',
+        'src/gister/packman.js'
     ]
-    puke.combine(spitfireList, puke.fs.join(destination, "there.is.only.jsboot.js"), replace=replace)
+    puke.combine(spitfireList, puke.fs.join(
+        destination, "there.is.only.jsboot.js"), replace=replace)
 
     # There is only.css
-    puke.fs.copyfile('bower_components/spitfire.js/dist/burnscars.css',puke.fs.join(destination, "there.is.only.jsboot.css"))
-
-
-
+    puke.fs.copyfile('bower_components/spitfire.js/dist/burnscars.css',
+                     puke.fs.join(destination, "there.is.only.jsboot.css"))
 
     # ================================
     # Build-up the gate framy
     # ================================
     # XXX this must die and be replaced by a proper postmessage shim
-
     gateList = [
-      'src/strict.js',
-      'bower_components/spitfire.js/dist/spitfire-lab.js',
-      'src/mingus/postmessage.js',
-      'src/onegateisopening/gate.js'
+        'src/strict.js',
+        'bower_components/spitfire.js/dist/spitfire-lab.js',
+        'src/mingus/postmessage.js',
+        'src/onegateisopening/gate.js'
     ]
 
-    puke.combine(gateList, puke.fs.join(destination, 'toobsj.ylno.si.ereht.js'), replace=replace)
+    puke.combine(gateList, puke.fs.join(
+        destination, 'toobsj.ylno.si.ereht.js'), replace=replace)
 
     shortversion = yawner.config.version.split('.')
     shortversion = shortversion[0] + "." + shortversion[1]
 
     # Build-up the frame to deploy connect to
-    # XXX whether this works is undefined... because of shortversion and selectable versioned deploy
+    # XXX whether this works is undefined... because of shortversion and
+    # selectable versioned deploy
 
-    replace.add('{PUKE-GATE-OPENER}', puke.fs.join(yawner.config.config.self, yawner.config.name, shortversion, "toobsj.ylno.si.ereht.js"))
-    puke.combine('src/onegateisopening/gate.html', puke.fs.join(destination, 'gate.html'), replace=replace)
-
+    replace.add('{PUKE-GATE-OPENER}', puke.fs.join(
+        yawner.config.config.self, yawner.config.name, shortversion, "toobsj.ylno.si.ereht.js"))
+    puke.combine('src/onegateisopening/gate.html',
+                 puke.fs.join(destination, 'gate.html'), replace=replace)
 
     # ================================
     # Standalone mingus
     # ================================
-
     mingusList = [
-      # Have postmessage shit
-      'src/mingus/postmessage.js',
-    # Better safe than sorry - always include that
-      # "src/lib/com/wiu/mingus/shim-plus/console.js",
-      # "src/lib/com/wiu/mingus/shim-plus/cookies.js",
-      # "src/lib/com/wiu/mingus/shim-plus/string.js",
-      # "src/lib/com/wiu/mingus/shim-plus/iegetset.js",
-  #      "src/lib/com/wiu/mingus/shim/postmessage.js",
-    # Mingus NS
-      "src/mingus/namespace.js",
-    # Base dep
-      "src/mingus/grammar/ABNF.js",
-      # "src/lib/com/wiu/mingus/converters/entity.js",
-      # "src/lib/com/wiu/mingus/converters/bencoder.js",
-      # "src/lib/com/wiu/mingus/converters/wikimedia.js",
-    # And parsers / grammars
-      "src/mingus/grammar/IMF.js",
-      "src/mingus/grammar/IRI.js",
-      "src/mingus/grammar/HTTP.js",
+        # Have postmessage shit
+        'src/mingus/postmessage.js',
+        # Better safe than sorry - always include that
+        # "src/lib/com/wiu/mingus/shim-plus/console.js",
+        # "src/lib/com/wiu/mingus/shim-plus/cookies.js",
+        # "src/lib/com/wiu/mingus/shim-plus/string.js",
+        # "src/lib/com/wiu/mingus/shim-plus/iegetset.js",
+        #      "src/lib/com/wiu/mingus/shim/postmessage.js",
+        # Mingus NS
+        "src/mingus/namespace.js",
+        # Base dep
+        "src/mingus/grammar/ABNF.js",
+        # "src/lib/com/wiu/mingus/converters/entity.js",
+        # "src/lib/com/wiu/mingus/converters/bencoder.js",
+        # "src/lib/com/wiu/mingus/converters/wikimedia.js",
+        # And parsers / grammars
+        "src/mingus/grammar/IMF.js",
+        "src/mingus/grammar/IRI.js",
+        "src/mingus/grammar/HTTP.js",
 
-    # Then md5 dep
-      "src/mingus/crypto/md5.js",
+        # Then md5 dep
+        "src/mingus/crypto/md5.js",
 
 
-    # Not necessary per-se, but darn useful
-      "src/mingus/converters/entity.js",
+        # Not necessary per-se, but darn useful
+        "src/mingus/converters/entity.js",
 
-    # Then bases
-      "src/mingus/xhr/ungate.js",
-      "src/mingus/xhr/appkey.js",
-      "src/mingus/xhr/digest.js",
-    # Then the final XHR
-      "src/mingus/xhr/appkeydigestxhr.js"
+        # Then bases
+        "src/mingus/xhr/ungate.js",
+        "src/mingus/xhr/appkey.js",
+        "src/mingus/xhr/digest.js",
+        # Then the final XHR
+        "src/mingus/xhr/appkeydigestxhr.js"
     ]
 
     # Shimmy yeah
-    puke.combine(mingusList, puke.fs.join(destination, "mingus.js"), replace=replace)
-
+    puke.combine(mingusList, puke.fs.join(
+        destination, "mingus.js"), replace=replace)
 
     # ================================
     # jsBoot modules
     # ================================
-
-    list = puke.find('src/jsboot/debug', filter = '*.js');
+    list = puke.find('src/jsboot/debug', filter='*.js')
     puke.combine(list, puke.fs.join(destination, "debug.js"), replace=replace)
 
     # list = FileList('src/jsboot/gister', filter = '*.js')
-    list = puke.find('src/jsboot/core', filter = '*.js');
+    list = puke.find('src/jsboot/core', filter='*.js')
     # list.merge(FileList('src/jsboot/gister', filter = '*.js'));
     list.merge(['src/jsboot/types/eventdispatcher.js'])
 
@@ -251,18 +254,18 @@ def build():
     list.merge(['src/jsboot/utils/storage.js'])
     list.merge(['src/jsboot/utils/tweener.js'])
 
-
     puke.combine(list, puke.fs.join(destination, "core.js"), replace=replace)
 
     list = [
-      'src/jsboot/service/errors.js',
-      'src/jsboot/service/client.js',
-      'src/jsboot/service/core.js',
-      'src/jsboot/service/flaves/account.js',
-      'src/jsboot/controllers/application.js'
+        'src/jsboot/service/errors.js',
+        'src/jsboot/service/client.js',
+        'src/jsboot/service/core.js',
+        'src/jsboot/service/flaves/account.js',
+        'src/jsboot/controllers/application.js'
     ]
 
-    puke.combine(list, puke.fs.join(destination, "service.js"), replace=replace)
+    puke.combine(
+        list, puke.fs.join(destination, "service.js"), replace=replace)
 
-    list = puke.find('src/jsboot/ui', filter = '*.js');
+    list = puke.find('src/jsboot/ui', filter='*.js')
     puke.combine(list, puke.fs.join(destination, "ui.js"), replace=replace)
