@@ -93,6 +93,7 @@ def tests_build():
 
 @task("Tests doing")
 def tests():
+    return
     puke.display.header("Do the dance baby!")
     Helpers.test("bs_firefox_stable_mac")
 
